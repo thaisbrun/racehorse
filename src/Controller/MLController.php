@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MLController extends AbstractController
 {
-    #[Route('/m/l', name: 'app_m_l')]
+    #[Route('/ml', name: 'ml')]
     public function index(): Response
     {
         return $this->render('ml/index.html.twig', [
