@@ -1,9 +1,14 @@
 h2{
     color: hsl(48, 100%, 67%);
     font-size: 20px;
-    font-family: "Montserrat";
 }
-
-p{
-    font-family: "Montserrat";
+body{
+    font-family: 'Montserrat';
+}
+footer{
+    font-family: 'Montserrat';
+}
+li{
+    font-family: 'Montserrat';
+    list-style-type: square;
 }
