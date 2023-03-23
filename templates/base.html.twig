@@ -12,6 +12,7 @@
         {% endblock %}
 
         {% block javascripts %}
+            <script src="script.js"></script>
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
@@ -45,26 +46,26 @@
     <body>
         {% block body %}{% endblock %}
     </body>
-    <footer class="footer" style="background-color:hsl(47,87%,74%)">
+    <footer class="footer" style="font-family:'Montserrat';background-color:hsl(47,87%,74%);">
         <div class="content has-text-centered">
             <div class="columns">
                 <div class="column">
-                    Mentions légales
+                    <a href="{{ asset('ml') }}" style="color:black; "> Mentions légales </a>
                 </div>
                 <div class="column">
-                    Comment ça marche ?
+                    <a href="{{ asset('howItWorks') }}" style="color:black; "> Comment ça marche ? </a>
                 </div>
                 <div class="column">
-                    A propos de Ponyshop
+                    <a href="{{ asset('about') }}" style="color:black; "> A propos de Ponyshop </a>
                 </div>
                 <div class="column">
-                    M'inscrire
+                    <a href="{{ asset('inscription') }}" style="color:black; "> M'inscrire </a>
                 </div>
                 <div class="column">
-                    Me connecter
+                    <a href="{{ asset('connexion') }}" style="color:black; "> Me connecter </a>
                 </div>
                 <div class="column">
-                    Contact
+                    <a href="{{ asset('contact') }}" style="color:black; ">Contact </a>
                 </div>
             </div>
         </div>
