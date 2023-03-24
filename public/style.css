@@ -1,6 +1,7 @@
 h2{
     color: hsl(48, 100%, 67%);
     font-size: 20px;
+    font-family: 'Montserrat';
 }
 body{
     font-family: 'Montserrat';
@@ -11,4 +12,49 @@ footer{
 li{
     font-family: 'Montserrat';
     list-style-type: square;
+}
+h3{
+    font-size: 16px;
+    color: hsl(48, 100%, 67%);
+}
+.containerIndex{
+    position:relative;
+    width:100%;
+}
+
+.containerIndex img{
+    width:100%;
+    height:auto;
+}
+
+.btnIndexAcheter {
+    position: absolute;
+    top: 65%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: hsl(48, 100%, 67%);
+    width:300px;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Montserrat';
+}
+
+.btnIndexVendre {
+    position: absolute;
+    top: 65%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: hsl(48, 100%, 67%);
+    font-size: 16px;
+    width:300px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Montserrat';
 }
