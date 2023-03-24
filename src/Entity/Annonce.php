@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Utilisateur;
 
 /**
  * Annonce
@@ -87,6 +88,7 @@ class Annonce
      */
     private $idutilisateurannonce;
 
+   // var $utilisateur = new Utilisateur();
     public function getIdannonce(): ?int
     {
         return $this->idannonce;
