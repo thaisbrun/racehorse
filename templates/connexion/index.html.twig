@@ -8,13 +8,36 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/thaai/PhpstormProjects/ponyshop/ponyshop/src/Controller/ConnexionController.php'|file_link(0) }}">src/Controller/ConnexionController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/thaai/PhpstormProjects/ponyshop/ponyshop/templates/connexion/index.html.twig'|file_link(0) }}">templates/connexion/index.html.twig</a></code></li>
-    </ul>
+<div class="container">
+    <br>
+    <div class="field">
+        <label class="label">Pseudo</label>
+        <p class="control has-icons-left has-icons-right">
+            <input class="input" type="email" placeholder="Veuillez entrer votre pseudo">
+            <span class="icon is-small is-left">
+      <i class="fas fa-envelope"></i>
+    </span>
+            <span class="icon is-small is-right">
+      <i class="fas fa-check"></i>
+    </span>
+        </p>
+    </div>
+    <br>
+    <div class="field">
+        <label class="label">Mot de passe</label>
+        <p class="control has-icons-left">
+            <input class="input" type="password" placeholder="Password">
+            <span class="icon is-small is-left">
+      <i class="fas fa-lock"></i>
+    </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control">
+            <button class="button is-success">
+                Me connecter
+            </button>
+        </p>
+    </div>
 </div>
 {% endblock %}

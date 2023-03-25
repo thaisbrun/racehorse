@@ -22,7 +22,6 @@ class Annonce
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idannonce;
-
     /**
      * @var string
      *
