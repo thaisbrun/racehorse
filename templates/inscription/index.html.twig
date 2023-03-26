@@ -3,18 +3,69 @@
 {% block title %}Hello InscriptionController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <img src="{{ asset('img/inscription.png') }}">
+    <div class="container">
+        <form class="box">
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Nom</label>
+                        <div class="control">
+                            <input class="input is-outlined is-warning" type="text" placeholder="Text input">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Pseudo</label>
+                        <div class="control">
+                            <input class="input is-outlined is-warning" type="text" placeholder="Text input" value="bulma">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Mot de passe</label>
+                        <div class="control">
+                            <input class="input is-outlined is-warning" type="password" placeholder="********">
+                        </div>
+                    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/thaai/PhpstormProjects/ponyshop/ponyshop/src/Controller/InscriptionController.php'|file_link(0) }}">src/Controller/InscriptionController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/thaai/PhpstormProjects/ponyshop/ponyshop/templates/inscription/index.html.twig'|file_link(0) }}">templates/inscription/index.html.twig</a></code></li>
-    </ul>
-</div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Prénom</label>
+                        <div class="control">
+                            <input class="input is-outlined is-warning" type="text" placeholder="Text input">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input class="input is-outlined is-warning" type="email" placeholder="Email input" value="hello@">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Confirmation mot de passe</label>
+                        <div class="control">
+                            <input class="input is-outlined is-warning" type="password" placeholder="********">
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <div class="field">
+        <div class="control">
+            <label class="checkbox">
+                <input type="checkbox">
+                I agree to the <a href="#" style="text-decoration: underline;color: hsl(48, 100%, 67%);">terms and conditions</a>
+            </label>
+        </div>
+    </div>
+            <br>
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-warning is-medium">M'inscrire</button>
+        </div>
+        <div class="control">
+            <button class="button is-light">Retour à l'accueil</button>
+        </div>
+    </div>
+</form>
+    </div>
 {% endblock %}

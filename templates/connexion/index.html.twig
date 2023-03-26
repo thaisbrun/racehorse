@@ -3,41 +3,25 @@
 {% block title %}Hello ConnexionController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
+    <img src="{{ asset('img/connexion.png') }}">
 <div class="container">
     <br>
-    <div class="field">
-        <label class="label">Pseudo</label>
-        <p class="control has-icons-left has-icons-right">
-            <input class="input" type="email" placeholder="Veuillez entrer votre pseudo">
-            <span class="icon is-small is-left">
-      <i class="fas fa-envelope"></i>
-    </span>
-            <span class="icon is-small is-right">
-      <i class="fas fa-check"></i>
-    </span>
-        </p>
-    </div>
-    <br>
-    <div class="field">
-        <label class="label">Mot de passe</label>
-        <p class="control has-icons-left">
-            <input class="input" type="password" placeholder="Password">
-            <span class="icon is-small is-left">
-      <i class="fas fa-lock"></i>
-    </span>
-        </p>
-    </div>
-    <div class="field">
-        <p class="control">
-            <button class="button is-success">
-                Me connecter
-            </button>
-        </p>
-    </div>
+    <form class="box">
+        <div class="field">
+            <label class="label">Pseudo</label>
+            <div class="control">
+                <input class="input is-outlined is-warning" type="email" placeholder="e.g. alex@example.com">
+            </div>
+            <p class="help is-danger is-underlined">Pseudo et/ou mot de passe oublié</p>
+        </div>
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+                <input class="input is-outlined is-warning" type="password" placeholder="********">
+            </div>
+        </div>
+<br>
+        <button class="button is-centered is-warning is-light is-medium">Me connecter</button>
+    </form>
 </div>
 {% endblock %}
