@@ -27,12 +27,12 @@ class AuthAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        $pseudo = $request->request->get('pseudo', '');
+        $login = $request->request->get('login', '');
 
-        $request->getSession()->set(Security::LAST_USERNAME, $pseudo);
+        $request->getSession()->set(Security::LAST_USERNAME, $login);
 
         return new Passport(
-            new UserBadge($pseudo),
+            new UserBadge($login),
             new PasswordCredentials($request->request->get('password', '')),
             [
                 new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
@@ -47,8 +47,8 @@ class AuthAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // For example:
-        // return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('homepage'));
+       // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string

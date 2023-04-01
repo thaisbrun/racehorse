@@ -4,14 +4,14 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 /**
  * Utilisateur
  *
  * @ORM\Table(name="utilisateur")
- * @ORM\Entity(repositoryClass="App\Repository\MyClassRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
  */
-class Utilisateur implements UserInterface
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @var int
@@ -23,39 +23,43 @@ class Utilisateur implements UserInterface
     private $idutilisateur;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=20, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="prenom", type="string", length=20)
      */
-    private $prenom = 'NULL';
+    private $prenom;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=20, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="nom", type="string", length=20)
      */
-    private $nom = 'NULL';
+    private $nom;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="pseudo", type="string", length=20, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="login", type="string", length=20)
      */
-    private $pseudo = 'NULL';
+    private $login;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="mail", type="string", length=30, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="mail", type="string", length=30)
      */
-    private $mail = 'NULL';
+    private $mail;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="mdp", type="string", length=20, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="password", type="string", length=255)
      */
-    private $mdp = 'NULL';
+    private $password;
+
+
+    #[ORM\Column(type: 'json')]
+    private $roles = [];
 
     public function getIdutilisateur(): ?int
     {
@@ -86,14 +90,14 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    public function getPseudo(): ?string
+    public function getLogin(): ?string
     {
-        return $this->pseudo;
+        return $this->login;
     }
 
-    public function setPseudo(?string $pseudo): self
+    public function setLogin(?string $login): self
     {
-        $this->pseudo = $pseudo;
+        $this->login = $login;
 
         return $this;
     }
@@ -110,14 +114,14 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    public function getMdp(): ?string
+    public function getPassword(): ?string
     {
-        return $this->mdp;
+        return $this->password;
     }
 
-    public function setMdp(?string $mdp): self
+    public function setPassword(?string $password): self
     {
-        $this->mdp = $mdp;
+        $this->password = $password;
 
         return $this;
     }
@@ -125,7 +129,11 @@ class Utilisateur implements UserInterface
 
     public function getRoles(): array
     {
-        // TODO: Implement getRoles() method.
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
     public function eraseCredentials()
@@ -135,6 +143,7 @@ class Utilisateur implements UserInterface
 
     public function getUserIdentifier(): string
     {
-        // TODO: Implement getUserIdentifier() method.
+        return (string) $this->login;
+
     }
 }

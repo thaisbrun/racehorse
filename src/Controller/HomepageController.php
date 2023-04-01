@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Utilisateur;
 use App\Entity\Image;
 use App\Repository\MyClassRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
