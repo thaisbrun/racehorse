@@ -3,15 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 /**
  * Utilisateur
  *
  * @ORM\Table(name="utilisateur")
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
  */
-class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, UserLoaderInterface
 {
     /**
      * @var int
@@ -145,5 +147,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return (string) $this->login;
 
+    }
+    public function loadUserByIdentifier(string $identifier): ?UserInterface
+    {
+        return $this->loadUserByIdentifier($identifier);
     }
 }
