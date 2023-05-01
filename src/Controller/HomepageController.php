@@ -16,10 +16,14 @@ class HomepageController extends AbstractController
     public function index(MyClassRepository $annonceRepo): Response
     {
 
-        $annonces = $annonceRepo->findAll();
+        $annoncesVente = $annonceRepo->findByTypeAnnonce(1);
+        $annoncesLocation = $annonceRepo->findByTypeAnnonce(2);
+        $annoncesDP = $annonceRepo->findByTypeAnnonce(3);
         return $this->render('homepage/index.html.twig', [
             'controller_name' => 'HomepageController',
-            'annonces' => $annonces,
+            'annoncesVente' => $annoncesVente,
+            'annoncesLocation' => $annoncesLocation,
+            'annoncesDP' => $annoncesDP
         ]);
     }
 }

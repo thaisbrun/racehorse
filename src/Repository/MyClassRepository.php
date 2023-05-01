@@ -39,20 +39,17 @@ class MyClassRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Annonce[] Returns an array of Annonce objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+//      @return Annonce[] Returns an array of Annonce objects
+ public function findByTypeAnnonce($value): array
+{
+    return $this->createQueryBuilder('annonce')
+        ->andWhere('annonce.idtypea = :val')
+        ->setParameter('val', $value)
+        ->orderBy('annonce.datecreation', 'DESC')
+        ->setMaxResults(3)
+        ->getQuery()
+        ->getResult();
+}
 
 //    public function findOneBySomeField($value): ?Annonce
 //    {

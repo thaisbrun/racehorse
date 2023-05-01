@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Equide
  *
  * @ORM\Table(name="equide", indexes={@ORM\Index(name="FK_EquideDep", columns={"idDep"}), @ORM\Index(name="FK_EquideProprio", columns={"idProprio"}), @ORM\Index(name="FK_TypeEquide", columns={"idTypeEq"})})
- * @ORM\Entity(repositoryClass="App\Repository\MyClassRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\EquideRepository")
  */
 class Equide
 {

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ equide.nom }}{% endblock %}
+
+{% block body %}
+
+<div class="columns">
+    <div class="column">
+        <figure class="image is-200x300">
+            <img src="{{ asset('imgAnnonce/DSC_9358.jpg') }}" alt="Placeholder image">
+        </figure>
+    </div>
+    <div class="column">
+        <h2>{{ equide.nom }}</h2>
+        <h2>{{ annonce.prix }} $ </h2>
+        <br>
+        <p>
+            {{ equide.dateNaiss|date("d/m/Y") }}
+            <br>
+            {{ equide.race }}
+            <br>
+            {{ equide.robe }}
+            <br>
+            {{ equide.taille }}
+            <br>
+            <a href="{{ equide.lienHN }}">Voir lien Haras Nationaux </a>
+            <br>
+            <br>
+            {{ annonce.description }}
+        </p>
+    </div>
+</div>
+{% endblock %}
