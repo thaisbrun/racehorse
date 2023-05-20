@@ -52,10 +52,11 @@ class Annonce
 
     /**
      * @var \DateTime|null
-     *
+
      * @ORM\Column(name="dateCreation", type="date", nullable=true, options={"default"="NULL"})
      */
-    private $datecreation = 'NULL';
+
+    private $datecreation;
 
     /**
      * @var \Equide
@@ -153,7 +154,7 @@ class Annonce
         return $this;
     }
 
-    public function getIdequidea(): ?Equide
+    public function getIdequidea(): Equide
     {
         return $this->idequidea;
     }

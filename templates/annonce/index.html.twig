@@ -1,195 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une annonce{% endblock %}
+{% block title %}Annonce index{% endblock %}
 
 {% block body %}
-    <img src="{{ asset('img/addAnnonce.jpg') }}">
-<div class="container is-widescreen">
-    <br>
-    <div class="columns">
-        <div class="column">
-    <div class="field is-horizontal">
-        <div class="field-label is-normal">
-            <label class="label">Titre de l'annonce : </label>
-        </div>
-        <div class="field-body">
-            <div class="field">
-                <p class="control">
-                    <input class="input is-warning" type="text" placeholder="Warning input">
-                </p>
-            </div>
-        </div>
-    </div>
-        </div>
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Nom de l'équidé : </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" type="text" placeholder="Warning input">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="columns">
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Date de naissance : </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" type="date" placeholder="Warning input">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Race : </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" type="text" placeholder="Warning input">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Robe : </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" type="text" placeholder="Warning input">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="columns">
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Taille : </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" type="text" placeholder="Warning input">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="control">
-                <label class="radio">
-                    <input type="radio" name="answer">
-                    Vente
-                </label>
-                <label class="radio">
-                    <input type="radio" name="answer">
-                    Location
-                </label>
-                <label class="radio">
-                    <input type="radio" name="answer">
-                    Demi-pension
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="columns">
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Montant : </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" type="text" placeholder="Warning input">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Lien HN : </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" type="text" placeholder="Warning input">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="columns">
-        <div class="column">
-            <div class="file is-warning is-boxed">
-                <label class="file-label">
-                    <input class="file-input" type="file" name="resume">
-                    <span class="file-cta">
-      <span class="file-icon">
-        <i class="fas fa-cloud-upload-alt"></i>
-      </span>
-      <span class="file-label">
-Télécharger une première image
-      </span>
-    </span>
-                </label>
-            </div>
-        </div>
-        <div class="column">
-            <div class="file is-warning is-boxed">
-                <label class="file-label">
-                    <input class="file-input" type="file" name="resume">
-                    <span class="file-cta">
-      <span class="file-icon">
-        <i class="fas fa-cloud-upload-alt"></i>
-      </span>
-      <span class="file-label">
-Télécharger une deuxième image
-      </span>
-    </span>
-                </label>
-            </div>
-        </div>
-        <div class="column">
-            <div class="file is-warning is-boxed">
-                <label class="file-label">
-                    <input class="file-input" type="file" name="resume">
-                    <span class="file-cta">
-      <span class="file-icon">
-        <i class="fas fa-cloud-upload-alt"></i>
-      </span>
-      <span class="file-label">
-Télécharger une troisième image
-      </span>
-    </span>
-                </label>
-            </div>
-        </div>
-    </div>
+    <h1>Annonce index</h1>
 
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idannonce</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Activation</th>
+                <th>Datecreation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for annonce in annonces %}
+            <tr>
+                <td>{{ annonce.idannonce }}</td>
+                <td>{{ annonce.titre }}</td>
+                <td>{{ annonce.description }}</td>
+                <td>{{ annonce.prix }}</td>
+                <td>{{ annonce.activation ? 'Yes' : 'No' }}</td>
+                <td>{{ annonce.datecreation ? annonce.datecreation|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}">show</a>
+                    <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-</div>
+    <a href="{{ path('app_annonce_new') }}">Create new</a>
 {% endblock %}

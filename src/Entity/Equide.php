@@ -207,5 +207,4 @@ class Equide
         return $this;
     }
 
-
 }

@@ -22,7 +22,7 @@ class ThisPonyController extends AbstractController
         return $this->render('this_pony/index.html.twig', [
         'controller_name' => 'ThisPonyController',
             'annonce' => $annonce,
-            'equide' => $equide,
+            'equide' => $equide
 
         ]);
     }
