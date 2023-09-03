@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Equide;
+use App\Entity\Typeannonce;
 use App\Form\AnnonceType;
 use App\Repository\MyClassRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +20,7 @@ class AnnonceController extends AbstractController
     {
         return $this->render('annonce/index.html.twig', [
             'annonces' => $myClassRepository->findAll(),
+
         ]);
     }
 
@@ -25,6 +28,11 @@ class AnnonceController extends AbstractController
     public function new(Request $request, MyClassRepository $myClassRepository): Response
     {
         $annonce = new Annonce();
+        $listTypeAnnonce = [];
+        foreach($listTypeAnnonce as $typeAnnonce){
+            array_push($typeAnnonce);
+    }
+        $equide = new Equide();
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
@@ -36,6 +44,8 @@ class AnnonceController extends AbstractController
 
         return $this->renderForm('annonce/new.html.twig', [
             'annonce' => $annonce,
+            'listTypeAnnonce' => $listTypeAnnonce,
+            'equide' => $equide,
             'form' => $form,
         ]);
     }

@@ -1,18 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
+
 
 {% block body %}
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-
-    {{ form_row(registrationForm.prenom) }}
-    {{ form_row(registrationForm.nom) }}
-    {{ form_row(registrationForm.login) }}
-    {{ form_row(registrationForm.mail) }}
-    {{ form_row(registrationForm.password) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <img src="{{ asset('img/inscription.png') }}">
+<form method="post">
+<div class="container">
+        <form class="box">
+            <div class="columns">
+                <div class="column">
+                    {{ form_start(registrationForm) }}
+                    <div class="field">
+                        <label class="label">Prénom</label>
+                        <div class="control">
+                            <input name="{{ field_name(registrationForm.prenom) }}" placeholder="Entrez votre prénom" class="input is-outlined is-warning">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Nom</label>
+                        <div class="control">
+                            <input name="{{ field_name(registrationForm.nom) }}" placeholder="Entrez votre nom" class="input is-outlined is-warning">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Mot de passe</label>
+                        <div class="control">
+                            <input name="{{ field_name(registrationForm.password) }}" type="password" placeholder="********" class="input is-outlined is-warning">
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Pseudo</label>
+                        <div class="control">
+                            <input name="{{ field_name(registrationForm.login) }}"  placeholder="Entrez votre pseudo" class="input is-outlined is-warning">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input name="{{ field_name(registrationForm.mail) }}" placeholder="Entrez votre email" class="input is-outlined is-warning">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-warning is-medium">Valider l'inscription</button>
+                    {{ form_end(registrationForm) }}
+                </div>
+                <!-- <div class="control">
+                     <button class="button is-light">Retour à l'accueil</button>
+                 </div> -->
+            </div>
+        </form>
+    </div>
+</form>
 {% endblock %}

@@ -1,29 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Me connecter{% endblock %}
 
 {% block body %}
-<form method="post">
+    <img src="{{ asset('img/connexion.png') }}">
+    <form method="post">
+    <div class="container">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            Vous êtes connectés en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputPseudo">Pseudo</label>
-    <input type="text" value="{{ last_username }}" name="login" id="inputPseudo" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
+            <br>
+            <form class="box" style="width: 700px; left: 30%; position: sticky;">
+                <div class="field">
+                    <label for="inputPseudo" class="label">Pseudo</label>
+                    <div class="control">
+                    <input type="text" value="{{ last_username }}" name="login" id="inputPseudo" class="input is-outlined is-warning" autocomplete="username" required autofocus>
+                    </div>
+                    <p class="help is-danger is-underlined">Pseudo et/ou mot de passe oublié</p>
+                </div>
+                <div class="field">
+                    <label for="inputPassword" class="label">Mot de passe</label>
+                    <div class="control">
+    <input type="password" name="password" id="inputPassword" class="input is-outlined is-warning" autocomplete="current-password" required>
+                    </div>
+                </div>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+<br>
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
         See https://symfony.com/doc/current/security/remember_me.html
@@ -35,8 +44,8 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+    <button class="button is-centered is-warning is-light is-medium" type="submit">Connexion</button>
+            </form>
+</div>
+    </form>
 {% endblock %}

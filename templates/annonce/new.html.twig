@@ -3,14 +3,22 @@
 {% block title %}Ajouter une annonce{% endblock %}
 
 {% block body %}
-    <h1>Create new Annonce</h1>
-
+    <img src="{{ asset('img/addAnnonce.jpg') }}">
+<div class="container is-widescreen">
+    <br>
+    <div class="columns">
+        <div class="column">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
     {{ include('annonce/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
 
     <a href="{{ path('app_annonce_index') }}">back to list</a>
+</div>
 
-
-    <img src="{{ asset('img/addAnnonce.jpg') }}">
     <div class="container is-widescreen">
         <br>
         <div class="columns">

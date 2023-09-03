@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Annonce;
+use App\Entity\Equide;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,8 +18,14 @@ class AnnonceType extends AbstractType
             ->add('prix')
          //   ->add('activation')
            // ->add('datecreation')
-          //  ->add('idequidea')
-            //->add('idtypea')
+         ->add('equide', Equide::class, array(
+             'label' => 'nom',
+             'mapped' => false
+           //  'choices' => array(
+           //      'VIP' => 'VIP',
+           //      'Empresa' => 'Empresa'
+          //   )
+         ))
             //->add('idutilisateurannonce')
         ;
     }
