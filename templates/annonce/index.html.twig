@@ -1,43 +1,122 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Annonce index{% endblock %}
+{% block title %}Bienvenue sur PonyShop{% endblock %}
 
 {% block body %}
-    <h1>Annonce index</h1>
+    <div class="containerIndex">
+        <img src="{{ asset('img/bandeauIndex.png') }}">
+        <button class="btnIndexVendre">Vendre</button>
+        <button class="btnIndexAcheter">Acheter</button>
+    </div>
+    <div id="messagePrev">
+        <article class="message is-danger">
+            <div class="message-header">
+                <p> Attention </p>
+                <button class="delete" aria-label="delete" id="delete" onclick="closeMessage();"></button>
+            </div>
+            <div class="message-body">
+                Prendre un animal reste une démarche importante qui doit être mûrement réfléchie : il faut leur donner du temps,
+                de l'argent, des soins, de l'attention, de l'espace...
+            </div>
+        </article>
+    </div>
+<div class="container is-widescreen">
+    <br>
+    <h2 style="text-decoration: underline;">Poneys à vendre</h2>
+    <br>
+    <div class="columns">
+        {% for annonce in annoncesVente %}
+            <div class="column">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="{{ asset('imgAnnonce/DSC_9358.jpg') }}" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="media">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Idannonce</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Activation</th>
-                <th>Datecreation</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for annonce in annonces %}
-            <tr>
-                <td>{{ annonce.idannonce }}</td>
-                <td>{{ annonce.titre }}</td>
-                <td>{{ annonce.description }}</td>
-                <td>{{ annonce.prix }}</td>
-                <td>{{ annonce.activation ? 'Yes' : 'No' }}</td>
-                <td>{{ annonce.datecreation ? annonce.datecreation|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}">show</a>
-                    <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
+                            <div class="media-content">
+                                <p class="title is-4">{{ annonce.titre }}</p>
+                                <p class="subtitle is-6">{{ annonce.prix }} €</p>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-warning is-light">En savoir plus</button></a>
+                            <br>
+                            <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!-- <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}">show</a>
+            <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a> -->
         {% endfor %}
-        </tbody>
-    </table>
+   <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
+    </div>
+    <h2 style="text-decoration: underline;">Poneys à louer</h2>
+    <br>
+    <div class="columns">
+        {% for annonce in annoncesLocation %}
+            <div class="column">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="{{ asset('imgAnnonce/DSC_9358.jpg') }}" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="media">
 
-    <a href="{{ path('app_annonce_new') }}">Create new</a>
+                            <div class="media-content">
+                                <p class="title is-4">{{ annonce.titre }}</p>
+                                <p class="subtitle is-6">{{ annonce.prix }} €</p>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-warning is-light">En savoir plus</button></a>
+                            <br>
+                            <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}">show</a>
+            <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a> -->
+        {% endfor %}
+        <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
+    </div>
+    <h2 style="text-decoration: underline;">Poneys à prendre en DP</h2>
+    <br>
+    <div class="columns">
+        {% for annonce in annoncesDP %}
+            <div class="column">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="{{ asset('imgAnnonce/DSC_9358.jpg') }}" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="media">
+
+                            <div class="media-content">
+                                <p class="title is-4">{{ annonce.titre }}</p>
+                                <p class="subtitle is-6">{{ annonce.prix }} €</p>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-warning is-light">En savoir plus</button></a>
+                            <br>
+                            <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}">show</a>
+            <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a> -->
+        {% endfor %}
+        <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
+    </div>
+</div>
 {% endblock %}

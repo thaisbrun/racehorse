@@ -12,15 +12,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/annonce')]
+#[Route('/')]
 class AnnonceController extends AbstractController
 {
     #[Route('/', name: 'app_annonce_index', methods: ['GET'])]
     public function index(MyClassRepository $myClassRepository): Response
     {
+        $annoncesVente = $myClassRepository->findByTypeAnnonce(1);
+        $annoncesLocation = $myClassRepository->findByTypeAnnonce(2);
+        $annoncesDP = $myClassRepository->findByTypeAnnonce(3);
         return $this->render('annonce/index.html.twig', [
-            'annonces' => $myClassRepository->findAll(),
-
+            'annoncesVente' => $annoncesVente,
+            'annoncesLocation' => $annoncesLocation,
+            'annoncesDP' => $annoncesDP
         ]);
     }
 
