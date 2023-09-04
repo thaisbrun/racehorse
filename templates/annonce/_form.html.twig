@@ -24,7 +24,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input name="{{ field_name(form.titre) }}" value="{{ field_value(form.titre) }}" placeholder="{{ field_label(form.titre) }}" class="input is-warning"/>
+                            <input name=" field_name(equide.nom) "  placeholder="Entrer le nom de votre équidé" class="input is-warning"/>
                         </p>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input class="input is-warning" type="date" placeholder="Warning input">
+                            <input class="input is-warning" name=" field_name(equide.dateNaissance) " type="date" placeholder="Warning input">
                         </p>
                     </div>
                 </div>
@@ -52,12 +52,12 @@
                 <div class="field-label is-normal">
                     <label class="label">Race : </label>
                 </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" type="text" placeholder="Warning input">
-                        </p>
-                    </div>
+                <div class="select is-warning">
+                    <select>
+                        {% for race in  listRaces %}
+                            <option> {{ race.libelle }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
         </div>
@@ -66,12 +66,12 @@
                 <div class="field-label is-normal">
                     <label class="label">Robe : </label>
                 </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" type="text" placeholder="Warning input">
-                        </p>
-                    </div>
+                <div class="select is-warning">
+                    <select>
+                        {% for robe in  listRobes %}
+                        <option> {{ robe.libelle }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
         </div>
@@ -86,7 +86,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input class="input is-warning" type="text" placeholder="Warning input">
+                            <input class="input is-warning" name=" field_name(equide.taille) " type="text" placeholder="en cm au garrot">
                         </p>
                     </div>
                 </div>
@@ -94,9 +94,13 @@
         </div>
         <div class="column">
             <div class="control">
+                <div class="field-label is-normal">
+                    <label class="label">Type annonce : </label>
+                </div>
                 {% for typeAnnonce in  listTypeAnnonce %}
-                <input type="radio" name="answer">
-                <label> typeAnnonce.libelle</label>
+
+                <input type="radio" name="answer" >
+                <label> {{ typeAnnonce.libelle }}</label>
                 {% endfor %}
             </div>
         </div>
@@ -111,7 +115,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input class="input is-warning" type="text" placeholder="Warning input">
+                            <input class="input is-warning" name="{{ field_name(form.prix) }}" type="text" placeholder="En euros">
                         </p>
                     </div>
                 </div>
@@ -125,7 +129,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input class="input is-warning" type="text" placeholder="Warning input">
+                            <input class="input is-warning" type="text" placeholder="https://infochevaux.ifce.fr/fr/etc..">
                         </p>
                     </div>
                 </div>
@@ -180,7 +184,7 @@ Télécharger une troisième image
             </div>
         </div>
     </div>
-    <textarea class="textarea is-warning" placeholder="Warning textarea"></textarea>
+    <textarea class="textarea is-warning" name="{{ field_name(form.description) }}" placeholder="Description de l'annonce"></textarea>
     <br>
     <button type="submit" class="button is-warning">Publier l'annonce</button>
 </div>
