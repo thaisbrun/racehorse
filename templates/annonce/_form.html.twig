@@ -11,7 +11,6 @@
                         <p class="control">
                             {{ form_start(form) }}
                             <input name="{{ field_name(form.titre) }}" value="{{ field_value(form.titre) }}" placeholder="{{ field_label(form.titre) }}" class="input is-warning"/>
-                            <button class="button is-warning">{{ button_label|default("Publier l'annonce") }}</button>
                         </p>
                     </div>
                 </div>
@@ -32,11 +31,12 @@
             </div>
         </div>
     </div>
+    <!-- date naissance, race et robe -->
     <div class="columns">
         <div class="column">
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label">Date de naissance : </label>
+                    <label class="label">Naissance: </label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -76,6 +76,7 @@
             </div>
         </div>
     </div>
+    <!-- type de vente et taille -->
     <div class="columns">
         <div class="column">
             <div class="field is-horizontal">
@@ -93,21 +94,14 @@
         </div>
         <div class="column">
             <div class="control">
-                <label class="radio">
-                    <input type="radio" name="answer">
-                    Vente
-                </label>
-                <label class="radio">
-                    <input type="radio" name="answer">
-                    Location
-                </label>
-                <label class="radio">
-                    <input type="radio" name="answer">
-                    Demi-pension
-                </label>
+                {% for typeAnnonce in  listTypeAnnonce %}
+                <input type="radio" name="answer">
+                <label> typeAnnonce.libelle</label>
+                {% endfor %}
             </div>
         </div>
     </div>
+    <!-- Montant et lien HN -->
     <div class="columns">
         <div class="column">
             <div class="field is-horizontal">
@@ -138,6 +132,7 @@
             </div>
         </div>
     </div>
+    <!-- Images et description -->
     <div class="columns">
         <div class="column">
             <div class="file is-warning is-boxed">
@@ -188,17 +183,6 @@ Télécharger une troisième image
     <textarea class="textarea is-warning" placeholder="Warning textarea"></textarea>
     <br>
     <button type="submit" class="button is-warning">Publier l'annonce</button>
-
-
-</div>
-<div class="field-body">
-    <div class="field">
-        <p class="control">
-            {{ form_start(form) }}
-            <input name="{{ field_name(form.titre) }}" value="{{ field_value(form.titre) }}" placeholder="{{ field_label(form.titre) }}" class="input is-warning"/>
-            <button class="button is-warning">{{ button_label|default("Publier l'annonce") }}</button>
-        </p>
-    </div>
 </div>
     {{ form_widget(form) }}
 {{ form_end(form) }}

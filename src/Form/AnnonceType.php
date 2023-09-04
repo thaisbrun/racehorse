@@ -14,18 +14,18 @@ class AnnonceType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('description')
-            ->add('prix')
+          //  ->add('description')
+            //->add('prix')
          //   ->add('activation')
            // ->add('datecreation')
-         ->add('equide', Equide::class, array(
-             'label' => 'nom',
-             'mapped' => false
+         //->add('equide', Equide::class, array(
+            // 'label' => 'nom',
+            // 'mapped' => false
            //  'choices' => array(
            //      'VIP' => 'VIP',
            //      'Empresa' => 'Empresa'
           //   )
-         ))
+         //))
             //->add('idutilisateurannonce')
         ;
     }
