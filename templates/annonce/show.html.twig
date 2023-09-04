@@ -3,40 +3,23 @@
 {% block title %}Annonce{% endblock %}
 
 {% block body %}
-    <h1>Annonce</h1>
+<div class="container">
+    <br>
+    <div class="columns">
+        <div class="column is-half">
+            <div class="box has-background-warning-light">
+                <img src="{{ asset('imgAnnonce/DSC_9358.jpg') }}" alt="Placeholder image">
+            </div>
+            </div>
+        <div class="column">{{ annonce.titre }}
+        <br>
+            {{ annonce.description }}
+            <br>
+            {{ annonce.prix }}
+        </div>
+    </div>
+</div>
+    <a href="{{ path('app_annonce_index') }}">Retour au menu</a>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Idannonce</th>
-                <td>{{ annonce.idannonce }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ annonce.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ annonce.description }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ annonce.prix }}</td>
-            </tr>
-            <tr>
-                <th>Activation</th>
-                <td>{{ annonce.activation ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Datecreation</th>
-                <td>{{ annonce.datecreation ? annonce.datecreation|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_annonce_index') }}">back to list</a>
-
-    <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a>
-
-    {{ include('annonce/_delete_form.html.twig') }}
+    <!-- include('annonce/_delete_form.html.twig') -->
 {% endblock %}
