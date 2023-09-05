@@ -1,4 +1,4 @@
-h2{
+h1{
     color: hsl(48, 100%, 67%);
     font-size: 20px;
     font-family: 'Montserrat';
@@ -42,7 +42,6 @@ h3{
     border-radius: 5px;
     font-family: 'Montserrat';
 }
-
 .btnIndexVendre {
     position: absolute;
     top: 65%;

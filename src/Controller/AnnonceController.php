@@ -6,6 +6,7 @@ use App\Entity\Annonce;
 use App\Entity\Equide;
 use App\Entity\Typeannonce;
 use App\Form\AnnonceType;
+use App\Repository\EquideRepository;
 use App\Repository\MyClassRepository;
 use App\Repository\RaceRepository;
 use App\Repository\RobeRepository;
@@ -62,10 +63,13 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('/{idannonce}', name: 'app_annonce_show', methods: ['GET'])]
-    public function show(Annonce $annonce): Response
+    public function show(Annonce $annonce, EquideRepository $equideRepository): Response
     {
+        $idAnnonce = $annonce->getIdannonce();
+        $equide = $equideRepository->findByIdAnnonce($idAnnonce);
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
+            'equide' => $equide,
         ]);
     }
 

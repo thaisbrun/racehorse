@@ -11,11 +11,15 @@
                 <img src="{{ asset('imgAnnonce/DSC_9358.jpg') }}" alt="Placeholder image">
             </div>
             </div>
-        <div class="column">{{ annonce.titre }}
+        <div class="column">
+            <!-- nom equide -->
+            <h2>{{ annonce.titre }}</h2>
+            <h3>{{ annonce.prix }} € </h3>
+
+            <h3>{{ equide.nom }} </h3>
         <br>
-            {{ annonce.description }}
+            <h1>{{ annonce.description }}</h1>
             <br>
-            {{ annonce.prix }}
         </div>
     </div>
 </div>
