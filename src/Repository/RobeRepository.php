@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Race;
 use App\Entity\Robe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -21,6 +22,19 @@ class RobeRepository extends ServiceEntityRepository
         parent::__construct($registry, Robe::class);
     }
 
+    public function findByIdEquide(int $idRobeEquide): ?Robe
+    {
+        $qb = $this->createQueryBuilder('robe');
+        //SELECT * from race innerjoin equide on equide.race = race.id where race = r.id;
+        $qb->select('robe')
+            //   ->innerJoin('r.id', 'e', 'WITH', 'e.race')
+            ->andWhere('robe.id = :robe')
+            ->setParameter('robe', $idRobeEquide)
+            ->setMaxResults(1);
+        // return equide
+        return $query = $qb->getQuery()->getOneOrNullResult();
+
+    }
 //    /**
 //     * @return Robe[] Returns an array of Robe objects
 //     */

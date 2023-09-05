@@ -6,11 +6,14 @@ use App\Entity\Annonce;
 use App\Entity\Equide;
 use App\Entity\Typeannonce;
 use App\Form\AnnonceType;
+use App\Repository\DepartementRepository;
 use App\Repository\EquideRepository;
 use App\Repository\MyClassRepository;
 use App\Repository\RaceRepository;
+use App\Repository\RegionRepository;
 use App\Repository\RobeRepository;
 use App\Repository\TypeAnnonceRepository;
+use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,13 +66,34 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('/{idannonce}', name: 'app_annonce_show', methods: ['GET'])]
-    public function show(Annonce $annonce, EquideRepository $equideRepository): Response
+    public function show(Annonce $annonce, EquideRepository $equideRepository, RaceRepository $raceRepository, RobeRepository $robeRepository,
+    DepartementRepository $departementRepository, RegionRepository $regionRepository, UtilisateurRepository $userRepository): Response
     {
         $idAnnonce = $annonce->getIdannonce();
         $equide = $equideRepository->findByIdAnnonce($idAnnonce);
+
+        $idEquideRace = $equide->getRace();
+        $idEquideRobe = $equide->getRobe();
+
+        $race = $raceRepository->findByIdEquide($idEquideRace);
+        $robe = $robeRepository->findByIdEquide($idEquideRobe);
+
+        $idEquideDep = $equide->getIddep();
+        $departement = $departementRepository->findByIdDepEquide($idEquideDep);
+
+        $idDepartement = $departement->getIdregiondep();
+        $region = $regionRepository->findByIdDepartement($idDepartement);
+
+        $idUtil = $equide->getIdproprio();
+        $user = $userRepository->findByIdProprio($idUtil);
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
             'equide' => $equide,
+            'race' => $race,
+            'robe' => $robe,
+            'departement' => $departement,
+            'region' => $region,
+            'user' => $user,
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Departement;
 use App\Entity\Utilisateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -22,6 +23,19 @@ class UtilisateurRepository extends ServiceEntityRepository
         parent::__construct($registry, Utilisateur::class);
     }
 
+    public function findByIdProprio(Utilisateur $idProprio): ?Utilisateur
+    {
+        $qb = $this->createQueryBuilder('user');
+        //SELECT * from race innerjoin equide on equide.race = race.id where race = r.id;
+        $qb->select('user')
+            //   ->innerJoin('r.id', 'e', 'WITH', 'e.race')
+            ->andWhere('user.idutilisateur = :idproprio')
+            ->setParameter('idproprio', $idProprio)
+            ->setMaxResults(1);
+        // return equide
+        return $query = $qb->getQuery()->getOneOrNullResult();
+
+    }
     public function save(Utilisateur $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

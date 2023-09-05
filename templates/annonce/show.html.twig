@@ -13,17 +13,27 @@
             </div>
         <div class="column">
             <!-- nom equide -->
-            <h2>{{ annonce.titre }}</h2>
-            <h3>{{ annonce.prix }} € </h3>
+            <div class="column">
+                <h4>{{ annonce.titre }} {{ annonce.prix }} € </h4>
+<br>
+            <p>{{ equide.nom }}
+            {{ equide.dateNaiss|date("d/m/Y") }}
+            {{ equide.taille }} cm
+            {{ race.libelle }}
+            {{ robe.libelle }}
+            {{ departement.libelle }}
+            {{ region.libelle }}
+            {{ user.login }}
+            </p>
 
-            <h3>{{ equide.nom }} </h3>
-        <br>
-            <h1>{{ annonce.description }}</h1>
+            <h3><a href="{{ equide.lienhn }}">Voir infos Haras Nationaux</a></h3>
+            <br>
+            <p>{{ annonce.description }}</p>
             <br>
         </div>
     </div>
 </div>
     <a href="{{ path('app_annonce_index') }}">Retour au menu</a>
-
+</div>
     <!-- include('annonce/_delete_form.html.twig') -->
 {% endblock %}
