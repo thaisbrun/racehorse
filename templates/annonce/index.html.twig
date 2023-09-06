@@ -48,11 +48,11 @@
                         </div>
                     </div>
                 </div>
-              <!--  <a href=" path('app_annonce_show_by_type_annonce', {'idtypea': annonce.idtypea}) ">Voir plus</a> -->
             </div>
            <!-- <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}">show</a>
             <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a> -->
         {% endfor %}
+        <a href="{{ path('show_by_type_annonce', {'idtypea': 1}) }}">Voir plus</a>
    <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
     </div>
     <h2 style="text-decoration: underline;">Poneys à louer</h2>

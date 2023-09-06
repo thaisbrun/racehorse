@@ -64,7 +64,14 @@ class AnnonceController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    #[Route('/{idtypea}', name: 'show_by_type_annonce', methods: ['GET'])]
+    public function show_by_type_annonce(int $idtypea, MyClassRepository $myClassRepository): Response
+    {
+        $listAnnonces = $myClassRepository->findByTypeAnnonce($idtypea);
+        return $this->render('annonce/show_by_type_annonce.html.twig', [
+            'listAnnonces' => $listAnnonces,
+        ]);
+    }
     #[Route('/{idannonce}', name: 'app_annonce_show', methods: ['GET'])]
     public function show(Annonce $annonce, EquideRepository $equideRepository, RaceRepository $raceRepository, RobeRepository $robeRepository,
     DepartementRepository $departementRepository, RegionRepository $regionRepository, UtilisateurRepository $userRepository): Response
@@ -97,13 +104,7 @@ class AnnonceController extends AbstractController
         ]);
     }
 
- /*   #[Route('/{idtypea}', name: 'app_annonce_show_by_type_annonce', methods: ['GET'])]
-    public function showByTypeA(Annonce $annonce): Response
-    {
-        return $this->render('annonce/show_by_type_annonce.html.twig', [
-            'annonce' => $annonce,
-        ]);
-    }*/
+
     #[Route('/{idannonce}/edit', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Annonce $annonce, MyClassRepository $myClassRepository): Response
     {

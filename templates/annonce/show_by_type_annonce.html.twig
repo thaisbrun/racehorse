@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Annonce</h1>
 
+    {% for annonce in listAnnonces %}
+
     <table class="table">
         <tbody>
             <tr>
@@ -33,10 +35,6 @@
             </tr>
         </tbody>
     </table>
-
+{% endfor %}
     <a href="{{ path('app_annonce_index') }}">back to list</a>
-
-    <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a>
-
-    {{ include('annonce/_delete_form.html.twig') }}
 {% endblock %}

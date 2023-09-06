@@ -42,7 +42,6 @@ class EquideRepository extends ServiceEntityRepository
         // return equide
         return $query = $qb->getQuery()->getOneOrNullResult();
 
-
     }
     public function remove(Equide $entity, bool $flush = false): void
     {

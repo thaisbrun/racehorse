@@ -40,15 +40,15 @@ class MyClassRepository extends ServiceEntityRepository
     }
 
 //      @return Annonce[] Returns an array of Annonce objects
- public function findByTypeAnnonce($value): array
+ public function findByTypeAnnonce(int $idtypea): array
 {
-    return $this->createQueryBuilder('annonce')
-        ->andWhere('annonce.idtypea = :val')
-        ->setParameter('val', $value)
-        ->orderBy('annonce.datecreation', 'DESC')
-        ->setMaxResults(3)
-        ->getQuery()
-        ->getResult();
+    $qb = $this->createQueryBuilder('a')
+         ->select('a')
+        ->andWhere('a.idtypea = :idtypea')
+        ->setParameter('idtypea', $idtypea);
+    $query = $qb->getQuery();
+    return $query->execute();
+
 }
 
 //    public function findOneBySomeField($value): ?Annonce
