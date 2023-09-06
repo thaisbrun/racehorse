@@ -87,8 +87,7 @@ class Annonce
      * })
      */
     private $idutilisateurannonce;
-
-   // var $utilisateur = new Utilisateur();
+    private array $listImages;
     public function getIdannonce(): ?int
     {
         return $this->idannonce;
@@ -188,6 +187,22 @@ class Annonce
         $this->idutilisateurannonce = $idutilisateurannonce;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getListImages(): array
+    {
+        return $this->listImages;
+    }
+
+    /**
+     * @param array $listImages
+     */
+    public function setListImages(array $listImages): void
+    {
+        $this->listImages = $listImages;
     }
 
 

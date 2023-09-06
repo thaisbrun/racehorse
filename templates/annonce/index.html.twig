@@ -30,7 +30,7 @@
                 <div class="card">
                     <div class="card-image">
                         <figure class="image is-4by3">
-                            <img src="{{ asset('imgAnnonce/DSC_9358.jpg') }}" alt="Placeholder image">
+                            <img src="{{ asset('imgAnnonce/first.JPG') }}" alt="Placeholder image">
                         </figure>
                     </div>
                     <div class="card-content">
@@ -52,9 +52,9 @@
            <!-- <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}">show</a>
             <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a> -->
         {% endfor %}
-        <a href="{{ path('show_by_type_annonce', {'idtypea': 1}) }}">Voir plus</a>
    <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
     </div>
+    <a href="{{ path('show_by_type_annonce', {'idtypea': 1}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus à vendre</a>
     <h2 style="text-decoration: underline;">Poneys à louer</h2>
     <br>
     <div class="columns">
@@ -87,6 +87,7 @@
         {% endfor %}
         <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
     </div>
+    <a href="{{ path('show_by_type_annonce', {'idtypea': 2}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus à louer</a>
     <h2 style="text-decoration: underline;">Poneys à prendre en DP</h2>
     <br>
     <div class="columns">
@@ -119,5 +120,6 @@
         {% endfor %}
         <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
     </div>
+    <a href="{{ path('show_by_type_annonce', {'idtypea': 3}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus de DP</a>
 </div>
 {% endblock %}

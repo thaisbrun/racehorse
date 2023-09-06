@@ -8,6 +8,7 @@ use App\Entity\Typeannonce;
 use App\Form\AnnonceType;
 use App\Repository\DepartementRepository;
 use App\Repository\EquideRepository;
+use App\Repository\ImageRepository;
 use App\Repository\MyClassRepository;
 use App\Repository\RaceRepository;
 use App\Repository\RegionRepository;
@@ -23,7 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AnnonceController extends AbstractController
 {
     #[Route('/', name: 'app_annonce_index', methods: ['GET'])]
-    public function index(MyClassRepository $myClassRepository): Response
+    public function index(MyClassRepository $myClassRepository,ImageRepository $imageRepository): Response
     {
         $annoncesVente = $myClassRepository->findByTypeAnnonce(1);
         $annoncesLocation = $myClassRepository->findByTypeAnnonce(2);
@@ -31,7 +32,7 @@ class AnnonceController extends AbstractController
         return $this->render('annonce/index.html.twig', [
             'annoncesVente' => $annoncesVente,
             'annoncesLocation' => $annoncesLocation,
-            'annoncesDP' => $annoncesDP
+            'annoncesDP' => $annoncesDP,
         ]);
     }
 
@@ -59,7 +60,6 @@ class AnnonceController extends AbstractController
             'listTypeAnnonce' => $listTypeAnnonce,
             'listRaces' => $listRaces,
             'listRobes' => $listRobes,
-
             // 'equide' => $equide,
             'form' => $form,
         ]);
