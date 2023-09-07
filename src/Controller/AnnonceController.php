@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/')]
 class AnnonceController extends AbstractController
 {
-    #[Route('/', name: 'app_annonce_index', methods: ['GET'])]
+    #[Route('/', name: 'homepage', methods: ['GET'])]
     public function index(MyClassRepository $myClassRepository,ImageRepository $imageRepository): Response
     {
         $annoncesVente = $myClassRepository->findByTypeAnnonce(1);
