@@ -18,25 +18,23 @@
 
         <div class="columns">
             <div class="column is-half">
-                <button class="button is-warning">Gérer mes annonces</button>
+                <a class="button is-warning" href="{{ path({'idutilisateurannonce': app.user.idutilisateur},'show_by_id_utilisateur') }}">Gérer mes annonces</a>
             </div>
             <div class="column">
-                <button class="button is-warning">Modifier mes infos de profil</button>
+                <a class="button is-warning" href="{{ path('security/app_user_edit', {'idutilisateur': app.user.idutilisateur}) }}">Modifier mes infos de profil</a>
             </div>
         </div>
         <div class="columns">
             <div class="column is-half">
                 <a href="{{ path('security/app_logout') }}">Déconnexion</a>
             </div>
-            <form method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <div class="column">
-                <a href="{{ path('app_delete', {'idutilisateur': app.user.idutilisateur}) }}">Supprimer mon compte</a>
+                <a href="{{ path('security/app_delete', {'idutilisateur': app.user.idutilisateur}) }}">Supprimer mon compte</a>
             </div>
-            </form>
+
         </div>
             <br>
-
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 <br>
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.

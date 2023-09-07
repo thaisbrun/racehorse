@@ -29,18 +29,31 @@
             </a>
         </div>
 
+
+        {% if app.user %}
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-warning is-light" href="{{ path('security/app_register') }}" >
-                            <strong>M'inscrire</strong>
-                        </a>
-                        <a class="button is-light" href="{{ path('app_login') }}" >
-                            Me Connecter
-                        </a>
-                    </div>
+                    <div class="column is-two-thirds"><a href="{{ path('security/app_register') }}" ><strong>Mes favoris</strong></a></div>
+                    <div class="column is-one-fifth"><a href="{{ path('security/app_viewProfil') }}">{{  app.user.login }}</a>
+                </div>
+                </div>
                 </div>
             </div>
+
+        {%else %}
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-warning is-light" href="{{ path('security/app_register') }}" >
+                        <strong>M'inscrire</strong>
+                    </a>
+                    <a class="button is-light" href="{{ path('app_login') }}" >
+                        Me Connecter
+                    </a>
+                </div>
+            </div>
+        </div>
+        {%endif %}
         </div>
     </nav>
     <body>

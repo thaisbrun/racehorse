@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block title %}Me connecter{% endblock %}
+
+{% block body %}
+    <form method="post">
+        <div class="container">
+            <form class="box">
+                <div class="columns">
+                    <div class="column">
+                        {{ form_start(userEditForm) }}
+                        <div class="field">
+                            <label class="label">Prénom</label>
+                            <div class="control">
+                                <input name="{{ field_name(userEditForm.prenom) }}" value="{{ field_value(userEditForm.prenom) }}" placeholder="Entrez votre prénom" class="input is-outlined is-warning">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Nom</label>
+                            <div class="control">
+                                <input name="{{ field_name(userEditForm.nom) }}" value="{{ field_value(userEditForm.nom) }}" placeholder="Entrez votre nom" class="input is-outlined is-warning">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Mot de passe</label>
+                            <div class="control">
+                                <input name="{{ field_name(userEditForm.password) }}" value="{{ field_value(userEditForm.password) }}" type="password" placeholder="********" class="input is-outlined is-warning">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Pseudo</label>
+                            <div class="control">
+                                <input name="{{ field_name(userEditForm.login) }}" value="{{ field_value(userEditForm.login) }}" placeholder="Entrez votre pseudo" class="input is-outlined is-warning">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Email</label>
+                            <div class="control">
+                                <input name="{{ field_name(userEditForm.mail) }}" value="{{ field_value(userEditForm.mail) }}" placeholder="Entrez votre email" class="input is-outlined is-warning">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-warning is-medium">Modifier les informations</button>
+                        {{ form_end(userEditForm) }}
+                    </div>
+                    <!-- <div class="control">
+                         <button class="button is-light">Retour à l'accueil</button>
+                     </div> -->
+                </div>
+            </form>
+        </div>
+    </form>
+{% endblock %}

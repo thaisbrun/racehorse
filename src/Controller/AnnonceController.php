@@ -72,7 +72,7 @@ class AnnonceController extends AbstractController
             'listAnnonces' => $listAnnonces,
         ]);
     }
-    #[Route('/{idannonce}', name: 'app_annonce_show', methods: ['GET'])]
+    #[Route('/show/{idannonce}', name: 'app_annonce_show', methods: ['GET'])]
     public function show(Annonce $annonce, EquideRepository $equideRepository, RaceRepository $raceRepository, RobeRepository $robeRepository,
     DepartementRepository $departementRepository, RegionRepository $regionRepository, UtilisateurRepository $userRepository): Response
     {
@@ -123,7 +123,7 @@ class AnnonceController extends AbstractController
         ]);
     }
 
-    #[Route('/{idannonce}', name: 'app_annonce_delete', methods: ['POST'])]
+    #[Route('delete/{idannonce}', name: 'app_annonce_delete', methods: ['POST'])]
     public function delete(Request $request, Annonce $annonce, MyClassRepository $myClassRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$annonce->getIdannonce(), $request->request->get('_token'))) {
@@ -131,5 +131,15 @@ class AnnonceController extends AbstractController
         }
 
         return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('show_by_id_utilisateur/{idutilisateurannonce}', name: 'show_by_id_utilisateur', methods: ['GET'])]
+    public function show_by_id_utilisateur(Annonce $annonce, MyClassRepository $myClassRepository): Response
+    {
+        $idutilisateurannonce = $annonce->getIdutilisateurannonce();
+        $listAnnonces = $myClassRepository->findBy($idutilisateurannonce);
+        return $this->render('annonce/mes_annonces.html.twig', [
+            'listAnnonces' => $listAnnonces,
+        ]);
     }
 }

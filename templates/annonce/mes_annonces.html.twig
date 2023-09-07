@@ -7,8 +7,8 @@
 
     {% for annonce in listAnnonces %}
 
-    <table class="table">
-        <tbody>
+        <table class="table">
+            <tbody>
             <tr>
                 <th>Idannonce</th>
                 <td>{{ annonce.idannonce }}</td>
@@ -33,8 +33,8 @@
                 <th>Datecreation</th>
                 <td>{{ annonce.datecreation ? annonce.datecreation|date('Y-m-d') : '' }}</td>
             </tr>
-        </tbody>
-    </table>
-{% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
     <a href="{{ path('homepage') }}">back to list</a>
 {% endblock %}

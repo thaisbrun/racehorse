@@ -3,15 +3,43 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Utilisateur;
+use App\Form\AnnonceType;
+use App\Form\RegistrationFormType;
+use App\Form\UtilisateurType;
 use App\Repository\MyClassRepository;
 use App\Repository\UtilisateurRepository;
+use App\Security\AuthAuthenticator;
+use Doctrine\ORM\EntityManagerInterface;
+use Monolog\Handler\Curl\Util;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class SecurityController extends AbstractController
 {
+    #[Route('security/{idutilisateur}/edit', name: 'security/app_user_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $userRepository): Response
+    {
+        $form = $this->createForm(UtilisateurType::class, $utilisateur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->save($utilisateur, true);
+
+            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('security/edit.html.twig', [
+            'userEditForm' => $form,
+            'utilisateur' => $utilisateur,
+        ]);
+    }
+
     #[Route(path: 'security/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -37,13 +65,12 @@ class SecurityController extends AbstractController
         return $this->render('security/viewProfil.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-
     #[Route(path: 'security/logout', name: 'security/app_logout')]
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
-    #[Route('/{idutilisateur}', name: 'app_delete', methods: ['POST'])]
+    #[Route('security/app_delete/{idutilisateur}', name: 'security/app_delete', methods: ['GET','POST'])]
     public function remove(Request $request, Utilisateur $user, UtilisateurRepository $utilisateurRepository): Response
     {
         $id = $this->getUser()->getUserIdentifier();
@@ -51,7 +78,7 @@ class SecurityController extends AbstractController
             $utilisateurRepository->remove($user, true);
         }
 
-        return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
 
     }
 }
