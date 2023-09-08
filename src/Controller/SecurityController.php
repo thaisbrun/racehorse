@@ -81,7 +81,7 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
-    #[Route('security/delete/{idutilisateur}', name: 'security/app_delete', methods: ['GET','POST'])]
+    #[Route(path:'security/delete/{idutilisateur}', name: 'security/app_delete', methods: ['GET','POST'])]
     public function delete(Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository): Response
     {
         $utilisateurRepository->remove($utilisateur, true);
