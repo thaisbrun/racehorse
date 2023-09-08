@@ -5,7 +5,9 @@
 {% block body %}
     <div class="containerIndex">
         <img src="{{ asset('img/bandeauIndex.png') }}">
-        <button class="btnIndexVendre">Vendre</button>
+        <a href="{{ path('app_annonce_new') }}">
+            <button class="btnIndexVendre">Vendre</button>
+        </a>
         <button class="btnIndexAcheter">Acheter</button>
     </div>
     <div id="messagePrev">

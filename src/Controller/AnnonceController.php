@@ -41,6 +41,7 @@ class AnnonceController extends AbstractController
     RobeRepository $robeRepository): Response
     {
         $annonce = new Annonce();
+        $equide = new Equide();
         $listTypeAnnonce = $typeAnnonceRepository->findAll();
         $listRaces = $raceRepository->findAll();
         $listRobes = $robeRepository->findAll();
@@ -60,7 +61,7 @@ class AnnonceController extends AbstractController
             'listTypeAnnonce' => $listTypeAnnonce,
             'listRaces' => $listRaces,
             'listRobes' => $listRobes,
-            // 'equide' => $equide,
+             'equide' => $equide,
             'form' => $form,
         ]);
     }

@@ -10,7 +10,7 @@
                     <div class="field">
                         <p class="control">
                             {{ form_start(form) }}
-                            <input name="{{ field_name(form.titre) }}" value="{{ field_value(form.titre) }}" placeholder="{{ field_label(form.titre) }}" class="input is-warning"/>
+                            <input name="{{ field_name(form.titre) }}" placeholder="{{ field_label(form.titre) }}" class="input is-warning"/>
                         </p>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input name=" field_name(equide.nom) "  placeholder="Entrer le nom de votre équidé" class="input is-warning"/>
+                            <input name="{{ field_name(equide.nom) }}"  placeholder="Entrer le nom de votre équidé" class="input is-warning"/>
                         </p>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input class="input is-warning" name=" field_name(equide.dateNaissance) " type="date" placeholder="Warning input">
+                            <input class="input is-warning" name="{{ field_name(equide.dateNaissance) }}" type="date" placeholder="Warning input">
                         </p>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                 <div class="select is-warning">
                     <select>
                         {% for race in  listRaces %}
-                            <option> {{ race.libelle }}</option>
+                            <option value="{{ race.id }}"> {{ race.libelle }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -69,7 +69,7 @@
                 <div class="select is-warning">
                     <select>
                         {% for robe in  listRobes %}
-                        <option> {{ robe.libelle }}</option>
+                        <option value="{{ race.id }}"> {{ robe.libelle }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -86,7 +86,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input class="input is-warning" name=" field_name(equide.taille) " type="text" placeholder="en cm au garrot">
+                            <input class="input is-warning" name="{{ field_name(equide.taille) }}" type="text" placeholder="en cm au garrot">
                         </p>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                 </div>
                 {% for typeAnnonce in  listTypeAnnonce %}
 
-                <input type="radio" name="answer" >
+                <input type="radio" name="answer" value="{{ typeAnnonce.id }}">
                 <label> {{ typeAnnonce.libelle }}</label>
                 {% endfor %}
             </div>
@@ -129,7 +129,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input class="input is-warning" type="text" placeholder="https://infochevaux.ifce.fr/fr/etc..">
+                            <input class="input is-warning" name="{{ field_name(equide.lienhn) }}" type="text" placeholder="https://infochevaux.ifce.fr/fr/etc..">
                         </p>
                     </div>
                 </div>
