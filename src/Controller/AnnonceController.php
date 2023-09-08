@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Controller;
-
+use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Entity\Annonce;
 use App\Entity\Equide;
 use App\Entity\Typeannonce;
@@ -18,7 +19,7 @@ use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+
 
 #[Route('/')]
 class AnnonceController extends AbstractController
@@ -35,8 +36,7 @@ class AnnonceController extends AbstractController
             'annoncesDP' => $annoncesDP,
         ]);
     }
-
-    #[Route('/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
+    #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
     public function new(Request $request, MyClassRepository $myClassRepository, TypeAnnonceRepository $typeAnnonceRepository, RaceRepository $raceRepository,
     RobeRepository $robeRepository): Response
     {
@@ -64,7 +64,7 @@ class AnnonceController extends AbstractController
             'form' => $form,
         ]);
     }
-    #[Route('/{idtypea}', name: 'show_by_type_annonce', methods: ['GET'])]
+    #[Route('annonce/show_by_type_annonce/{idtypea}', name: 'show_by_type_annonce', methods: ['GET'])]
     public function show_by_type_annonce(int $idtypea, MyClassRepository $myClassRepository): Response
     {
         $listAnnonces = $myClassRepository->findByTypeAnnonce($idtypea);
@@ -72,7 +72,7 @@ class AnnonceController extends AbstractController
             'listAnnonces' => $listAnnonces,
         ]);
     }
-    #[Route('/show/{idannonce}', name: 'app_annonce_show', methods: ['GET'])]
+    #[Route('annonce/show/{idannonce}', name: 'app_annonce_show', methods: ['GET'])]
     public function show(Annonce $annonce, EquideRepository $equideRepository, RaceRepository $raceRepository, RobeRepository $robeRepository,
     DepartementRepository $departementRepository, RegionRepository $regionRepository, UtilisateurRepository $userRepository): Response
     {
@@ -104,8 +104,7 @@ class AnnonceController extends AbstractController
         ]);
     }
 
-
-    #[Route('/{idannonce}/edit', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
+    #[Route('annonce/edit/{idannonce}', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Annonce $annonce, MyClassRepository $myClassRepository): Response
     {
         $form = $this->createForm(AnnonceType::class, $annonce);
@@ -123,7 +122,7 @@ class AnnonceController extends AbstractController
         ]);
     }
 
-    #[Route('delete/{idannonce}', name: 'app_annonce_delete', methods: ['POST'])]
+    #[Route('annonce/delete/{idannonce}', name: 'app_annonce_delete', methods: ['POST'])]
     public function delete(Request $request, Annonce $annonce, MyClassRepository $myClassRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$annonce->getIdannonce(), $request->request->get('_token'))) {
@@ -133,13 +132,5 @@ class AnnonceController extends AbstractController
         return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('show_by_id_utilisateur/{idutilisateurannonce}', name: 'show_by_id_utilisateur', methods: ['GET'])]
-    public function show_by_id_utilisateur(Annonce $annonce, MyClassRepository $myClassRepository): Response
-    {
-        $idutilisateurannonce = $annonce->getIdutilisateurannonce();
-        $listAnnonces = $myClassRepository->findBy($idutilisateurannonce);
-        return $this->render('annonce/mes_annonces.html.twig', [
-            'listAnnonces' => $listAnnonces,
-        ]);
-    }
+
 }

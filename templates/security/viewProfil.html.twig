@@ -18,7 +18,7 @@
 
         <div class="columns">
             <div class="column is-half">
-                <a class="button is-warning" href="{{ path({'idutilisateurannonce': app.user.idutilisateur},'show_by_id_utilisateur') }}">Gérer mes annonces</a>
+                <a class="button is-warning" href="{{ path('security/mes_annonces',{'idutilisateur': app.user.idutilisateur}) }}">Gérer mes annonces</a>
             </div>
             <div class="column">
                 <a class="button is-warning" href="{{ path('security/app_user_edit', {'idutilisateur': app.user.idutilisateur}) }}">Modifier mes infos de profil</a>
@@ -47,5 +47,4 @@
         </div>
     #}
 </div>
-    </form>
 {% endblock %}

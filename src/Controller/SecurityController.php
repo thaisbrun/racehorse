@@ -19,6 +19,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 
 class SecurityController extends AbstractController
 {
@@ -55,6 +57,15 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
+    #[Route('security/mes_annonces/{idutilisateur}', name: 'security/mes_annonces', methods: ['GET'])]
+    public function show_by_id_utilisateur(Utilisateur $user, MyClassRepository $myClassRepository): Response
+    {
+        $idutilisateur = $user->getIdutilisateur();
+        $listAnnonces = $myClassRepository->findByUser($idutilisateur);
+        return $this->render('security/mes_annonces.html.twig', [
+            'listAnnonces' => $listAnnonces,
+        ]);
+    }
     #[Route(path: 'security/viewProfil', name: 'security/app_viewProfil')]
     public function viewProfil(AuthenticationUtils $authenticationUtils): Response
     {
@@ -70,15 +81,12 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
-    #[Route('security/app_delete/{idutilisateur}', name: 'security/app_delete', methods: ['GET','POST'])]
-    public function remove(Request $request, Utilisateur $user, UtilisateurRepository $utilisateurRepository): Response
+    #[Route('security/delete/{idutilisateur}', name: 'security/app_delete', methods: ['GET','POST'])]
+    public function delete(Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository): Response
     {
-        $id = $this->getUser()->getUserIdentifier();
-        if ($this->isCsrfTokenValid('delete'.$user->getIdUtilisateur(), $request->request->get('_token'))) {
-            $utilisateurRepository->remove($user, true);
-        }
+        $utilisateurRepository->remove($utilisateur, true);
 
         return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
-
     }
+
 }

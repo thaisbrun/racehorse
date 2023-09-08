@@ -51,6 +51,16 @@ class MyClassRepository extends ServiceEntityRepository
 
 }
 
+    public function findByUser(int $idutilisateurannonce): array
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->select('a')
+            ->andWhere('a.idutilisateurannonce = :idutilisateurannonce')
+            ->setParameter('idutilisateurannonce', $idutilisateurannonce);
+        $query = $qb->getQuery();
+        return $query->execute();
+
+    }
 //    public function findOneBySomeField($value): ?Annonce
 //    {
 //        return $this->createQueryBuilder('a')
