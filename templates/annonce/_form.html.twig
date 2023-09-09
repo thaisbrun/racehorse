@@ -16,82 +16,10 @@
                 </div>
             </div>
             </div>
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Nom de l'équidé : </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input name="{{ field_name(equide.nom) }}"  placeholder="Entrer le nom de votre équidé" class="input is-warning"/>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <!-- date naissance, race et robe -->
-    <div class="columns">
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Naissance: </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" name="{{ field_name(equide.dateNaissance) }}" type="date" placeholder="Warning input">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Race : </label>
-                </div>
-                <div class="select is-warning">
-                    <select>
-                        {% for race in  listRaces %}
-                            <option value="{{ race.id }}"> {{ race.libelle }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Robe : </label>
-                </div>
-                <div class="select is-warning">
-                    <select>
-                        {% for robe in  listRobes %}
-                        <option value="{{ race.id }}"> {{ robe.libelle }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- type de vente et taille -->
     <div class="columns">
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Taille : </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" name="{{ field_name(equide.taille) }}" type="text" placeholder="en cm au garrot">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="column">
             <div class="control">
                 <div class="field-label is-normal">
@@ -99,7 +27,7 @@
                 </div>
                 {% for typeAnnonce in  listTypeAnnonce %}
 
-                <input type="radio" name="answer" value="{{ typeAnnonce.id }}">
+                <input type="radio" name="answer" value="{{ typeAnnonce.idtypeannonce }}">
                 <label> {{ typeAnnonce.libelle }}</label>
                 {% endfor %}
             </div>
@@ -116,20 +44,6 @@
                     <div class="field">
                         <p class="control">
                             <input class="input is-warning" name="{{ field_name(form.prix) }}" type="text" placeholder="En euros">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Lien HN : </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" name="{{ field_name(equide.lienhn) }}" type="text" placeholder="https://infochevaux.ifce.fr/fr/etc..">
                         </p>
                     </div>
                 </div>
@@ -188,6 +102,5 @@ Télécharger une troisième image
     <br>
     <button type="submit" class="button is-warning">Publier l'annonce</button>
 </div>
-    {{ form_widget(form) }}
 {{ form_end(form) }}
 

@@ -17,10 +17,8 @@ class AnnonceType extends AbstractType
             ->add('titre')
            ->add('description')
             ->add('prix')
-         //   ->add('activation')
-           // ->add('datecreation')
          //->add('typeannonce.libelle', Typeannonce::class)
-            //->add('idutilisateurannonce')
+           // ->add('idutilisateurannonce')
         ;
     }
 

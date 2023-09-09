@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Form\EquideType;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Entity\Annonce;
@@ -38,7 +39,7 @@ class AnnonceController extends AbstractController
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
     public function new(Request $request, MyClassRepository $myClassRepository, TypeAnnonceRepository $typeAnnonceRepository, RaceRepository $raceRepository,
-    RobeRepository $robeRepository): Response
+    RobeRepository $robeRepository, EquideRepository $equideRepository): Response
     {
         $annonce = new Annonce();
         $equide = new Equide();
@@ -46,12 +47,13 @@ class AnnonceController extends AbstractController
         $listRaces = $raceRepository->findAll();
         $listRobes = $robeRepository->findAll();
 
-        // $equide = new Equide();
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
+        $formEquide = $this->createForm(EquideType::class, $equide);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $myClassRepository->save($annonce, true);
+        $myClassRepository->save($annonce, true);
 
             return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -61,8 +63,8 @@ class AnnonceController extends AbstractController
             'listTypeAnnonce' => $listTypeAnnonce,
             'listRaces' => $listRaces,
             'listRobes' => $listRobes,
-             'equide' => $equide,
             'form' => $form,
+            'formEquide' => $formEquide,
         ]);
     }
     #[Route('annonce/show_by_type_annonce/{idtypea}', name: 'show_by_type_annonce', methods: ['GET'])]

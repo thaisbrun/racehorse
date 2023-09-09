@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Equide;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class EquideType extends AbstractType
 {
@@ -13,13 +15,13 @@ class EquideType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('datenaiss')
-            ->add('robe')
-            ->add('race')
-            ->add('taille')
-            ->add('lienhn')
-            ->add('idtypeeq')
-            ->add('iddep')
+           // ->add('datenaiss')
+           // ->add('robe')
+            //->add('race')
+            //->add('taille')
+            //->add('lienhn')
+            //->add('idtypeeq')
+            //->add('iddep')
             //->add('idproprio')
         ;
     }
