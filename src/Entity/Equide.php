@@ -32,9 +32,9 @@ class Equide
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="dateNaiss", type="date", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="dateNaiss", type="datetime", nullable=true, options={"default"="NULL"})
      */
-    private $datenaiss = 'NULL';
+    private $datenaiss = NULL;
 
     /**
      * @var string|null
@@ -111,12 +111,12 @@ class Equide
         return $this;
     }
 
-    public function getDatenaiss(): ?\DateTimeInterface
+    public function getDatenaiss(): ?\DateTime
     {
         return $this->datenaiss;
     }
 
-    public function setDatenaiss(?\DateTimeInterface $datenaiss): self
+    public function setDatenaiss(?\DateTime $datenaiss): self
     {
         $this->datenaiss = $datenaiss;
 

@@ -3,21 +3,31 @@
     <!-- formulaire avec titre, description, prix, typeannonce -->
     {{ form_start(formEquide) }}
     <br>
-    <div class="column">
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
-                <label class="label">Nom de l'équidé : </label>
-            </div>
-            <div class="field-body">
-                <div class="field">
-                    <p class="control">
-                        <input name="{{ field_name(formEquide.nom) }}"  placeholder="Entrer le nom de votre équidé" class="input is-warning"/>
-                    </p>
+    <div class="columns">
+        <div class="column">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Nom de l'équidé : </label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input name="{{ field_name(formEquide.nom) }}"  placeholder="Entrer le nom de votre équidé" class="input is-warning"/>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="column">
+        <div class="field-body">
+            <div class="field">
+                <p class="control">
+                    <input class="input is-warning" name="{{ field_name(formEquide.datenaiss) }}" type="date" placeholder="Warning input">
+                </p>
+            </div>
+        </div>
+        </div>
     </div>
-
     {{ form_end(formEquide) }}
 </div>
 

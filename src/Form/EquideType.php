@@ -15,7 +15,9 @@ class EquideType extends AbstractType
     {
         $builder
             ->add('nom')
-           // ->add('datenaiss')
+            ->add('datenaiss',DateType::class, [
+                'label' => 'Date de naissance',
+                'widget' => 'single_text'])
            // ->add('robe')
             //->add('race')
             //->add('taille')

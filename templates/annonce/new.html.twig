@@ -4,17 +4,6 @@
 
 {% block body %}
     <img src="{{ asset('img/addAnnonce.jpg') }}">
-<div class="container is-widescreen">
-    <br>
-    <div class="columns">
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-    {{ include('annonce/_form.html.twig') }}
-                </div>
-            </div>
-        </div>
-    </div>
     {{ include('equide/_form.html.twig') }}
-</div>
+    {{ include('annonce/_form.html.twig') }}
 {% endblock %}
