@@ -19,6 +19,10 @@
             </div>
         </div>
         <div class="column">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label"> Date naissance : </label>
+                </div>
         <div class="field-body">
             <div class="field">
                 <p class="control">
@@ -26,7 +30,18 @@
                 </p>
             </div>
         </div>
+            </div>
         </div>
+        <div class="column">
+            <div class="select is-warning">
+                <select name="{{ field_name(formEquide.robe) }}">
+                    {% for robe in  listRobes %}
+                        <option value="{{ field_value(formEquide.robe) }}"> {{ robe.libelle }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
     </div>
     {{ form_end(formEquide) }}
 </div>
