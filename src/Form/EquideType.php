@@ -19,8 +19,8 @@ class EquideType extends AbstractType
                 'label' => 'Date de naissance',
                 'widget' => 'single_text'])
            ->add('robe')
-            //->add('race')
-            //->add('taille')
+            ->add('race')
+            ->add('taille')
             //->add('lienhn')
             //->add('idtypeeq')
             //->add('iddep')

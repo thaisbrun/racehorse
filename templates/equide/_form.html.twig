@@ -32,7 +32,13 @@
         </div>
             </div>
         </div>
-        <div class="column">
+    </div>
+    <div class="columns">
+    <div class="column">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label"> Robe : </label>
+            </div>
             <div class="select is-warning">
                 <select name="{{ field_name(formEquide.robe) }}">
                     {% for robe in  listRobes %}
@@ -41,7 +47,33 @@
                 </select>
             </div>
         </div>
-
+    </div>
+    <div class="column">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label"> Race : </label>
+                </div>
+                <div class="select is-warning">
+                    <select name="{{ field_name(formEquide.race) }}">
+                        {% for race in  listRaces %}
+                            <option value="{{ field_value(formEquide.race) }}"> {{ race.libelle }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    <div class="column">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label"> Taille (cm): </label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                    <input type="number" class="input is-warning" name="{{ field_name(formEquide.taille) }}" min=40" max="200" />
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     {{ form_end(formEquide) }}
 </div>
