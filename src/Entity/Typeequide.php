@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Typeequide
  *
  * @ORM\Table(name="typeequide")
- * @ORM\Entity(repositoryClass="App\Repository\MyClassRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\TypeEquideRepository")
  */
 class Typeequide
 {

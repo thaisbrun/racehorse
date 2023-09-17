@@ -27,7 +27,7 @@
                 </div>
                 {% for typeAnnonce in  listTypeAnnonce %}
 
-                <input type="radio" name="answer" value="{{ typeAnnonce.idtypeannonce }}">
+                <input type="radio" name="answer" name="{{ field_name(form.idtypea) }}" value="{{ typeAnnonce.idtypeannonce }}">
                 <label> {{ typeAnnonce.libelle }}</label>
                 {% endfor %}
             </div>

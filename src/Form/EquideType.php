@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Equide;
+use App\Entity\Typeannonce;
+use App\Entity\Typeequide;
+use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,10 +24,12 @@ class EquideType extends AbstractType
            ->add('robe')
             ->add('race')
             ->add('taille')
-            //->add('lienhn')
-            //->add('idtypeeq')
+            ->add('lienhn')
+            ->add('idtypeeq',TypeEquideType::class, [
+        'data_class' => Typeequide::class,
+    ])
             //->add('iddep')
-            //->add('idproprio')
+          //  ->add('idproprio')
         ;
     }
 

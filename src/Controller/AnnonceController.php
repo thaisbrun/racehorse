@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 use App\Form\EquideType;
+use App\Repository\TypeEquideRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Entity\Annonce;
@@ -39,13 +40,14 @@ class AnnonceController extends AbstractController
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
     public function new(Request $request, MyClassRepository $myClassRepository, TypeAnnonceRepository $typeAnnonceRepository, RaceRepository $raceRepository,
-    RobeRepository $robeRepository, EquideRepository $equideRepository): Response
+    RobeRepository $robeRepository, EquideRepository $equideRepository, TypeEquideRepository $typeEquideRepository): Response
     {
         $annonce = new Annonce();
         $equide = new Equide();
         $listTypeAnnonce = $typeAnnonceRepository->findAll();
         $listRaces = $raceRepository->findAll();
         $listRobes = $robeRepository->findAll();
+        $listTypeEquide = $typeEquideRepository->findAll();
 
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
@@ -63,6 +65,7 @@ class AnnonceController extends AbstractController
             'listTypeAnnonce' => $listTypeAnnonce,
             'listRaces' => $listRaces,
             'listRobes' => $listRobes,
+            'listTypeEquide' => $listTypeEquide,
             'form' => $form,
             'formEquide' => $formEquide,
         ]);

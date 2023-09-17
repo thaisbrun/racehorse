@@ -45,5 +45,9 @@ class Typeannonce
         return $this;
     }
 
+    public function __toString(){
+        $idString = strval($this->getIdtypeannonce());
+        return $idString;
+    }
 
 }

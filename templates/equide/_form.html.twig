@@ -67,11 +67,40 @@
                 <div class="field-label is-normal">
                     <label class="label"> Taille (cm): </label>
                 </div>
+                {# Nom de l'équide #}
                 <div class="field-body">
                     <div class="field">
                     <input type="number" class="input is-warning" name="{{ field_name(formEquide.taille) }}" min=40" max="200" />
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">URL du cheval (haras nationaux): </label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input name="{{ field_name(formEquide.lienhn) }}"  placeholder="https://infochevaux.ifce.fr/fr/etc.." class="input is-warning"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="control">
+                <div class="field-label is-normal">
+                    <label class="label">Type équidé : </label>
+                </div>
+                {% for typeEquide in  listTypeEquide %}
+
+                    <input type="radio" name="answer" name="{{ field_name(formEquide.idtypeeq) }}" value="{{ typeEquide.idtypeequide }}">
+                    <label> {{ typeEquide.libelle }}</label>
+                {% endfor %}
             </div>
         </div>
     </div>

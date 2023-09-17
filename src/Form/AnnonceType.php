@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Annonce;
 use App\Entity\Equide;
 use App\Entity\Typeannonce;
+use PHPUnit\Util\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,7 +18,9 @@ class AnnonceType extends AbstractType
             ->add('titre')
            ->add('description')
             ->add('prix')
-         //->add('typeannonce.libelle', Typeannonce::class)
+         ->add('idtypea',TypeAnnonceType::class, [
+             'data_class' => Typeannonce::class,
+         ])
            // ->add('idutilisateurannonce')
         ;
     }
