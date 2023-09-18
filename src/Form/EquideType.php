@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Departement;
 use App\Entity\Equide;
 use App\Entity\Typeannonce;
 use App\Entity\Typeequide;
@@ -21,16 +22,17 @@ class EquideType extends AbstractType
             ->add('datenaiss',DateType::class, [
                 'label' => 'Date de naissance',
                 'widget' => 'single_text'])
-           ->add('robe')
+            ->add('robe')
             ->add('race')
             ->add('taille')
             ->add('lienhn')
             ->add('idtypeeq',TypeEquideType::class, [
         'data_class' => Typeequide::class,
     ])
-            //->add('iddep')
-          //  ->add('idproprio')
-        ;
+            ->add('iddep', DepartementType::class,[
+                'data_class' =>Departement::class,
+            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

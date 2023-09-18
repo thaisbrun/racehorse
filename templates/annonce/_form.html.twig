@@ -17,24 +17,26 @@
             </div>
             </div>
     </div>
-    <!-- date naissance, race et robe -->
-    <!-- type de vente et taille -->
+    <!-- type annonce et montant -->
     <div class="columns">
         <div class="column">
-            <div class="control">
-                <div class="field-label is-normal">
+            <div class="field is-horizontal">
+            <div class="field-label is-normal">
                     <label class="label">Type annonce : </label>
                 </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
                 {% for typeAnnonce in  listTypeAnnonce %}
 
                 <input type="radio" name="answer" name="{{ field_name(form.idtypea) }}" value="{{ typeAnnonce.idtypeannonce }}">
                 <label> {{ typeAnnonce.libelle }}</label>
                 {% endfor %}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Montant et lien HN -->
-    <div class="columns">
         <div class="column">
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
@@ -46,6 +48,20 @@
                             <input class="input is-warning" name="{{ field_name(form.prix) }}" type="text" placeholder="En euros">
                         </p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Description : </label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control">
+                        <textarea class="textarea is-warning" name="{{ field_name(form.description) }}" placeholder="Description de l'annonce"></textarea>
+                    </p>
                 </div>
             </div>
         </div>
@@ -98,9 +114,9 @@ Télécharger une troisième image
             </div>
         </div>
     </div>
-    <textarea class="textarea is-warning" name="{{ field_name(form.description) }}" placeholder="Description de l'annonce"></textarea>
     <br>
     <button type="submit" class="button is-warning">Publier l'annonce</button>
 </div>
+{{ form_errors(form) }}
 {{ form_end(form) }}
 

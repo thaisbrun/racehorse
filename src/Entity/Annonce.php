@@ -46,14 +46,14 @@ class Annonce
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="activation", type="boolean", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="activation", type="boolean", nullable=true, options={"default"="true"})
      */
     private $activation = 'NULL';
 
     /**
      * @var \DateTime|null
 
-     * @ORM\Column(name="dateCreation", type="date", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="dateCreation", type="date", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
      */
 
     private $datecreation;

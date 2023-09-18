@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Utilisateur;
 use App\Form\EquideType;
 use App\Repository\TypeEquideRepository;
+use http\Client\Curl\User;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Entity\Annonce;
@@ -40,24 +42,32 @@ class AnnonceController extends AbstractController
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
     public function new(Request $request, MyClassRepository $myClassRepository, TypeAnnonceRepository $typeAnnonceRepository, RaceRepository $raceRepository,
-    RobeRepository $robeRepository, EquideRepository $equideRepository, TypeEquideRepository $typeEquideRepository): Response
+    RobeRepository $robeRepository, EquideRepository $equideRepository, TypeEquideRepository $typeEquideRepository, DepartementRepository $departementRepository): Response
     {
         $annonce = new Annonce();
         $equide = new Equide();
+
+        $user = $this->getUser();
         $listTypeAnnonce = $typeAnnonceRepository->findAll();
         $listRaces = $raceRepository->findAll();
         $listRobes = $robeRepository->findAll();
         $listTypeEquide = $typeEquideRepository->findAll();
+        $listDepartements = $departementRepository->findAll();
 
+        $idUser = $user->getIdutilisateur();
+        $annonce->setIdutilisateurannonce($idUser);
+
+        $formEquide = $this->createForm(EquideType::class, $equide);
+       // $formEquide = $this->handleRequest($request);
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
-        $formEquide = $this->createForm(EquideType::class, $equide);
 
         if ($form->isSubmitted() && $form->isValid()) {
-        $myClassRepository->save($annonce, true);
+            $equideRepository->save($equide,true);
+            $myClassRepository->save($annonce, true);
 
-            return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('annonce/new.html.twig', [
@@ -66,6 +76,7 @@ class AnnonceController extends AbstractController
             'listRaces' => $listRaces,
             'listRobes' => $listRobes,
             'listTypeEquide' => $listTypeEquide,
+            'listDepartements' => $listDepartements,
             'form' => $form,
             'formEquide' => $formEquide,
         ]);
@@ -85,8 +96,9 @@ class AnnonceController extends AbstractController
         $idAnnonce = $annonce->getIdannonce();
         $equide = $equideRepository->findByIdAnnonce($idAnnonce);
 
-        $idEquideRace = $equide->getRace();
-        $idEquideRobe = $equide->getRobe();
+        $idEquideRace = $equide->getRace()->getId();
+        $idEquideRobe = $equide->getRobe()->getId();
+
 
         $race = $raceRepository->findByIdEquide($idEquideRace);
         $robe = $robeRepository->findByIdEquide($idEquideRobe);
@@ -111,8 +123,9 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('annonce/edit/{idannonce}', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Annonce $annonce, MyClassRepository $myClassRepository): Response
+    public function edit(Request $request, Annonce $annonce, MyClassRepository $myClassRepository, TypeAnnonceRepository $typeAnnonceRepository): Response
     {
+        $listTypeAnnonce = $typeAnnonceRepository->findAll();
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
@@ -125,6 +138,7 @@ class AnnonceController extends AbstractController
         return $this->renderForm('annonce/edit.html.twig', [
             'annonce' => $annonce,
             'form' => $form,
+            'listTypeAnnonce' => $listTypeAnnonce,
         ]);
     }
 

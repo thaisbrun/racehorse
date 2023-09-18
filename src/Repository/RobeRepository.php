@@ -24,11 +24,11 @@ class RobeRepository extends ServiceEntityRepository
 
     public function findByIdEquide(int $idRobeEquide): ?Robe
     {
-        $qb = $this->createQueryBuilder('robe');
+        $qb = $this->createQueryBuilder('r');
         //SELECT * from race innerjoin equide on equide.race = race.id where race = r.id;
-        $qb->select('robe')
+        $qb->select('r')
             //   ->innerJoin('r.id', 'e', 'WITH', 'e.race')
-            ->andWhere('robe.id = :robe')
+            ->andWhere('r.id = :robe')
             ->setParameter('robe', $idRobeEquide)
             ->setMaxResults(1);
         // return equide

@@ -103,6 +103,20 @@
                 {% endfor %}
             </div>
         </div>
+        <div class="column">
+            <div class="control">
+                <div class="field-label is-normal">
+                    <label class="label"> Département : </label>
+                </div>
+                <div class="select is-warning">
+                    <select name="{{ field_name(formEquide.iddep) }}">
+                        {% for departement in  listDepartements %}
+                            <option value="{{ departement.iddepartement}}"> {{ departement.libelle }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
     {{ form_end(formEquide) }}
 </div>

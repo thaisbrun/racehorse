@@ -21,7 +21,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-
 class SecurityController extends AbstractController
 {
     #[Route('security/{idutilisateur}/edit', name: 'security/app_user_edit', methods: ['GET', 'POST'])]

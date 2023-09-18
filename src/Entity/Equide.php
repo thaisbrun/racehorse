@@ -37,18 +37,23 @@ class Equide
     private $datenaiss = NULL;
 
     /**
-     * @var string|null
      *
-     * @ORM\Column(name="robe", type="string", length=40, nullable=true, options={"default"="NULL"})
+     * @ORM\ManyToOne(targetEntity="Robe")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="robe", referencedColumnName="id")
+     * })
      */
-    private $robe = 'NULL';
+    private $robe = NULL;
 
     /**
-     * @var string|null
      *
-     * @ORM\Column(name="race", type="string", length=40, nullable=true, options={"default"="NULL"})
+     *
+     *  @ORM\ManyToOne(targetEntity="Race")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="race", referencedColumnName="id")
+     * })
      */
-    private $race = 'NULL';
+    private $race = NULL;
 
     /**
      * @var int|null
@@ -123,24 +128,24 @@ class Equide
         return $this;
     }
 
-    public function getRobe(): ?string
+    public function getRobe(): ?Robe
     {
         return $this->robe;
     }
 
-    public function setRobe(?string $robe): self
+    public function setRobe(?Robe $robe): self
     {
         $this->robe = $robe;
 
         return $this;
     }
 
-    public function getRace(): ?string
+    public function getRace(): ?Race
     {
         return $this->race;
     }
 
-    public function setRace(?string $race): self
+    public function setRace(?Race $race): self
     {
         $this->race = $race;
 
