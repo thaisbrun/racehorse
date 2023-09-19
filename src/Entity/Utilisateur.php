@@ -152,4 +152,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
     {
         return $this->loadUserByIdentifier($identifier);
     }
+    public function __toString()
+    {
+        $idutilisateur = $this->idutilisateur;
+        return strval($idutilisateur);
+    }
 }

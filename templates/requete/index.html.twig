@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Requete index{% endblock %}
+
+{% block body %}
+    <h1>Requete index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idrequete</th>
+                <th>Objet</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for requete in requetes %}
+            <tr>
+                <td>{{ requete.idrequete }}</td>
+                <td>{{ requete.objet }}</td>
+                <td>{{ requete.description }}</td>
+                <td>
+                    <a href="{{ path('app_requete_show', {'idrequete': requete.idrequete}) }}">show</a>
+                    <a href="{{ path('app_requete_edit', {'idrequete': requete.idrequete}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_requete_new') }}">Create new</a>
+{% endblock %}

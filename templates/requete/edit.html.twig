@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Requete{% endblock %}
+
+{% block body %}
+    <h1>Edit Requete</h1>
+
+    {{ include('requete/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_requete_index') }}">back to list</a>
+
+    {{ include('requete/_delete_form.html.twig') }}
+{% endblock %}

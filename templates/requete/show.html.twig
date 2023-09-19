@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Requete{% endblock %}
+
+{% block body %}
+    <h1>Requete</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idrequete</th>
+                <td>{{ requete.idrequete }}</td>
+            </tr>
+            <tr>
+                <th>Objet</th>
+                <td>{{ requete.objet }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ requete.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_requete_index') }}">back to list</a>
+
+    <a href="{{ path('app_requete_edit', {'idrequete': requete.idrequete}) }}">edit</a>
+
+    {{ include('requete/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Annonce{% endblock %}
+{% block title %}Modifier votre annonce{% endblock %}
 
 {% block body %}
-    <h1>Edit Annonce</h1>
+    <h1>Modifier votre annonce</h1>
 
+    {{ include('equide/_form.html.twig') }}
     {{ include('annonce/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('homepage') }}">back to list</a>
