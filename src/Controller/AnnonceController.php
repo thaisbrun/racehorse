@@ -123,12 +123,14 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('annonce/edit/{idannonce}', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Annonce $annonce, MyClassRepository $myClassRepository, TypeAnnonceRepository $typeAnnonceRepository): Response
+    public function edit(Request $request, Annonce $annonce, MyClassRepository $myClassRepository, EquideRepository $equideRepository, TypeAnnonceRepository $typeAnnonceRepository): Response
     {
         $listTypeAnnonce = $typeAnnonceRepository->findAll();
+        $idAnnonce = $annonce->getIdannonce();
         $form = $this->createForm(AnnonceType::class, $annonce);
+        $equide = $equideRepository->findByIdAnnonce($idAnnonce);
         $form->handleRequest($request);
-
+        $formEquide = $this->createForm(EquideType::class, $equide);
         if ($form->isSubmitted() && $form->isValid()) {
             $myClassRepository->save($annonce, true);
 
@@ -137,7 +139,9 @@ class AnnonceController extends AbstractController
 
         return $this->renderForm('annonce/edit.html.twig', [
             'annonce' => $annonce,
+            'equide' => $equide,
             'form' => $form,
+            'formEquide' => $formEquide,
             'listTypeAnnonce' => $listTypeAnnonce,
         ]);
     }
