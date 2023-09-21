@@ -40,7 +40,7 @@ class Requete
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idAuteurRequete", referencedColumnName="idUtilisateur")
+     *   @ORM\JoinColumn(name="idAuteurRequete", referencedColumnName="idUtilisateur",onDelete="CASCADE")
      * })
      */
     private $idauteurrequete;

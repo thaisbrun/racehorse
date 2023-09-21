@@ -40,20 +40,20 @@ class Equide
      *
      * @ORM\ManyToOne(targetEntity="Robe")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="robe", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="robe", referencedColumnName="id",onDelete="CASCADE")
      * })
      */
-    private $robe = NULL;
+    private $robe;
 
     /**
      *
      *
      *  @ORM\ManyToOne(targetEntity="Race")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="race", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="race", referencedColumnName="id",onDelete="CASCADE")
      * })
      */
-    private $race = NULL;
+    private $race;
 
     /**
      * @var int|null
@@ -74,7 +74,7 @@ class Equide
      *
      * @ORM\ManyToOne(targetEntity="Typeequide")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idTypeEq", referencedColumnName="idTypeEquide")
+     *   @ORM\JoinColumn(name="idTypeEq", referencedColumnName="idTypeEquide",onDelete="CASCADE")
      * })
      */
     private $idtypeeq;
@@ -84,7 +84,7 @@ class Equide
      *
      * @ORM\ManyToOne(targetEntity="Departement")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idDep", referencedColumnName="idDepartement")
+     *   @ORM\JoinColumn(name="idDep", referencedColumnName="idDepartement",onDelete="CASCADE")
      * })
      */
     private $iddep;
@@ -94,7 +94,7 @@ class Equide
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idProprio", referencedColumnName="idUtilisateur")
+     *   @ORM\JoinColumn(name="idProprio", referencedColumnName="idUtilisateur",onDelete="CASCADE")
      * })
      */
     private $idproprio;

@@ -153,7 +153,7 @@ class AnnonceController extends AbstractController
             $myClassRepository->remove($annonce, true);
         }
 
-        return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
     }
 
 

@@ -33,7 +33,7 @@ class Departement
      *
      * @ORM\ManyToOne(targetEntity="Region")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idRegionDep", referencedColumnName="idRegion")
+     *   @ORM\JoinColumn(name="idRegionDep", referencedColumnName="idRegion",onDelete="CASCADE")
      * })
      */
     private $idregiondep;

@@ -63,7 +63,7 @@ class Annonce
      *
      * @ORM\ManyToOne(targetEntity="Equide")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idEquideA", referencedColumnName="idEquide")
+     *   @ORM\JoinColumn(name="idEquideA", referencedColumnName="idEquide",onDelete="CASCADE")
      * })
      */
     private $idequidea;
@@ -73,7 +73,7 @@ class Annonce
      *
      * @ORM\ManyToOne(targetEntity="Typeannonce")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idTypeA", referencedColumnName="idTypeAnnonce")
+     *   @ORM\JoinColumn(name="idTypeA", referencedColumnName="idTypeAnnonce",onDelete="CASCADE")
      * })
      */
     private $idtypea;
@@ -83,7 +83,7 @@ class Annonce
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUtilisateurAnnonce", referencedColumnName="idUtilisateur")
+     *   @ORM\JoinColumn(name="idUtilisateurAnnonce", referencedColumnName="idUtilisateur",onDelete="CASCADE")
      * })
      */
     private $idutilisateurannonce;
