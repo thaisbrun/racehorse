@@ -10,7 +10,7 @@ use App\Entity\Utilisateur;
  * Annonce
  *
  * @ORM\Table(name="annonce", indexes={@ORM\Index(name="FK_EquideAnnonce", columns={"idEquideA"}), @ORM\Index(name="FK_UtilisateurAnnonce", columns={"idUtilisateurAnnonce"}), @ORM\Index(name="FK_TypeAnnonce", columns={"idTypeA"})})
- * @ORM\Entity(repositoryClass="App\Repository\MyClassRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\AnnonceRepository")
  */
 class Annonce
 {

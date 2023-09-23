@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Annonce[]    findAll()
  * @method Annonce[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MyClassRepository extends ServiceEntityRepository
+class AnnonceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -40,27 +40,6 @@ class MyClassRepository extends ServiceEntityRepository
     }
 
 //      @return Annonce[] Returns an array of Annonce objects
- public function findByTypeAnnonce(int $idtypea): array
-{
-    $qb = $this->createQueryBuilder('a')
-         ->select('a')
-        ->andWhere('a.idtypea = :idtypea')
-        ->setParameter('idtypea', $idtypea);
-    $query = $qb->getQuery();
-    return $query->execute();
-
-}
-
-    public function findByUser(int $idutilisateurannonce): array
-    {
-        $qb = $this->createQueryBuilder('a')
-            ->select('a')
-            ->andWhere('a.idutilisateurannonce = :idutilisateurannonce')
-            ->setParameter('idutilisateurannonce', $idutilisateurannonce);
-        $query = $qb->getQuery();
-        return $query->execute();
-
-    }
 //    public function findOneBySomeField($value): ?Annonce
 //    {
 //        return $this->createQueryBuilder('a')

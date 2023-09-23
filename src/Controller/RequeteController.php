@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Requete;
 use App\Form\RequeteType;
-use App\Repository\MyClassRepository;
+use App\Repository\AnnonceRepository;
 use App\Repository\RequeteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

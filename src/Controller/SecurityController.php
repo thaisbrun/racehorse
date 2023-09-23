@@ -7,7 +7,7 @@ use App\Entity\Utilisateur;
 use App\Form\AnnonceType;
 use App\Form\RegistrationFormType;
 use App\Form\UtilisateurType;
-use App\Repository\MyClassRepository;
+use App\Repository\AnnonceRepository;
 use App\Repository\UtilisateurRepository;
 use App\Security\AuthAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -57,10 +57,10 @@ class SecurityController extends AbstractController
     }
 
     #[Route('security/mes_annonces/{idutilisateur}', name: 'security/mes_annonces', methods: ['GET'])]
-    public function show_by_id_utilisateur(Utilisateur $user, MyClassRepository $myClassRepository): Response
+    public function show_by_id_utilisateur(Utilisateur $user, AnnonceRepository $annonceRepository): Response
     {
         $idutilisateur = $user->getIdutilisateur();
-        $listAnnonces = $myClassRepository->findByUser($idutilisateur);
+        $listAnnonces = $annonceRepository->findBy(array('idutilisateurannonce' => $idutilisateur));
         return $this->render('security/mes_annonces.html.twig', [
             'listAnnonces' => $listAnnonces,
         ]);

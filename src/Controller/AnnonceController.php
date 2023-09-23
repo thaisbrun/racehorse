@@ -9,17 +9,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Entity\Annonce;
 use App\Entity\Equide;
-use App\Entity\Typeannonce;
 use App\Form\AnnonceType;
 use App\Repository\DepartementRepository;
 use App\Repository\EquideRepository;
 use App\Repository\ImageRepository;
-use App\Repository\MyClassRepository;
+use App\Repository\AnnonceRepository;
 use App\Repository\RaceRepository;
 use App\Repository\RegionRepository;
 use App\Repository\RobeRepository;
 use App\Repository\TypeAnnonceRepository;
-use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,11 +27,11 @@ use Symfony\Component\HttpFoundation\Response;
 class AnnonceController extends AbstractController
 {
     #[Route('/', name: 'homepage', methods: ['GET'])]
-    public function index(MyClassRepository $myClassRepository,ImageRepository $imageRepository): Response
+    public function index(AnnonceRepository $annonceRepository): Response
     {
-        $annoncesVente = $myClassRepository->findByTypeAnnonce(1);
-        $annoncesLocation = $myClassRepository->findByTypeAnnonce(2);
-        $annoncesDP = $myClassRepository->findByTypeAnnonce(3);
+        $annoncesVente = $annonceRepository->FindBy(array('idtypea' => 1));
+        $annoncesLocation = $annonceRepository->FindBy(array('idtypea' => 2));
+        $annoncesDP = $annonceRepository->FindBy(array('idtypea' => 3));
         return $this->render('annonce/index.html.twig', [
             'annoncesVente' => $annoncesVente,
             'annoncesLocation' => $annoncesLocation,
@@ -41,7 +39,7 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, MyClassRepository $myClassRepository, TypeAnnonceRepository $typeAnnonceRepository, RaceRepository $raceRepository,
+    public function new(Request $request, AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository, RaceRepository $raceRepository,
     RobeRepository $robeRepository, EquideRepository $equideRepository, TypeEquideRepository $typeEquideRepository, DepartementRepository $departementRepository): Response
     {
         $annonce = new Annonce();
@@ -54,8 +52,7 @@ class AnnonceController extends AbstractController
         $listTypeEquide = $typeEquideRepository->findAll();
         $listDepartements = $departementRepository->findAll();
 
-        $idUser = $user->getIdutilisateur();
-        $annonce->setIdutilisateurannonce($idUser);
+        $annonce->setIdutilisateurannonce($user);
 
         $formEquide = $this->createForm(EquideType::class, $equide);
        // $formEquide = $this->handleRequest($request);
@@ -65,7 +62,7 @@ class AnnonceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $equideRepository->save($equide,true);
-            $myClassRepository->save($annonce, true);
+            $annonceRepository->save($annonce, true);
 
             return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         }
@@ -82,35 +79,29 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('annonce/show_by_type_annonce/{idtypea}', name: 'show_by_type_annonce', methods: ['GET'])]
-    public function show_by_type_annonce(int $idtypea, MyClassRepository $myClassRepository): Response
+    public function show_by_type_annonce(int $idtypea, AnnonceRepository $annonceRepository): Response
     {
-        $listAnnonces = $myClassRepository->findByTypeAnnonce($idtypea);
+        $listAnnonces = $annonceRepository->FindBy(array('idtypea' => $idtypea));
         return $this->render('annonce/show_by_type_annonce.html.twig', [
             'listAnnonces' => $listAnnonces,
         ]);
     }
     #[Route('annonce/show/{idannonce}', name: 'app_annonce_show', methods: ['GET'])]
-    public function show(Annonce $annonce, EquideRepository $equideRepository, RaceRepository $raceRepository, RobeRepository $robeRepository,
-    DepartementRepository $departementRepository, RegionRepository $regionRepository, UtilisateurRepository $userRepository): Response
+    public function show(Annonce $annonce, EquideRepository $equideRepository, DepartementRepository $departementRepository, RegionRepository $regionRepository): Response
     {
-        $idAnnonce = $annonce->getIdannonce();
-        $equide = $equideRepository->findByIdAnnonce($idAnnonce);
+        $idEquide = $annonce->getIdequidea()->getIdequide();
+        $equide = $equideRepository->findOneBy(array('idequide' => $idEquide));
 
-        $idEquideRace = $equide->getRace()->getId();
-        $idEquideRobe = $equide->getRobe()->getId();
+        $race = $annonce->getIdequidea()->getRace();
+        $robe = $annonce->getIdequidea()->getRobe();
 
+        $idEquideDep = $annonce->getIdequidea()->getIddep();
+        $departement = $departementRepository->findOneBy(array('iddepartement' => $idEquideDep));
 
-        $race = $raceRepository->findByIdEquide($idEquideRace);
-        $robe = $robeRepository->findByIdEquide($idEquideRobe);
+        $idEquideRegion = $annonce->getIdequidea()->getIddep()->getIdregiondep();
+        $region = $regionRepository->findOneBy(array('idregion' => $idEquideRegion));
 
-        $idEquideDep = $equide->getIddep();
-        $departement = $departementRepository->findByIdDepEquide($idEquideDep);
-
-        $idDepartement = $departement->getIdregiondep();
-        $region = $regionRepository->findByIdDepartement($idDepartement);
-
-        $idUtil = $equide->getIdproprio();
-        $user = $userRepository->findByIdProprio($idUtil);
+        $user = $annonce->getIdequidea()->getIdproprio();
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
             'equide' => $equide,
@@ -123,18 +114,18 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('annonce/edit/{idannonce}', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Annonce $annonce, MyClassRepository $myClassRepository, EquideRepository $equideRepository, TypeAnnonceRepository $typeAnnonceRepository): Response
+    public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository, EquideRepository $equideRepository, TypeAnnonceRepository $typeAnnonceRepository): Response
     {
         $listTypeAnnonce = $typeAnnonceRepository->findAll();
-        $idAnnonce = $annonce->getIdannonce();
         $form = $this->createForm(AnnonceType::class, $annonce);
-        $equide = $equideRepository->findByIdAnnonce($idAnnonce);
+        $idEquide = $annonce->getIdequidea()->getIdequide();
+        $equide = $equideRepository->findOneBy(array('idequide' => $idEquide));
         $form->handleRequest($request);
         $formEquide = $this->createForm(EquideType::class, $equide);
         if ($form->isSubmitted() && $form->isValid()) {
-            $myClassRepository->save($annonce, true);
+            $annonceRepository->save($annonce, true);
 
-            return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('annonce/edit.html.twig', [
@@ -147,7 +138,7 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('annonce/delete/{idannonce}', name: 'app_annonce_delete', methods: ['POST'])]
-    public function delete(Request $request, Annonce $annonce, MyClassRepository $myClassRepository): Response
+    public function delete(Request $request, Annonce $annonce, AnnonceRepository $myClassRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$annonce->getIdannonce(), $request->request->get('_token'))) {
             $myClassRepository->remove($annonce, true);

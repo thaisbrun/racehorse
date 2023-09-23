@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Equide
  *
- * @ORM\Table(name="equide", indexes={@ORM\Index(name="FK_EquideDep", columns={"idDep"}), @ORM\Index(name="FK_EquideProprio", columns={"idProprio"}), @ORM\Index(name="FK_TypeEquide", columns={"idTypeEq"})})
+ * @ORM\Table(name="equide", indexes={@ORM\Index(name="FK_EquideDep", columns={"idDep"}), @ORM\Index(name="FK_EquideProprio", columns={"idProprio"}), @ORM\Index(name="FK_TypeEquide", columns={"idTypeEq"}),@ORM\Index(name="FK_EquideRobe", columns={"robe"}),@ORM\Index(name="FK_EquideRace", columns={"race"})})
  * @ORM\Entity(repositoryClass="App\Repository\EquideRepository")
  */
 class Equide
@@ -37,6 +37,7 @@ class Equide
     private $datenaiss = NULL;
 
     /**
+     * @var \Robe
      *
      * @ORM\ManyToOne(targetEntity="Robe")
      * @ORM\JoinColumns({
@@ -46,7 +47,7 @@ class Equide
     private $robe;
 
     /**
-     *
+     *@var \Race
      *
      *  @ORM\ManyToOne(targetEntity="Race")
      * @ORM\JoinColumns({
