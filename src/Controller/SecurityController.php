@@ -77,9 +77,7 @@ class SecurityController extends AbstractController
     #[Route(path: 'security/emailForPassword', name: 'security/emailForPassword')]
     public function emailForPassword(string $mail): Response
     {
-        // get the login error if there is one
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
+
         return $this->render('security/viewProfil.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
