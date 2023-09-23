@@ -23,12 +23,12 @@
                     <div class="control">
                     <input type="text" value="{{ last_username }}" name="login" id="inputPseudo" class="input is-outlined is-warning" autocomplete="username" required autofocus>
                     </div>
-                    <p class="help is-danger is-underlined">Pseudo et/ou mot de passe oublié</p>
                 </div>
                 <div class="field">
                     <label for="inputPassword" class="label">Mot de passe</label>
                     <div class="control">
     <input type="password" name="password" id="inputPassword" class="input is-outlined is-warning" autocomplete="current-password" required>
+                        <a href="{{ path('emailForPassword') }}" class="help is-danger is-underlined">Mot de passe oublié</a>
                     </div>
                 </div>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
