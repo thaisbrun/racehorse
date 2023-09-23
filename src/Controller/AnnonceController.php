@@ -39,41 +39,33 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository, RaceRepository $raceRepository,
-    RobeRepository $robeRepository, EquideRepository $equideRepository, TypeEquideRepository $typeEquideRepository, DepartementRepository $departementRepository): Response
+    public function new(Request $request, AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository,
+    EquideRepository $equideRepository): Response
     {
         $annonce = new Annonce();
         $equide = new Equide();
-
         $user = $this->getUser();
         $listTypeAnnonce = $typeAnnonceRepository->findAll();
-        $listRaces = $raceRepository->findAll();
-        $listRobes = $robeRepository->findAll();
-        $listTypeEquide = $typeEquideRepository->findAll();
-        $listDepartements = $departementRepository->findAll();
 
         $annonce->setIdutilisateurannonce($user);
-
-        $formEquide = $this->createForm(EquideType::class, $equide);
-       // $formEquide = $this->handleRequest($request);
         $form = $this->createForm(AnnonceType::class, $annonce);
+        $formEquide = $this->createForm(EquideType::class, $annonce);
+        $formEquide->handleRequest($request);
         $form->handleRequest($request);
 
+        if ($formEquide->isSubmitted() && $formEquide->isValid()) {
+            $equideRepository->save($equide, true);
+            $annonce->setIdequidea($equide);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $equideRepository->save($equide,true);
-            $annonceRepository->save($annonce, true);
-
-            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+           $annonceRepository->save($annonce, true);
+           return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('annonce/new.html.twig', [
             'annonce' => $annonce,
             'listTypeAnnonce' => $listTypeAnnonce,
-            'listRaces' => $listRaces,
-            'listRobes' => $listRobes,
-            'listTypeEquide' => $listTypeEquide,
-            'listDepartements' => $listDepartements,
             'form' => $form,
             'formEquide' => $formEquide,
         ]);

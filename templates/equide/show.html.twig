@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equide{% endblock %}
+
+{% block body %}
+    <h1>Equide</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idequide</th>
+                <td>{{ equide.idequide }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ equide.nom }}</td>
+            </tr>
+            <tr>
+                <th>Datenaiss</th>
+                <td>{{ equide.datenaiss ? equide.datenaiss|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Taille</th>
+                <td>{{ equide.taille }}</td>
+            </tr>
+            <tr>
+                <th>Lienhn</th>
+                <td>{{ equide.lienhn }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_equide_index') }}">back to list</a>
+
+    <a href="{{ path('app_equide_edit', {'idequide': equide.idequide}) }}">edit</a>
+
+    {{ include('equide/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equide index{% endblock %}
+
+{% block body %}
+    <h1>Equide index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idequide</th>
+                <th>Nom</th>
+                <th>Datenaiss</th>
+                <th>Taille</th>
+                <th>Lienhn</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for equide in equides %}
+            <tr>
+                <td>{{ equide.idequide }}</td>
+                <td>{{ equide.nom }}</td>
+                <td>{{ equide.datenaiss ? equide.datenaiss|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ equide.taille }}</td>
+                <td>{{ equide.lienhn }}</td>
+                <td>
+                    <a href="{{ path('app_equide_show', {'idequide': equide.idequide}) }}">show</a>
+                    <a href="{{ path('app_equide_edit', {'idequide': equide.idequide}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_equide_new') }}">Create new</a>
+{% endblock %}
