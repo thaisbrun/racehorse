@@ -28,7 +28,7 @@
                     <label for="inputPassword" class="label">Mot de passe</label>
                     <div class="control">
     <input type="password" name="password" id="inputPassword" class="input is-outlined is-warning" autocomplete="current-password" required>
-                        <a href="{{ path('emailForPassword') }}" class="help is-danger is-underlined">Mot de passe oublié</a>
+                        <a href="{{ path('security/forgottenPassword') }}" class="help is-danger is-underlined">Mot de passe oublié</a>
                     </div>
                 </div>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">

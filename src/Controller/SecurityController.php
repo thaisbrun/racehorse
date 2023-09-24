@@ -6,6 +6,7 @@ use App\Entity\Annonce;
 use App\Entity\Utilisateur;
 use App\Form\AnnonceType;
 use App\Form\RegistrationFormType;
+use App\Form\ResetPasswordRequestFormType;
 use App\Form\UtilisateurType;
 use App\Repository\AnnonceRepository;
 use App\Repository\UtilisateurRepository;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -74,11 +76,29 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('security/viewProfil.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
-    #[Route(path: 'security/emailForPassword', name: 'security/emailForPassword')]
-    public function emailForPassword(string $mail): Response
+    #[Route(path: 'security/forgottenPassword', name: 'security/forgottenPassword')]
+    public function forgottenPassword(Request $request, UtilisateurRepository $utilisateurRepository,
+    TokenGeneratorInterface $tokenGenerator, EntityManagerInterface $entityManager): Response
     {
+        $formPassword = $this->createForm(ResetPasswordRequestFormType::class);
+        $formPassword->handleRequest($request);
+        if($formPassword->isSubmitted() && $formPassword->isValid())
+        {
+            $user = $utilisateurRepository->findOneBy(array('mail' =>$formPassword->get('mail')->getData()));
 
-        return $this->render('security/viewProfil.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        if($user){
+            
+        }
+
+        $this->addFlash('danger','Un problème est survenu');
+        return $this->redirectToRoute('security/forgottenPassword');
+
+        }
+        return $this->render('security/reset_password_request.html.twig',
+            [
+                'formPassword' => $formPassword->createView(),
+            ]);
+
     }
 
     #[Route(path: 'security/logout', name: 'security/app_logout')]
