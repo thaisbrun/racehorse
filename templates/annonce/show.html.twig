@@ -14,27 +14,30 @@
         <div class="column">
             <!-- nom equide -->
             <div class="column">
-                <h4>{{ annonce.titre }} {{ annonce.prix }} € </h4>
-<br>
-            <p>{{ equide.nom }}
-            {{ equide.dateNaiss|date("d/m/Y") }}
-            {{ equide.taille }} cm
-            {{ race.libelle }}
-            {{ robe.libelle }}
-            {{ departement.libelle }}
-            {{ region.libelle }}
-            {{ user.login }}
-            </p>
-
-            <h3><a href="{{ equide.lienhn }}">Voir infos Haras Nationaux</a></h3>
+                <h4>{{ annonce.titre }} - {{ annonce.prix }} € </h4>
+            </div>
+                <h3>Nom de l'équidé : </h3> {{ equide.nom }}
+                <h3>Date de naissance : </h3> {{ equide.dateNaiss|date("d/m/Y") }}
+                <h3>Taille : </h3> {{ equide.taille }} cm
+                <h3>Race : </h3> {{ race.libelle }}
+                <h3>Robe :  </h3>{{ robe.libelle }}
+                <h3>Infos Haras Nationaux : <a href="{{ equide.lienhn }}">Voir infos</a></h3>
+                <h3>Lieu : </h3> {{ departement.libelle }} en {{ region.libelle }}
             <br>
-            <p>{{ annonce.description }}</p>
+                <br>
+                Annonce postée par {{ user.login }}.
+
+            <br>
+            <p><h3>Description : </h3>{{ annonce.description }}</p>
             <br>
         </div>
     </div>
 </div>
-    <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a>
-    <a href="{{ path('homepage') }}">Retour au menu</a>
+    {% if app.user == annonce.idutilisateurannonce %}
+    <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}"> edit </a>
+    <a href="{{ path('homepage') }}"> Retour au menu </a>
+
+        {% include('annonce/_delete_form.html.twig') %}
+    {% endif %}
 </div>
-     {% include('annonce/_delete_form.html.twig') %}
 {% endblock %}
