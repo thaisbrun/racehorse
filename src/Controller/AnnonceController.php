@@ -38,6 +38,14 @@ class AnnonceController extends AbstractController
             'annoncesDP' => $annoncesDP,
         ]);
     }
+    #[Route('/annonce/all_annonces', name: 'app_annonce_all_annonces', methods: ['GET'])]
+    public function all_annonces(AnnonceRepository $annonceRepository): Response
+    {
+        $listAnnonces = $annonceRepository->findAll();
+        return $this->render('annonce/all_annonces.html.twig', [
+            'listAnnonces' => $listAnnonces,
+        ]);
+    }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository,
     EquideRepository $equideRepository): Response
