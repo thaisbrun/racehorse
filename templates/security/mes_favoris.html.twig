@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Favoris{% endblock %}
+
+{% block body %}
+    <h1>Annonce</h1>
+
+    {% for favori in listFavoris %}
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>IdUtilisateurFav</th>
+                <td>{{ favori.idutilisateurfav }}</td>
+            </tr>
+            <tr>
+                <th>IdAnnonceFav</th>
+                <td>{{ favori.idannoncefav }}</td>
+            </tr>
+           <tr>
+                <th>Datecreation</th>
+                <td>{{ favori.datecreation ? favori.datecreation|date('Y-m-d') : '' }}</td>
+            </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+    <a href="{{ path('homepage') }}">back to list</a>
+{% endblock %}

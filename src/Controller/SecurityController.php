@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Favoris;
 use App\Entity\Utilisateur;
 use App\Form\AnnonceType;
 use App\Form\RegistrationFormType;
 use App\Form\ResetPasswordRequestFormType;
 use App\Form\UtilisateurType;
 use App\Repository\AnnonceRepository;
+use App\Repository\FavorisRepository;
 use App\Repository\UtilisateurRepository;
 use App\Security\AuthAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -65,6 +67,16 @@ class SecurityController extends AbstractController
         $listAnnonces = $annonceRepository->findBy(array('idutilisateurannonce' => $idutilisateur));
         return $this->render('security/mes_annonces.html.twig', [
             'listAnnonces' => $listAnnonces,
+        ]);
+    }
+    #[Route('security/mes_favoris/{idutilisateur}', name: 'security/mes_favoris', methods: ['GET'])]
+    public function show_fav(Utilisateur $user, FavorisRepository $favorisRepository, AnnonceRepository $annonceRepository): Response
+    {
+        //Trouver les annonces qui ont le meme idAnnonceUtilisateur que l'utilisateur connecté
+        $idutilisateur = $user->getIdutilisateur();
+        $listFavoris = $favorisRepository->findBy(array('idutilisateurfav' => $idutilisateur));
+        return $this->render('security/mes_favoris.html.twig', [
+            'listFavoris' => $listFavoris,
         ]);
     }
     #[Route(path: 'security/viewProfil', name: 'security/app_viewProfil')]

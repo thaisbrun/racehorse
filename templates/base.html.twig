@@ -32,7 +32,7 @@
         {% if app.user %}
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <div class="column is-two-thirds"><a href="{{ path('security/app_register') }}" ><strong>Mes favoris</strong></a></div>
+                    <div class="column is-two-thirds"><a href="{{ path('security/mes_favoris',{'idutilisateur': app.user.idutilisateur}) }}" ><strong>Mes favoris</strong></a></div>
                     <div class="column is-one-fifth"><a href="{{ path('security/app_viewProfil') }}">{{  app.user.login }}</a>
                 </div>
                 </div>
