@@ -15,9 +15,8 @@ class RequeteType extends AbstractType
         $builder
             ->add('objet')
             ->add('description')
-          ->add('idauteurrequete', UtilisateurType::class,[
-              'data_class' => Utilisateur::class,
-        ])
+         // ->add('idauteurrequete', UtilisateurType::class,[
+           //   'data_class' => Utilisateur::class,
         ;
     }
 

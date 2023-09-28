@@ -20,12 +20,15 @@ class RequeteController extends AbstractController
     {
         $requete = new Requete();
         $form = $this->createForm(RequeteType::class, $requete);
+        $user = $this->getUser();
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $requete->setIdauteurrequete($user);
             $entityManager->persist($requete);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Votre demande a été envoyée, votre réponse sera envoyé par mail. ');
             return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         }
 

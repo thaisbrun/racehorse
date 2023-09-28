@@ -18,8 +18,8 @@
                     <textarea name="{{ field_name(form.description) }}" class="textarea is-warning" placeholder="Écrire ici..."></textarea>
                 </div>
             </div>
+            {{ form_row(form._token) }}
             <br>
-            <input class="input is-warning" name="{{ field_name(form.idauteurrequete) }}" value="{{ app.user }}"style="width:500px;" readonly hidden>
             <div class="field">
                 <div class="control">
                     <button class="button is-warning">{{ button_label|default('Envoyer ma demande') }}</button>
