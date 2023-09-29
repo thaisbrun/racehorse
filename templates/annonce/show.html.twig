@@ -8,7 +8,9 @@
     <div class="columns">
         <div class="column is-half">
             <div class="box has-background-warning-light">
-                <img src="{{ asset('imgAnnonce/DSC_9358.jpg') }}" alt="Placeholder image">
+                {% for image in listImages %}
+                <img src="{{ asset('imgAnnonce/'~image.lienImage) }}" alt="Placeholder image">
+                {% endfor %}
             </div>
             </div>
         <div class="column">

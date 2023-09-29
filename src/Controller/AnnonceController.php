@@ -87,11 +87,11 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('annonce/show/{idannonce}', name: 'app_annonce_show', methods: ['GET'])]
-    public function show(Annonce $annonce, EquideRepository $equideRepository, DepartementRepository $departementRepository, RegionRepository $regionRepository): Response
+    public function show(Annonce $annonce, ImageRepository $imageRepository,EquideRepository $equideRepository, DepartementRepository $departementRepository, RegionRepository $regionRepository): Response
     {
         $idEquide = $annonce->getIdequidea()->getIdequide();
         $equide = $equideRepository->findOneBy(array('idequide' => $idEquide));
-
+        $listImages = $imageRepository->findBy(array('idannonceimage' => $annonce->getIdannonce()));
         $race = $annonce->getIdequidea()->getRace();
         $robe = $annonce->getIdequidea()->getRobe();
 
@@ -110,6 +110,7 @@ class AnnonceController extends AbstractController
             'departement' => $departement,
             'region' => $region,
             'user' => $user,
+            'listImages' => $listImages,
         ]);
     }
 
