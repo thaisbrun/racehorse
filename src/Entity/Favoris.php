@@ -42,7 +42,6 @@ class Favoris
     {
         return $this->idutilisateurfav;
     }
-
     public function getIdannoncefav(): ?int
     {
         return $this->idannoncefav;

@@ -27,7 +27,7 @@ use Symfony\Component\HttpFoundation\Response;
 class AnnonceController extends AbstractController
 {
     #[Route('/', name: 'homepage', methods: ['GET'])]
-    public function index(AnnonceRepository $annonceRepository): Response
+    public function index(AnnonceRepository $annonceRepository, ImageRepository $imageRepository): Response
     {
         $annoncesVente = $annonceRepository->FindBy(array('idtypea' => 1));
         $annoncesLocation = $annonceRepository->FindBy(array('idtypea' => 2));

@@ -43,6 +43,15 @@
                             <div class="media-content">
                                 <p class="title is-4">{{ annonce.titre }}</p>
                                 <p class="subtitle is-6">{{ annonce.prix }} €</p>
+                                <span class="icon-text">
+                                <span class="icon is-left">
+                                    {# Si une table possède un tuple existant alors le coeur est plein et en cliquant dessus
+                                    le user supprime le favori #}
+                                    {# Sinon le coeur est vide et en cliquant dessus, le user ajoute un favori #}
+                                    <i class="fa-regular fa-heart"></i></a>
+                                </span>
+                                <span>Mettre en favori</span>
+                                </span>
                             </div>
                         </div>
                         <div class="content">
