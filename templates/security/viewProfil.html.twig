@@ -3,7 +3,7 @@
 {% block title %}Mon profil{% endblock %}
 
 {% block body %}
-    <img src="{{ asset('img/connexion.png') }}">
+    <img src="{{ asset('img/viewProfil.jpg') }}">
     <div class="container">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -11,26 +11,28 @@
 
     {% if app.user %}
         <div class="mb-3">
-            Vous êtes connectés en tant que {{ app.user.userIdentifier }},
+            <br>
+           Bonjour {{ app.user.userIdentifier }} ! Vous êtes bien connectés sur PonyShop.
         </div>
-
     {% endif %}
-
+<br>
         <div class="columns">
             <div class="column is-half">
-                <a class="button is-warning" href="{{ path('security/mes_annonces',{'idutilisateur': app.user.idutilisateur}) }}">Gérer mes annonces</a>
+                <a class="button is-warning is-large" href="{{ path('security/mes_annonces',{'idutilisateur': app.user.idutilisateur}) }}">Gérer mes annonces</a>
             </div>
             <div class="column">
-                <a class="button is-warning" href="{{ path('security/app_user_edit', {'idutilisateur': app.user.idutilisateur}) }}">Modifier mes infos de profil</a>
+                <a class="button is-warning is-large" href="{{ path('security/app_user_edit', {'idutilisateur': app.user.idutilisateur}) }}">Modifier mes informations de profil</a>
             </div>
         </div>
+        <br>
+        <br>
         <div class="columns">
             <div class="column is-half">
-                <a href="{{ path('security/app_logout') }}">Déconnexion</a>
+                <a class="button is-warning is-light" href="{{ path('security/app_logout') }}">Déconnexion</a>
             </div>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <div class="column">
-                <a href="{{ path('security/app_delete', {'idutilisateur': app.user.idutilisateur}) }}">Supprimer mon compte</a>
+                <a class="button is-danger" href="{{ path('security/app_delete', {'idutilisateur': app.user.idutilisateur}) }}">Supprimer mon compte</a>
             </div>
 
         </div>

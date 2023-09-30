@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Favoris{% endblock %}
+{% block title %}Mes favoris{% endblock %}
 
 {% block body %}
     <h1>Annonce</h1>
@@ -16,10 +16,6 @@
             <tr>
                 <th>IdAnnonceFav</th>
                 <td>{{ favori.idannoncefav }}</td>
-            </tr>
-           <tr>
-                <th>Datecreation</th>
-                <td>{{ favori.datecreation ? favori.datecreation|date('Y-m-d') : '' }}</td>
             </tr>
             </tbody>
         </table>

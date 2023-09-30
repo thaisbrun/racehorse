@@ -14,20 +14,24 @@ use Doctrine\ORM\Mapping as ORM;
 class Favoris
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idUtilisateurFav", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @var \Utilisateur
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idUtilisateurFav", referencedColumnName="idUtilisateur",onDelete="CASCADE")
+     * })
      */
     private $idutilisateurfav;
 
     /**
-     * @var int
+     * @var \Annonce
      *
-     * @ORM\Column(name="idAnnonceFav", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\ManyToOne(targetEntity="Annonce")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idAnnonceFav", referencedColumnName="idAnnonce",onDelete="CASCADE")
+     * })
      */
     private $idannoncefav;
 
@@ -38,13 +42,26 @@ class Favoris
      */
     private $datecreation = 'NULL';
 
-    public function getIdutilisateurfav(): ?int
+    public function getIdutilisateurfav(): ?Utilisateur
     {
         return $this->idutilisateurfav;
     }
-    public function getIdannoncefav(): ?int
+    public function setIdutilisateurfav(?Utilisateur $idutilisateurfav): self
+    {
+        $this->idutilisateurfav = $idutilisateurfav;
+
+        return $this;
+    }
+
+    public function getIdannoncefav(): ?Annonce
     {
         return $this->idannoncefav;
+    }
+    public function setIdannoncefav(?Annonce $idannoncefav): self
+    {
+        $this->idannoncefav = $idannoncefav;
+
+        return $this;
     }
 
     public function getDatecreation(): ?\DateTimeInterface

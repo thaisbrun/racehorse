@@ -205,5 +205,7 @@ class Annonce
         $this->listImages = $listImages;
     }
 
-
+    public function __toString(){
+        return $this->getDescription();
+    }
 }

@@ -7,6 +7,12 @@
     <br>
     <h2 style="text-decoration: underline;">Toutes les annonces disponibles</h2>
     <br>
+    <form id="filters">
+            {% for typeAnnonce in listTypeAnnonces %}
+            <p><input type="checkbox" name="listTypeAnnonces[]" id="typeAnnonce{{ typeAnnonce.idtypeannonce }}" value="{{ typeAnnonce.idtypeannonce }}">
+            <label for="typeAnnonce{{ typeAnnonce.idtypeannonce }}">{{ typeAnnonce.libelle }}</label></p>
+            {% endfor %}
+    </form>
     <div class="columns">
         {% for annonce in listAnnonces %}
             <div class="column">
