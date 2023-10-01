@@ -39,10 +39,18 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('/annonce/all_annonces', name: 'app_annonce_all_annonces', methods: ['GET'])]
-    public function all_annonces(AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository): Response
+    public function all_annonces(AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository, Request $request): Response
     {
-        $listAnnonces = $annonceRepository->findAll();
+        //On récupère des filtres
+        $filters = $request->get("listTypeAnnonces");
+
+       $listAnnonces = $annonceRepository->getFiltersAnnonces($filters);
         $listTypeAnnonces = $typeAnnonceRepository->findAll();
+          //On vérifie si y a une requête Ajax
+        if($request->get('ajax')){
+            return "ok";
+        }
+
         return $this->render('annonce/all_annonces.html.twig', [
             'listAnnonces' => $listAnnonces,
             'listTypeAnnonces' => $listTypeAnnonces,

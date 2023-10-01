@@ -39,14 +39,16 @@ class AnnonceRepository extends ServiceEntityRepository
         }
     }
 
-//      @return Annonce[] Returns an array of Annonce objects
-//    public function findOneBySomeField($value): ?Annonce
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getFiltersAnnonces($filters = null)
+   {
+        $query = $this->createQueryBuilder('a')
+           ->andWhere('a.activation = 1');
+            //On filtre les données
+            if($filters != null){
+                $query->andWhere('a.idtypea IN(:val)')
+                ->setParameter(':val', array_values((array)$filters));
+
+            }
+                return $query->getQuery()->getResult();
+   }
 }
