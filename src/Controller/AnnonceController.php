@@ -5,6 +5,7 @@ use App\Entity\Utilisateur;
 use App\Form\EquideType;
 use App\Repository\TypeEquideRepository;
 use http\Client\Curl\User;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Entity\Annonce;
@@ -46,9 +47,13 @@ class AnnonceController extends AbstractController
 
        $listAnnonces = $annonceRepository->getFiltersAnnonces($filters);
         $listTypeAnnonces = $typeAnnonceRepository->findAll();
+
           //On vérifie si y a une requête Ajax
         if($request->get('ajax')){
-            return "ok";
+            return new JsonResponse([
+                'content' => $this->renderView('annonce/_content.html.twig', [
+                    'listAnnonces' => $listAnnonces])
+            ]);
         }
 
         return $this->render('annonce/all_annonces.html.twig', [

@@ -21,10 +21,14 @@ window.onload = () => {
                    headers:{
                        "X-Requested-with": "XMLHttpRequest"
                    }
-               }).then(response => {
-                   console.log(response)
-               }).catch(e => alert(e));
-               console.log(Url);
+               }).then(response => response.json()
+               ).then(data => {
+                   //On va chercher le contenu
+                   const content = document.querySelector("#content");
+                   //On met à jour le contenu
+                   content.innerHTML = data.content;
+                   })
+                   .catch(e => alert(e));
            })
         });
 }

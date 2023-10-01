@@ -1,0 +1,34 @@
+<div class="container is-widescreen">
+    <div class="columns">
+    {% for annonce in listAnnonces %}
+        <div class="column">
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image is-4by3">
+                        <img src="{{ asset('imgAnnonce/first.JPG') }}" alt="Placeholder image">
+                    </figure>
+                </div>
+                <div class="card-content">
+                    <div class="media">
+
+                        <div class="media-content">
+                            <p class="title is-4">{{ annonce.titre }}</p>
+                            <p class="subtitle is-6">{{ annonce.prix }} €</p>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-warning is-light">En savoir plus</button></a>
+                        <br>
+                        <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>
+{% block javascripts %}
+    <script src="https://kit.fontawesome.com/4649941f6a.js" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/script.js')}}"></script>
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
