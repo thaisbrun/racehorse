@@ -40,15 +40,22 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('/annonce/all_annonces', name: 'app_annonce_all_annonces', methods: ['GET'])]
-    public function all_annonces(AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository, Request $request): Response
+    public function all_annonces(AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository, DepartementRepository $departementRepository,
+                                 RobeRepository $robeRepository, RaceRepository $raceRepository, Request $request): Response
     {
         //On récupère des filtres
         $filters = $request->get("listTypeAnnonces");
+        $departements = $request->get("listDepartements");
+        $races = $request->get("listRaces");
+        $robes = $request->get("listRobes");
 
-       $listAnnonces = $annonceRepository->getFiltersAnnonces($filters);
+       $listAnnonces = $annonceRepository->getFiltersAnnonces($filters, $departements, $races, $robes);
         $listTypeAnnonces = $typeAnnonceRepository->findAll();
+        $listDepartements = $departementRepository->findAll();
+        $listRobes = $robeRepository->findAll();
+        $listRaces = $raceRepository->findAll();
 
-          //On vérifie si y a une requête Ajax
+        //On vérifie si y a une requête Ajax
         if($request->get('ajax')){
             return new JsonResponse([
                 'content' => $this->renderView('annonce/_content.html.twig', [
@@ -59,6 +66,9 @@ class AnnonceController extends AbstractController
         return $this->render('annonce/all_annonces.html.twig', [
             'listAnnonces' => $listAnnonces,
             'listTypeAnnonces' => $listTypeAnnonces,
+            'listDepartements' => $listDepartements,
+            'listRobes' => $listRobes,
+            'listRaces' => $listRaces
         ]);
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]

@@ -3,8 +3,7 @@ function closeMessage(){
 }
 window.onload = () => {
         const FiltersForm = document.querySelector("#filters");
-
-        document.querySelectorAll("#filters input").forEach(input =>{
+    document.querySelectorAll("#filters input, div.select").forEach(input =>{
            input.addEventListener("change", () =>{
                //On récupère les données du formulaire
                const Form = new FormData(FiltersForm);
@@ -31,4 +30,6 @@ window.onload = () => {
                    .catch(e => alert(e));
            })
         });
+
+
 }
