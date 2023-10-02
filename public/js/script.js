@@ -31,5 +31,14 @@ window.onload = () => {
            })
         });
 
-
+    function addFavori(){
+    window.onload = () => {
+        const FavorisForm = document.querySelector("#favoris");
+        document.querySelectorAll("#favori input").forEach(input =>{
+            input.addEventListener("change", () =>{
+                //On récupère les données du formulaire
+        });
+        })
+    }
+}
 }
