@@ -1,7 +1,7 @@
 {% block body %}
 <div class="container is-widescreen">
     <br>
-    {{ form_start(form) }}
+    {{ form_start(formEquide) }}
     <br>
     <div class="columns">
         <div class="column">
@@ -12,7 +12,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input name="{{ field_name(form.nom) }}"  placeholder="Entrer le nom de votre équidé" class="input is-warning"/>
+                            <input name="{{ field_name(formEquide.nom) }}"  placeholder="Entrer le nom de votre équidé" class="input is-warning"/>
                         </p>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input class="input is-warning" name="{{ field_name(form.datenaiss) }}" type="date" placeholder="Warning input">
+                            <input class="input is-warning" name="{{ field_name(formEquide.datenaiss) }}" type="date" placeholder="Warning input">
                         </p>
                     </div>
                 </div>
@@ -40,9 +40,9 @@
                     <label class="label"> Robe : </label>
                 </div>
                 <div class="select is-warning">
-                    <select name="{{ field_name(form.robe) }}">
+                    <select name="{{ field_name(formEquide.robe) }}">
                         {% for robe in  listRobes %}
-                            <option value="{{ field_value(form.robe) }}"> {{ robe.libelle }}</option>
+                            <option value="{{ field_value(formEquide.robe) }}"> {{ robe.libelle }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -54,9 +54,9 @@
                     <label class="label"> Race : </label>
                 </div>
                 <div class="select is-warning">
-                    <select name="{{ field_name(form.race) }}">
+                    <select name="{{ field_name(formEquide.race) }}">
                         {% for race in  listRaces %}
-                            <option value="{{ field_value(form.race) }}"> {{ race.libelle }}</option>
+                            <option value="{{ field_value(formEquide.race) }}"> {{ race.libelle }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -70,7 +70,7 @@
                 {# Nom de l'équide #}
                 <div class="field-body">
                     <div class="field">
-                        <input type="number" class="input is-warning" name="{{ field_name(form.taille) }}" min=40" max="200" />
+                        <input type="number" class="input is-warning" name="{{ field_name(formEquide.taille) }}" min=40" max="200" />
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input name="{{ field_name(form.lienhn) }}"  placeholder="https://infochevaux.ifce.fr/fr/etc.." class="input is-warning"/>
+                            <input name="{{ field_name(formEquide.lienhn) }}"  placeholder="https://infochevaux.ifce.fr/fr/etc.." class="input is-warning"/>
                         </p>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                 </div>
                 {% for typeEquide in  listTypeEquide %}
 
-                    <input type="radio" name="answer" name="{{ field_name(form.idtypeeq) }}" value="{{ field_value(form.idtypeeq) }}">
+                    <input type="radio" name="answer" name="{{ field_name(formEquide.idtypeeq) }}" value="{{ field_value(formEquide.idtypeeq) }}">
                     <label> {{ typeEquide.libelle }}</label>
                 {% endfor %}
             </div>
@@ -109,15 +109,15 @@
                     <label class="label"> Département : </label>
                 </div>
                 <div class="select is-warning">
-                    <select name="{{ field_name(form.iddep) }}">
+                    <select name="{{ field_name(formEquide.iddep) }}">
                         {% for departement in  listDepartements %}
-                            <option value="{{ field_value(form.iddep) }}"> {{ departement.libelle }}</option>
+                            <option value="{{ field_value(formEquide.iddep) }}"> {{ departement.libelle }}</option>
                         {% endfor %}
                     </select>
                 </div>
             </div>
         </div>
         <button type="submit" class="button is-warning">Valider les informations de l'équidé</button>
-    </div>    {{ form_end(form) }}
+    </div>    {{ form_end(formEquide) }}
 </div>
 {% endblock %}

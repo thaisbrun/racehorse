@@ -80,7 +80,6 @@ class AnnonceController extends AbstractController
         $user = $this->getUser();
         $listTypeAnnonce = $typeAnnonceRepository->findAll();
 
-        $annonce->setIdutilisateurannonce($user);
         $form = $this->createForm(AnnonceType::class, $annonce);
         $formEquide = $this->createForm(EquideType::class, $annonce);
         $formEquide->handleRequest($request);
@@ -88,10 +87,11 @@ class AnnonceController extends AbstractController
 
         if ($formEquide->isSubmitted() && $formEquide->isValid()) {
             $equideRepository->save($equide, true);
-            $annonce->setIdequidea($equide);
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $annonce->setIdequidea($equide);
+            $annonce->setIdutilisateurannonce($user);
            $annonceRepository->save($annonce, true);
            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         }
