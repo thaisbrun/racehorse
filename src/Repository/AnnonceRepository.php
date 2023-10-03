@@ -51,11 +51,11 @@ class AnnonceRepository extends ServiceEntityRepository
                 'e.idequide = a.idequidea')
            ->Where('a.activation = 1');
             //On filtre les données
-            if($filters != null) {
+            if($departements != null) {
                 $query->andWhere('a.idtypea IN(:val)')
                     ->setParameter(':val', array_values((array)$filters));
             }
-            elseif($departements != null){
+            elseif($filters != null){
                     $query->andWhere('e.iddep IN(:dep)')
                     ->setParameter(':dep', array_values(array($departements)));
             }

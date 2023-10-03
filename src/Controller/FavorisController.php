@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Favoris;
+use App\Entity\Utilisateur;
 use App\Form\FavorisType;
 use App\Repository\FavorisRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,7 +23,7 @@ class FavorisController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_favoris_new', methods: ['GET', 'POST'])]
+    #[Route('favoris/new', name: 'app_favoris_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $favori = new Favoris();

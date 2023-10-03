@@ -48,7 +48,7 @@
                                     {# Si une table possède un tuple existant alors le coeur est plein et en cliquant dessus
                                     le user supprime le favori #}
                                     {# Sinon le coeur est vide et en cliquant dessus, le user ajoute un favori #}
-                                    <i class="fa-regular fa-heart"></i></a>
+                                    <a class="fa-regular fa-heart" onclick="postFavori({{ app.user.idutilisateur }},{{ annonce.idannonce }})"></a>
                                 </span>
                                 <span>Mettre en favori</span>
                                 </span>
