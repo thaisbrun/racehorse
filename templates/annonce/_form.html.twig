@@ -1,12 +1,12 @@
 <div class="container is-widescreen">
     <br>
-    {{ form_start(form) }}
-    {{ form_row(form.titre) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.prix) }}
-    {{ form_row(form.idtypea) }}
+    {{ form_start(annonceForm) }}
+    {{ form_row(annonceForm.titre) }}
+    {{ form_row(annonceForm.description) }}
+    {{ form_row(annonceForm.prix) }}
+    {{ form_row(annonceForm.idtypea) }}
     <button type="submit" class="button is-warning">Publier l'annonce</button>
 </div>
-{{ form_errors(form) }}
-{{ form_end(form) }}
+{{ form_errors(annonceForm) }}
+{{ form_end(annonceForm) }}
 

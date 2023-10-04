@@ -28,8 +28,8 @@
         {% if app.user %}
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <div class="column is-two-thirds"><a href="{{ path('security/mes_favoris',{'idutilisateur': app.user.idutilisateur}) }}" style="color: #0a0a0a;"><strong>Mes favoris</strong></a></div>
-                    <div class="column is-one-fifth"><a href="{{ path('security/app_viewProfil') }}" style="color: #0a0a0a;">{{  app.user.login }}</a>
+                    <div class="column is-two-thirds"><a href="{{ path('security/mes_favoris',{'idutilisateur': app.user.idutilisateur}) }}" style="color: #0a0a0a;"><i class="fa-solid fa-heart"></i> Mes favoris</a></div>
+                    <div class="column is-two-thirds"><a href="{{ path('security/app_viewProfil') }}" style="color: #0a0a0a;"><i class="fa-regular fa-user"></i> {{  app.user.login }}</a>
                 </div>
                 </div>
                 </div>

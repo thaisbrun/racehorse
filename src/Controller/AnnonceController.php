@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Controller;
+use Symfony\Component\HttpFoundation\Session\Session;
 use App\Entity\Utilisateur;
 use App\Form\EquideType;
 use App\Repository\TypeEquideRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use http\Client\Curl\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -73,22 +75,39 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository): Response
+    public function new(Request $request, AnnonceRepository $annonceRepository, EntityManagerInterface $entityManager): Response
     {
         $annonce = new Annonce();
-        $form = $this->createForm(AnnonceType::class, $annonce);
+        $equide = new Equide();
+        $annonceForm = $this->createForm(AnnonceType::class, $annonce);
+        $form = $this->createForm(EquideType::class, $equide);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $equide->setIdproprio($this->getUser());
+            $entityManager->persist($equide);
+            $entityManager->flush();
+        }
+
+        $annonceForm->handleRequest($request);
+
+        if ($annonceForm->isSubmitted() && $annonceForm->isValid()) {
+
             $annonce->setDatecreation(new \DateTime());
-            //$annonce->setIdequidea($equide);
+            $equide = $entityManager->persist($equide);
+            $annonce->setIdequidea($equide);
             $annonce->setIdutilisateurannonce($this->getUser());
-           $annonceRepository->save($annonce, true);
+
+            $entityManager->persist($annonce);
+            $entityManager->flush($annonce);
+            //$annonceRepository->save($annonce, true);
            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('annonce/new.html.twig', [
             'annonce' => $annonce,
+            'annonceForm' => $annonceForm,
             'form' => $form,
         ]);
     }

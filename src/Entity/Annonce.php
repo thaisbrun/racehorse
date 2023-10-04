@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Utilisateur;
+use Symfony\Component\HttpFoundation\Session\Session;
+
 
 /**
  * Annonce
@@ -63,7 +65,7 @@ class Annonce
      *
      * @ORM\ManyToOne(targetEntity="Equide")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idEquideA", referencedColumnName="idEquide",onDelete="CASCADE")
+     *   @ORM\JoinColumn(name="idEquideA", referencedColumnName="idEquide",onDelete={"persist"})
      * })
      */
     private $idequidea;
