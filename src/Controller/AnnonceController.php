@@ -73,21 +73,14 @@ class AnnonceController extends AbstractController
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository,
-    EquideRepository $equideRepository): Response
+    Equide $equide): Response
     {
         $annonce = new Annonce();
-        $equide = new Equide();
         $user = $this->getUser();
         $listTypeAnnonce = $typeAnnonceRepository->findAll();
 
         $form = $this->createForm(AnnonceType::class, $annonce);
-        $formEquide = $this->createForm(EquideType::class, $annonce);
-        $formEquide->handleRequest($request);
         $form->handleRequest($request);
-
-        if ($formEquide->isSubmitted() && $formEquide->isValid()) {
-            $equideRepository->save($equide, true);
-        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $annonce->setIdequidea($equide);
@@ -100,7 +93,6 @@ class AnnonceController extends AbstractController
             'annonce' => $annonce,
             'listTypeAnnonce' => $listTypeAnnonce,
             'form' => $form,
-            'formEquide' => $formEquide,
         ]);
     }
     #[Route('annonce/show_by_type_annonce/{idtypea}', name: 'show_by_type_annonce', methods: ['GET'])]

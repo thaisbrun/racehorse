@@ -10,6 +10,7 @@ use App\Repository\RaceRepository;
 use App\Repository\RobeRepository;
 use App\Repository\TypeEquideRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,27 +33,17 @@ class EquideController extends AbstractController
     {
         $equide = new Equide();
 
-        $listRaces = $raceRepository->findAll();
-        $listRobes = $robeRepository->findAll();
-        $listTypeEquide = $typeEquideRepository->findAll();
-        $listDepartements = $departementRepository->findAll();
+        $form = $this->createForm(EquideType::class, $equide);
+        $form->handleRequest($request);
 
-        $formEquide = $this->createForm(EquideType::class, $equide);
-        $equide->setIdproprio($this->getUser());
-        $formEquide->handleRequest($request);
-
-        if ($formEquide->isSubmitted() && $formEquide->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            $equide->setIdproprio($this->getUser());
             $entityManager->persist($equide);
             $entityManager->flush();
         }
 
         return $this->renderForm('equide/new.html.twig', [
-            'form' => $formEquide,
-            'equide' => $equide,
-            'listRaces' => $listRaces,
-            'listRobes' => $listRobes,
-            'listTypeEquide' => $listTypeEquide,
-            'listDepartements' => $listDepartements,
+            'form' => $form,
         ]);
     }
 

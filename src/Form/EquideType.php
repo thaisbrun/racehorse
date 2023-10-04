@@ -18,7 +18,9 @@ class EquideType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
+            ->add('nom', options:[
+                'label' => "Nom de l'équidé : "
+            ])
             ->add('datenaiss',DateType::class, [
                 'label' => 'Date de naissance',
                 'widget' => 'single_text'])
@@ -26,12 +28,8 @@ class EquideType extends AbstractType
             ->add('race')
             ->add('taille')
             ->add('lienhn')
-            ->add('idtypeeq',TypeEquideType::class, [
-        'data_class' => Typeequide::class,
-    ])
-            ->add('iddep', DepartementType::class,[
-                'data_class' =>Departement::class,
-            ]);
+            ->add('idtypeeq')
+            ->add('iddep');
 
     }
 

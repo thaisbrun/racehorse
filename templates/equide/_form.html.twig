@@ -1,123 +1,17 @@
 {% block body %}
-<div class="container is-widescreen">
+<div class="container is-widescreen" xmlns="http://www.w3.org/1999/html">
     <br>
-    {{ form_start(formEquide) }}
+    {{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.datenaiss) }}
+    {{ form_row(form.robe) }}
+    {{ form_row(form.race) }}
+    {{ form_row(form.taille) }}
+    {{ form_row(form.lienhn) }}
+    {{ form_row(form.idtypeeq) }}
+    {{ form_row(form.iddep) }}
     <br>
-    <div class="columns">
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">Nom de l'équidé : </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input name="{{ field_name(formEquide.nom) }}"  placeholder="Entrer le nom de votre équidé" class="input is-warning"/>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label"> Date naissance : </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input class="input is-warning" name="{{ field_name(formEquide.datenaiss) }}" type="date" placeholder="Warning input">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="columns">
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label"> Robe : </label>
-                </div>
-                <div class="select is-warning">
-                    <select name="{{ field_name(formEquide.robe) }}">
-                        {% for robe in  listRobes %}
-                            <option value="{{ field_value(formEquide.robe) }}"> {{ robe.libelle }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label"> Race : </label>
-                </div>
-                <div class="select is-warning">
-                    <select name="{{ field_name(formEquide.race) }}">
-                        {% for race in  listRaces %}
-                            <option value="{{ field_value(formEquide.race) }}"> {{ race.libelle }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label"> Taille (cm): </label>
-                </div>
-                {# Nom de l'équide #}
-                <div class="field-body">
-                    <div class="field">
-                        <input type="number" class="input is-warning" name="{{ field_name(formEquide.taille) }}" min=40" max="200" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="columns">
-        <div class="column">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label">URL du cheval (haras nationaux): </label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <p class="control">
-                            <input name="{{ field_name(formEquide.lienhn) }}"  placeholder="https://infochevaux.ifce.fr/fr/etc.." class="input is-warning"/>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="control">
-                <div class="field-label is-normal">
-                    <label class="label">Type équidé : </label>
-                </div>
-                {% for typeEquide in  listTypeEquide %}
-
-                    <input type="radio" name="answer" name="{{ field_name(formEquide.idtypeeq) }}" value="{{ field_value(formEquide.idtypeeq) }}">
-                    <label> {{ typeEquide.libelle }}</label>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="column">
-            <div class="control">
-                <div class="field-label is-normal">
-                    <label class="label"> Département : </label>
-                </div>
-                <div class="select is-warning">
-                    <select name="{{ field_name(formEquide.iddep) }}">
-                        {% for departement in  listDepartements %}
-                            <option value="{{ field_value(formEquide.iddep) }}"> {{ departement.libelle }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        </div>
-        <button type="submit" class="button is-warning">Valider les informations de l'équidé</button>
-    </div>    {{ form_end(formEquide) }}
+    <button type="submit" class="button is-warning">Valider les informations de l'équidé</button>
+    {{ form_end(form) }}
 </div>
 {% endblock %}
