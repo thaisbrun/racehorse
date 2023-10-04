@@ -51,9 +51,9 @@ class Annonce
     private $activation = 'NULL';
 
     /**
-     * @var \DateTime|null
+     * @var \DateTime
 
-     * @ORM\Column(name="dateCreation", type="date", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="dateCreation", type="datetime", options={"default"="CURRENT_TIMESTAMP"})
      */
 
     private $datecreation;
@@ -208,4 +208,5 @@ class Annonce
     public function __toString(){
         return $this->getDescription();
     }
+
 }

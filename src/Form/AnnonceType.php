@@ -20,9 +20,7 @@ class AnnonceType extends AbstractType
             ->add('titre')
            ->add('description')
             ->add('prix')
-         ->add('idtypea',TypeAnnonceType::class, [
-             'data_class' => Typeannonce::class,
-         ])
+         ->add('idtypea')
         ;
     }
 

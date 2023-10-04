@@ -22,6 +22,7 @@ use App\Repository\TypeAnnonceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 
 #[Route('/')]
@@ -72,26 +73,22 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository,
-    Equide $equide): Response
+    public function new(Request $request, AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository): Response
     {
         $annonce = new Annonce();
-        $user = $this->getUser();
-        $listTypeAnnonce = $typeAnnonceRepository->findAll();
-
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $annonce->setIdequidea($equide);
-            $annonce->setIdutilisateurannonce($user);
+            $annonce->setDatecreation(new \DateTime());
+            //$annonce->setIdequidea($equide);
+            $annonce->setIdutilisateurannonce($this->getUser());
            $annonceRepository->save($annonce, true);
            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('annonce/new.html.twig', [
             'annonce' => $annonce,
-            'listTypeAnnonce' => $listTypeAnnonce,
             'form' => $form,
         ]);
     }
