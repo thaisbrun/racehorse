@@ -6,6 +6,7 @@ use App\Entity\Annonce;
 use App\Entity\Equide;
 use App\Entity\Typeannonce;
 use App\Entity\Utilisateur;
+use App\Form\EquideType;
 use PHPUnit\Util\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -21,7 +22,9 @@ class AnnonceType extends AbstractType
            ->add('description')
             ->add('prix')
          ->add('idtypea')
-            ->add('idequidea')
+            ->add('equide', EquideType::class, [
+                'mapped' => false
+            ])
         ;
     }
 

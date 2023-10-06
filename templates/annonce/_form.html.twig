@@ -5,8 +5,15 @@
     {{ form_row(annonceForm.description) }}
     {{ form_row(annonceForm.prix) }}
     {{ form_row(annonceForm.idtypea) }}
-    {{ form_row(annonceForm.idequidea.nom) }}
-
+    {{ form_row(annonceForm.equide.nom) }}
+    {{ form_row(annonceForm.equide.datenaiss) }}
+    {{ form_row(annonceForm.equide.robe) }}
+    {{ form_row(annonceForm.equide.race) }}
+    {{ form_row(annonceForm.equide.taille) }}
+    {{ form_row(annonceForm.equide.lienhn) }}
+    {{ form_row(annonceForm.equide.idtypeeq) }}
+    {{ form_row(annonceForm.equide.iddep) }}
+    {{ form_rest(annonceForm) }}
     <button type="submit" class="button is-warning">Publier l'annonce</button>
 </div>
 {{ form_errors(annonceForm) }}

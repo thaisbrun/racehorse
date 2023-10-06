@@ -75,40 +75,33 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, AnnonceRepository $annonceRepository, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, AnnonceRepository $annonceRepository,
+                        EquideRepository $equideRepository, EntityManagerInterface $entityManager): Response
     {
         $annonce = new Annonce();
         $equide = new Equide();
         $annonceForm = $this->createForm(AnnonceType::class, $annonce);
-        $form = $this->createForm(EquideType::class, $equide);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $equide->setIdproprio($this->getUser());
-            $entityManager->persist($equide);
-            $entityManager->flush();
-        }
-
         $annonceForm->handleRequest($request);
-
         if ($annonceForm->isSubmitted() && $annonceForm->isValid()) {
+            $equide = $annonceForm->get('equide')->getData();
+            $equide->setIdproprio($this->getUser());
+
+            $entityManager->persist($equide);
+            $entityManager->flush($equide);
+
+            $equideRepository->save($equide, true);
 
             $annonce->setDatecreation(new \DateTime());
-            $equide = $entityManager->persist($equide);
-            $annonce->setIdequidea($equide);
             $annonce->setIdutilisateurannonce($this->getUser());
-
-            $entityManager->persist($annonce);
-            $entityManager->flush($annonce);
-            //$annonceRepository->save($annonce, true);
+            $annonce->setIdequidea($equide);
+            $annonceRepository->save($annonce, true);
            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('annonce/new.html.twig', [
             'annonce' => $annonce,
+            'equide' => $equide,
             'annonceForm' => $annonceForm,
-            'form' => $form,
         ]);
     }
     #[Route('annonce/show_by_type_annonce/{idtypea}', name: 'show_by_type_annonce', methods: ['GET'])]
