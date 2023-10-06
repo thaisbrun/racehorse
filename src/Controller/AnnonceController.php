@@ -122,28 +122,9 @@ class AnnonceController extends AbstractController
     #[Route('annonce/show/{idannonce}', name: 'app_annonce_show', methods: ['GET'])]
     public function show(Annonce $annonce, ImageRepository $imageRepository,EquideRepository $equideRepository, DepartementRepository $departementRepository, RegionRepository $regionRepository): Response
     {
-        $idEquide = $annonce->getIdequidea()->getIdequide();
-        $equide = $equideRepository->findOneBy(array('idequide' => $idEquide));
-        $listImages = $imageRepository->findBy(array('idannonceimage' => $annonce->getIdannonce()));
-        $race = $annonce->getIdequidea()->getRace();
-        $robe = $annonce->getIdequidea()->getRobe();
-
-        $idEquideDep = $annonce->getIdequidea()->getIddep();
-        $departement = $departementRepository->findOneBy(array('iddepartement' => $idEquideDep));
-
-        $idEquideRegion = $annonce->getIdequidea()->getIddep()->getIdregiondep();
-        $region = $regionRepository->findOneBy(array('idregion' => $idEquideRegion));
-
-        $user = $annonce->getIdequidea()->getIdproprio();
+        $annonce->setListImages($imageRepository->findBy(array('idannonceimage' => $annonce->getIdannonce())));
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
-            'equide' => $equide,
-            'race' => $race,
-            'robe' => $robe,
-            'departement' => $departement,
-            'region' => $region,
-            'user' => $user,
-            'listImages' => $listImages,
         ]);
     }
 
@@ -152,10 +133,7 @@ class AnnonceController extends AbstractController
     {
         $listTypeAnnonce = $typeAnnonceRepository->findAll();
         $form = $this->createForm(AnnonceType::class, $annonce);
-        $idEquide = $annonce->getIdequidea()->getIdequide();
-        $equide = $equideRepository->findOneBy(array('idequide' => $idEquide));
         $form->handleRequest($request);
-        $formEquide = $this->createForm(EquideType::class, $equide);
         if ($form->isSubmitted() && $form->isValid()) {
             $annonceRepository->save($annonce, true);
 
@@ -164,9 +142,7 @@ class AnnonceController extends AbstractController
 
         return $this->renderForm('annonce/edit.html.twig', [
             'annonce' => $annonce,
-            'equide' => $equide,
             'form' => $form,
-            'formEquide' => $formEquide,
             'listTypeAnnonce' => $listTypeAnnonce,
         ]);
     }

@@ -21,6 +21,7 @@ class AnnonceType extends AbstractType
            ->add('description')
             ->add('prix')
          ->add('idtypea')
+            ->add('idequidea')
         ;
     }
 

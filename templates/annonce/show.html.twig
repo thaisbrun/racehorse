@@ -8,7 +8,7 @@
     <div class="columns">
         <div class="column is-half">
             <div class="box has-background-warning-light">
-                {% for image in listImages %}
+                {% for image in annonce.listImages %}
                 <img src="{{ asset('imgAnnonce/'~image.lienImage) }}" alt="Placeholder image">
                 {% endfor %}
             </div>
@@ -18,16 +18,16 @@
             <div class="column">
                 <h4>{{ annonce.titre }} - {{ annonce.prix }} € </h4>
             </div>
-                <h3>Nom de l'équidé : </h3> {{ equide.nom }}
-                <h3>Date de naissance : </h3> {{ equide.dateNaiss|date("d/m/Y") }}
-                <h3>Taille : </h3> {{ equide.taille }} cm
-                <h3>Race : </h3> {{ race.libelle }}
-                <h3>Robe :  </h3>{{ robe.libelle }}
-                <h3>Infos Haras Nationaux : <a href="{{ equide.lienhn }}">Voir infos</a></h3>
-                <h3>Lieu : </h3> {{ departement.libelle }} en {{ region.libelle }}
+                <h3>Nom de l'équidé : </h3> {{ annonce.idequidea.nom }}
+                <h3>Date de naissance : </h3> {{ annonce.idequidea.dateNaiss|date("d/m/Y") }}
+                <h3>Taille : </h3> {{ annonce.idequidea.taille }} cm
+                <h3>Race : </h3> {{ annonce.idequidea.race.libelle }}
+                <h3>Robe :  </h3>{{ annonce.idequidea.robe.libelle }}
+                <h3>Infos Haras Nationaux : <a href="{{ annonce.idequidea.lienhn }}">Voir infos</a></h3>
+                <h3>Lieu : </h3> {{ annonce.idequidea.iddep.libelle }} en {{ annonce.idequidea.iddep.idregiondep.libelle }}
             <br>
                 <br>
-                Annonce postée par {{ user.login }}.
+                Annonce postée par {{ annonce.idequidea.idproprio.login }}.
 
             <br>
             <p><h3>Description : </h3>{{ annonce.description }}</p>
