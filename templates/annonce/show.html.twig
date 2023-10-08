@@ -36,10 +36,18 @@
     </div>
 </div>
     {% if app.user == annonce.idutilisateurannonce %}
-    <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}"> edit </a>
-    <a href="{{ path('homepage') }}"> Retour au menu </a>
-
-        {% include('annonce/_delete_form.html.twig') %}
+        <div class="columns">
+            <div class="column">
+                <a class="button is-light is-warning" href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}"> Modifier l'annonce </a>
+            </div>
+            <div class="column">
+                <a href="{{ path('homepage') }}" style="color:black;"> Retour au menu </a>
+            </div>
+            <div class="column">
+             {% include('annonce/_delete_form.html.twig') %}
+            </div>
+        </div>
+        <br>
     {% endif %}
 </div>
 {% endblock %}

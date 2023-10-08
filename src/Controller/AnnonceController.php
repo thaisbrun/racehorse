@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class AnnonceController extends AbstractController
 {
     #[Route('/', name: 'homepage', methods: ['GET'])]
-    public function index(AnnonceRepository $annonceRepository, ImageRepository $imageRepository): Response
+    public function index(AnnonceRepository $annonceRepository): Response
     {
         $annoncesVente = $annonceRepository->FindBy(array('idtypea' => 1));
         $annoncesLocation = $annonceRepository->FindBy(array('idtypea' => 2));
@@ -122,21 +122,25 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('annonce/edit/{idannonce}', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository, EquideRepository $equideRepository, TypeAnnonceRepository $typeAnnonceRepository): Response
+    public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository,
+                         EquideRepository $equideRepository, EntityManagerInterface $entityManager): Response
     {
-        $listTypeAnnonce = $typeAnnonceRepository->findAll();
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
+        $equide = $annonce->getIdequidea();
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($equide);
+            $entityManager->flush($equide);
+
+            $equideRepository->save($equide, true);
             $annonceRepository->save($annonce, true);
 
             return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('annonce/edit.html.twig', [
-            'annonce' => $annonce,
-            'form' => $form,
-            'listTypeAnnonce' => $listTypeAnnonce,
+            'annonceForm' => $form,
+            'equide' => $equide,
         ]);
     }
 

@@ -35,6 +35,9 @@
             </tr>
             </tbody>
         </table>
+        <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}">Voir</a>
+        <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">Modifier</a>
+
     {% endfor %}
     <a href="{{ path('homepage') }}">back to list</a>
 {% endblock %}

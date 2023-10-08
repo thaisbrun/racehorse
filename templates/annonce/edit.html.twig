@@ -5,7 +5,6 @@
 {% block body %}
     <h1>Modifier votre annonce</h1>
 
-    {{ include('equide/_form.html.twig') }}
     {{ include('annonce/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('homepage') }}">back to list</a>
