@@ -3,38 +3,43 @@
 {% block title %}Annonce{% endblock %}
 
 {% block body %}
-    <h1>Annonce</h1>
+ <div class="container is-full-widescreen">
+     {% for annonce in listAnnonces %}
+     <div class="column">
+         <div class="card">
+             <div class="card-image">
+                 <figure class="image is-4by3">
+                     <img src="{{ asset('imgAnnonce/DSC_9358.jpg') }}" alt="Placeholder image">
+                 </figure>
+             </div>
+             <div class="card-content">
+                 <div class="media">
+                     <div class="media-content">
+                         <p class="title is-4">{{ annonce.titre }}</p>
+                         <p class="subtitle is-6">{{ annonce.prix }} €</p>
+                         {% if app.user %}
+                             <span class="icon-text">
+                                <span class="icon is-left">
+                                    {# Si une table possède un tuple existant alors le coeur est plein et en cliquant dessus
+                                    le user supprime le favori #}
+                                    {# Sinon le coeur est vide et en cliquant dessus, le user ajoute un favori #}
+                                    <a class="fa-regular fa-heart" onclick="postFavori({{ app.user.idutilisateur }},{{ annonce.idannonce }})"></a>
 
-    {% for annonce in listAnnonces %}
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Idannonce</th>
-                <td>{{ annonce.idannonce }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ annonce.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ annonce.description }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ annonce.prix }}</td>
-            </tr>
-            <tr>
-                <th>Activation</th>
-                <td>{{ annonce.activation ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Datecreation</th>
-                <td>{{ annonce.datecreation ? annonce.datecreation|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-{% endfor %}
-    <a href="{{ path('homepage') }}">back to list</a>
+                                </span>
+                                <span>Mettre en favori</span>
+                                </span>
+                         {% endif %}
+                     </div>
+                 </div>
+                 <div class="content">
+                     <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-warning is-light">En savoir plus</button></a>
+                     <br>
+                     <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
+                 </div>
+             </div>
+         </div>
+     </div>
+     {% endfor %}
+ </div>
+    <a href="{{ path('homepage') }}">Retour au menu</a>
 {% endblock %}

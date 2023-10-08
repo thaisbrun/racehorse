@@ -9,30 +9,9 @@
     <br>
     <form id="filters">
             {% for typeAnnonce in listTypeAnnonces %}
-            <p><input type="checkbox" name="listTypeAnnonces[]" id="typeAnnonce{{ typeAnnonce.idtypeannonce }}" value="{{ typeAnnonce.idtypeannonce }}">
-            <label for="typeAnnonce{{ typeAnnonce.idtypeannonce }}">{{ typeAnnonce.libelle }}</label></p>
+            <input type="checkbox" name="listTypeAnnonces[]" id="typeAnnonce{{ typeAnnonce.idtypeannonce }}" value="{{ typeAnnonce.idtypeannonce }}">
+            <label for="typeAnnonce{{ typeAnnonce.idtypeannonce }}">{{ typeAnnonce.libelle }}</label>
             {% endfor %}
-        <div class="select is-multiple">
-            <select multiple size="5">
-            {% for departement in listDepartements %}
-            <option name="listDepartements[]" id="departement{{ departement.iddepartement }}" value="{{ departement.iddepartement }}">{{ departement.libelle }}</option>
-        {% endfor %}
-            </select>
-        </div>
-        <div class="select is-multiple">
-            <select multiple size="5">
-        {% for robe in listRobes %}
-            <option name="listRobes[]" id="robe{{ robe.id }}" value="{{ robe.id }}">{{ robe.libelle }}</option>
-        {% endfor %}
-        </select>
-        </div>
-        <div class="select is-multiple">
-            <select multiple size="5">
-        {% for race in listRaces %}
-            <option name="listRaces[]" id="race{{ race.id }}" value="{{ race.id }}">{{ race.libelle }}</option>
-        {% endfor %}
-            </select>
-        </div>
     </form>
     <br>
     <br>

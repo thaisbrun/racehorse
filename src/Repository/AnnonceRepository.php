@@ -41,7 +41,7 @@ class AnnonceRepository extends ServiceEntityRepository
         }
     }
 
-    public function getFiltersAnnonces($filters = null, $departements = null, $races = null, $robes = null)
+    public function getFiltersAnnonces($filters = null)
    {
         $query = $this->createQueryBuilder('a')
             ->innerJoin(
@@ -51,21 +51,9 @@ class AnnonceRepository extends ServiceEntityRepository
                 'e.idequide = a.idequidea')
            ->Where('a.activation = 1');
             //On filtre les données
-            if($departements != null) {
-                $query->andWhere('a.idtypea IN(:val)')
-                    ->setParameter(':val', array_values((array)$filters));
-            }
-            elseif($filters != null){
-                    $query->andWhere('e.iddep IN(:dep)')
-                    ->setParameter(':dep', array_values(array($departements)));
-            }
-            elseif($robes != null){
-                $query->andWhere('e.robe IN(:robe)')
-                    ->setParameter(':robe', array_values(array($robes)));
-            }
-            elseif($races != null){
-                $query->andWhere('e.race IN(:race)')
-                    ->setParameter(':race', array_values(array($races)));
+           if($filters != null){
+                    $query->andWhere('a.idtypea IN(:idtypea)')
+                    ->setParameter(':idtypea', array_values(array($filters)));
             }
                 return $query->getQuery()->getResult();
    }

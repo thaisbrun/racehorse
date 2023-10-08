@@ -1,5 +1,5 @@
+
 <div class="container is-widescreen">
-    <br>
     {{ form_start(annonceForm) }}
     {{ form_row(annonceForm.titre) }}
     {{ form_row(annonceForm.description) }}
@@ -14,8 +14,7 @@
     {{ form_row(annonceForm.equide.idtypeeq) }}
     {{ form_row(annonceForm.equide.iddep) }}
     {{ form_rest(annonceForm) }}
-    <button type="submit" class="button is-warning">Publier l'annonce</button>
+    {{ form_errors(annonceForm) }}
+    {{ form_end(annonceForm) }}
 </div>
-{{ form_errors(annonceForm) }}
-{{ form_end(annonceForm) }}
 

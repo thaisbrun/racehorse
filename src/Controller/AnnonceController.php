@@ -48,15 +48,9 @@ class AnnonceController extends AbstractController
     {
         //On récupère des filtres
         $filters = $request->get("listTypeAnnonces");
-        $departements = $request->get("listDepartements");
-        $races = $request->get("listRaces");
-        $robes = $request->get("listRobes");
 
-       $listAnnonces = $annonceRepository->getFiltersAnnonces($filters, $departements, $races, $robes);
+       $listAnnonces = $annonceRepository->getFiltersAnnonces($filters);
         $listTypeAnnonces = $typeAnnonceRepository->findAll();
-        $listDepartements = $departementRepository->findAll();
-        $listRobes = $robeRepository->findAll();
-        $listRaces = $raceRepository->findAll();
 
         //On vérifie si y a une requête Ajax
         if($request->get('ajax')){
@@ -69,9 +63,6 @@ class AnnonceController extends AbstractController
         return $this->render('annonce/all_annonces.html.twig', [
             'listAnnonces' => $listAnnonces,
             'listTypeAnnonces' => $listTypeAnnonces,
-            'listDepartements' => $listDepartements,
-            'listRobes' => $listRobes,
-            'listRaces' => $listRaces
         ]);
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]

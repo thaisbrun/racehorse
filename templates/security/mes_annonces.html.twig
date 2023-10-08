@@ -3,41 +3,41 @@
 {% block title %}Mes annonces{% endblock %}
 
 {% block body %}
-    <h1>Annonce</h1>
-
+    <img src="{{ asset('img/mesAnnonces.jpg') }}" alt="Placeholder image">
     {% for annonce in listAnnonces %}
-
-        <table class="table">
-            <tbody>
-            <tr>
-                <th>Idannonce</th>
-                <td>{{ annonce.idannonce }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ annonce.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ annonce.description }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ annonce.prix }}</td>
-            </tr>
-            <tr>
-                <th>Activation</th>
-                <td>{{ annonce.activation ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Datecreation</th>
-                <td>{{ annonce.datecreation ? annonce.datecreation|date('Y-m-d') : '' }}</td>
-            </tr>
-            </tbody>
-        </table>
-        <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}">Voir</a>
-        <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">Modifier</a>
-
+        <div class="column">
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image is-4by3">
+                        <img src="{{ asset('imgAnnonce/first.JPG') }}" alt="Placeholder image">
+                    </figure>
+                </div>
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="title is-4">{{ annonce.titre }}</p>
+                            <p class="subtitle is-6">{{ annonce.prix }} €</p>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-warning is-light">En savoir plus</button></a>
+                        <br>
+                        <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <a class="button is-light is-warning" href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}"> Modifier l'annonce </a>
+                        </div>
+                        <div class="column">
+                            <a href="{{ path('homepage') }}" style="color:black;"> Retour au menu </a>
+                        </div>
+                        <div class="column">
+                            {% include('annonce/_delete_form.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <br>
+        </div>
     {% endfor %}
-    <a href="{{ path('homepage') }}">back to list</a>
 {% endblock %}

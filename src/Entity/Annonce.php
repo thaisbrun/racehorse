@@ -36,7 +36,7 @@ class Annonce
      *
      * @ORM\Column(name="description", type="string", length=1000, nullable=true, options={"default"="NULL"})
      */
-    private $description = 'NULL';
+    private $description;
 
     /**
      * @var int
