@@ -3,9 +3,9 @@
 {% block title %}Annonces{% endblock %}
 
 {% block body %}
+    <img src="{{ asset('img/allAnnonces.png') }}">
 <div class="container is-widescreen">
     <br>
-    <h2 style="text-decoration: underline;">Toutes les annonces disponibles</h2>
     <br>
     <form id="filters">
             {% for typeAnnonce in listTypeAnnonces %}
