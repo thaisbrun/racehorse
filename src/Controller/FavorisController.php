@@ -26,9 +26,11 @@ class FavorisController extends AbstractController
     }
 
     #[Route('/new', name: 'app_favoris_new', methods: ['GET','POST'])]
-    public function new(Request $request) : JsonResponse
+    public function new(Favoris $favoris, Request $request) : JsonResponse
     {
-       // 'data1' => $request->getContent();
+        $favoris = new Favoris();
+        $favoris = $request->getContent();
+        dd($favoris);
         return JsonResponse::fromJsonString(200);
     }
 
