@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Utilisateur;
+use PhpParser\ErrorHandler\Collecting;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 
@@ -90,6 +92,14 @@ class Annonce
      */
     private $idutilisateurannonce;
     private array $listImages;
+
+    #[ORM\ManyToMany(targetEntity: Utilisateur::class)]
+    #[JoinTable('favoris')]
+    private Collection $likes;
+
+    public function __construct(){
+        $this->likes = new ArrayCollection();
+    }
     public function getIdannonce(): ?int
     {
         return $this->idannonce;
@@ -210,5 +220,4 @@ class Annonce
     public function __toString(){
         return $this->getDescription();
     }
-
 }

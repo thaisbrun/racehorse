@@ -46,10 +46,7 @@
                                 {% if app.user %}
                                     <span class="icon-text">
                                 <span class="icon is-left">
-                                    {# Si une table possède un tuple existant alors le coeur est plein et en cliquant dessus
-                                    le user supprime le favori #}
-                                    {# Sinon le coeur est vide et en cliquant dessus, le user ajoute un favori #}
-                                    <a class="fa-regular fa-heart" onclick="postFavori({{ app.user.idutilisateur }},{{ annonce.idannonce }})"></a>
+                                    <a class="fa-regular fa-heart" onclick="postFavori()"></a>
 
                                 </span>
                                 <span>Mettre en favori</span>

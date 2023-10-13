@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use function Symfony\Component\Translation\t;
 
 /**
  * Favoris
@@ -75,6 +76,7 @@ class Favoris
 
         return $this;
     }
-
-
+    public function __toString(){
+        return $this->getIdannoncefav().toString();
+    }
 }

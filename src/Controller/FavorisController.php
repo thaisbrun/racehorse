@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonce;
 use App\Entity\Favoris;
 use App\Entity\Utilisateur;
 use App\Form\FavorisType;
 use App\Repository\FavorisRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,15 +25,11 @@ class FavorisController extends AbstractController
         ]);
     }
 
-    #[Route('favoris/new', name: 'app_favoris_new', methods: ['GET', 'POST'])]
-    public function new(EntityManagerInterface $entityManager): Response
+    #[Route('/new', name: 'app_favoris_new', methods: ['GET','POST'])]
+    public function new(Request $request) : JsonResponse
     {
-        $favori = new Favoris();
-
-            $entityManager->persist($favori);
-            $entityManager->flush();
-            dd($favori);
-            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+       // 'data1' => $request->getContent();
+        return JsonResponse::fromJsonString(200);
     }
 
     #[Route('/{idutilisateurfav}', name: 'app_favoris_show', methods: ['GET'])]

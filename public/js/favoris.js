@@ -1,12 +1,13 @@
-function postFavori(idutilisateurfav, idannoncefav){
+function postFavori(){
     fetch('/favoris/new', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
         },
-        body: JSON.parse({
-            idutilisateurfav: idutilisateurfav,
-            idannoncefav: idannoncefav,
+        body: JSON.stringify({
+            idutilisateurfav:3,
+            idannoncefav: 2,
             datecreation: Date.now().toString()
         })
     })
