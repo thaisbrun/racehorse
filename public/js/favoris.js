@@ -1,16 +1,18 @@
 function postFavori(idutilisateurfav, idannoncefav){
-    const data = new URLSearchParams();
-    data.append('idutilisateurfav', idutilisateurfav);
-    data.append('idannoncefav', idannoncefav);
-    data.append('datecreation', Date.now().toString());
     fetch('/favoris/new', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         },
-        body: data
+        body: JSON.parse({
+            idutilisateurfav: idutilisateurfav,
+            idannoncefav: idannoncefav,
+            datecreation: Date.now().toString()
+        })
     })
-        .then(response => response.json())
+        .then(response => {
+            response.json()
+        })
         .then(data => console.log(data))
         .catch(error => console.error(error));
 }

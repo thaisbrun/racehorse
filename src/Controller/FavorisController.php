@@ -24,23 +24,14 @@ class FavorisController extends AbstractController
     }
 
     #[Route('favoris/new', name: 'app_favoris_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(EntityManagerInterface $entityManager): Response
     {
         $favori = new Favoris();
-        $form = $this->createForm(FavorisType::class, $favori);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($favori);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_favoris_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('favoris/new.html.twig', [
-            'favori' => $favori,
-            'form' => $form,
-        ]);
+            dd($favori);
+            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{idutilisateurfav}', name: 'app_favoris_show', methods: ['GET'])]

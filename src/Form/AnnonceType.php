@@ -48,7 +48,8 @@ class AnnonceType extends AbstractType
                  ]])
             ->add('equide', EquideType::class, [
                 'mapped' => false,
-                'attr' => ['class' => 'input is-warning']
+                'attr' => [
+                    'class' => 'input is-warning']
             ])
             ->add('save', SubmitType::class, [
                 'label' => "Publier l'annonce",
