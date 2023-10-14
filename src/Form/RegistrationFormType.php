@@ -4,30 +4,53 @@ namespace App\Form;
 
 use App\Entity\Utilisateur;
 use Doctrine\DBAL\Types\TextType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\{Component\Form\AbstractType,
+    Component\Form\Extension\Core\Type\CheckboxType,
+    Component\Form\Extension\Core\Type\PasswordType,
+    Component\Form\Extension\Core\Type\SubmitType,
+    Component\Form\Extension\Core\Type\TextareaType,
+    Component\Form\FormBuilderInterface,
+    Component\OptionsResolver\OptionsResolver,
+    Component\Validator\Constraints\IsTrue,
+    Component\Validator\Constraints\Length,
+    Component\Validator\Constraints\NotBlank};
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('prenom')
-            ->add('nom')
-            ->add('login')
-            ->add('mail')
+            ->add('prenom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                'attr' => [
+                    'class' => 'input is-warning',
+                    'label' => "Prénom",
+                    'placeholder' => 'Veuillez saisir votre prénom']
+            ])
+            ->add('nom',\Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                'attr' => [
+                    'class' => 'input is-warning',
+                    'label' => "Nom",
+                    'placeholder' => 'Veuillez saisir votre prénom']
+            ])
+            ->add('login',\Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                'attr' => [
+                    'class' => 'input is-warning',
+                    'label' => "Pseudo",
+                    'placeholder' => 'Veuillez saisir votre pseudo']
+            ])
+            ->add('mail',\Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                'attr' => [
+                    'class' => 'input is-warning',
+                    'label' => "Mail",
+                    'placeholder' => 'Veuillez saisir votre mail']
+            ])
             ->add('password', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => ['autocomplete' => 'new-password',
+                    'class' => 'input is-warning',
+                    'label' => 'Mot de passe'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -39,6 +62,10 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => "Valider l'inscription",
+                'attr' => ['class' => 'button is-warning']
             ])
         ;
     }

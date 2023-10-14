@@ -44,12 +44,10 @@ class AnnonceType extends AbstractType
              ],
              'attr' => [
                  'class' => 'input is-warning',
-                 'label' => "Type de l'annonce",
                  ]])
             ->add('equide', EquideType::class, [
                 'mapped' => false,
-                'attr' => [
-                    'class' => 'input is-warning']
+                'attr' => ['class' => 'is-warning']
             ])
             ->add('save', SubmitType::class, [
                 'label' => "Publier l'annonce",
@@ -62,6 +60,7 @@ class AnnonceType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Annonce::class,
+            'attr' => ['class' => 'is outlined is-warning']
         ]);
     }
 }

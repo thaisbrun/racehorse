@@ -93,13 +93,6 @@ class Annonce
     private $idutilisateurannonce;
     private array $listImages;
 
-    #[ORM\ManyToMany(targetEntity: Utilisateur::class)]
-    #[JoinTable('favoris')]
-    private Collection $likes;
-
-    public function __construct(){
-        $this->likes = new ArrayCollection();
-    }
     public function getIdannonce(): ?int
     {
         return $this->idannonce;

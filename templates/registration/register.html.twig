@@ -12,49 +12,20 @@
             <div class="columns">
                 <div class="column">
                     {{ form_start(registrationForm) }}
-                    <div class="field">
-                        <label class="label">Prénom</label>
-                        <div class="control">
-                            <input name="{{ field_name(registrationForm.prenom) }}" placeholder="Entrez votre prénom" class="input is-outlined is-warning">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Nom</label>
-                        <div class="control">
-                            <input name="{{ field_name(registrationForm.nom) }}" placeholder="Entrez votre nom" class="input is-outlined is-warning">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Mot de passe</label>
-                        <div class="control">
-                            <input name="{{ field_name(registrationForm.password) }}" type="password" placeholder="********" class="input is-outlined is-warning">
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="field">
-                        <label class="label">Pseudo</label>
-                        <div class="control">
-                            <input name="{{ field_name(registrationForm.login) }}"  placeholder="Entrez votre pseudo" class="input is-outlined is-warning">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Email</label>
-                        <div class="control">
-                            <input name="{{ field_name(registrationForm.mail) }}" placeholder="Entrez votre email" class="input is-outlined is-warning">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="field is-grouped">
-                <div class="control">
-                    <button type="submit" class="button is-warning is-medium">Valider l'inscription</button>
+                    {{ form_row(registrationForm.prenom) }}
+                    <br>
+                    {{ form_row(registrationForm.nom) }}
+                    <br>
+                    {{ form_row(registrationForm.login) }}
+                    <br>
+                    {{ form_row(registrationForm.mail) }}
+                    <br>
+                    {{ form_row(registrationForm.password) }}
+                    <br>
+                    {{ form_rest(registrationForm) }}
+                    {{ form_errors(registrationForm) }}
                     {{ form_end(registrationForm) }}
                 </div>
-                <!-- <div class="control">
-                     <button class="button is-light">Retour à l'accueil</button>
-                 </div> -->
             </div>
         </form>
     </div>
