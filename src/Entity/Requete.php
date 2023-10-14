@@ -26,14 +26,14 @@ class Requete
      *
      * @ORM\Column(name="objet", type="string", length=30, nullable=true, options={"default"="NULL"})
      */
-    private $objet = 'NULL';
+    private $objet ;
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $description = 'NULL';
+    private $description;
 
     /**
      * @var \Utilisateur

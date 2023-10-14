@@ -2,31 +2,16 @@
     <img src="{{ asset('img/contact.png') }}">
     <div class="container is-widescreen">
         {{ form_start(form) }}
-        <p>
             <br>
-        <form class="box">
-            <div class="field">
-                <label class="label">Objet de votre demande</label>
-                <div class="control">
-                    <input class="input is-warning" name="{{ field_name(form.objet) }}" style="width:500px;" type="text" placeholder="Écrire ici...">
-                </div>
-            </div>
+                    {{ form_row(form.objet) }}
             <br>
-            <div class="field">
-                <label class="label">Message</label>
-                <div class="control">
-                    <textarea name="{{ field_name(form.description) }}" class="textarea is-warning" placeholder="Écrire ici..."></textarea>
-                </div>
-            </div>
+                    {{ form_row(form.description) }}
             {{ form_row(form._token) }}
             <br>
-            <div class="field">
-                <div class="control">
-                    <button class="button is-warning">{{ button_label|default('Envoyer ma demande') }}</button>
-                </div>
-            </div>
-        </form>
-        </p>
+        <br>
+        {{ form_rest(form) }}
+        {{ form_errors(form) }}
+        {{ form_end(form) }}
     </div>
     {{ form_end(form) }}
 {% endblock %}
