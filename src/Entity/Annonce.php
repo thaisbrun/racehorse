@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Utilisateur;
@@ -91,8 +92,15 @@ class Annonce
      * })
      */
     private $idutilisateurannonce;
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Favoris", mappedBy="idannoncefav")
+     */
+    private Collection $favoris;
     private array $listImages;
-
+    public function __construct(){
+        $this->favoris = new ArrayCollection();
+    }
     public function getIdannonce(): ?int
     {
         return $this->idannonce;
@@ -213,4 +221,33 @@ class Annonce
     public function __toString(){
         return $this->getDescription();
     }
+
+    /**
+     * @return Collection
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    /**
+     * @param Collection $favoris
+     */
+    public function setFavoris(Collection $favoris): void
+    {
+        $this->favoris = $favoris;
+    }
+
+    /**
+     * Permet de savoir si cet utilisateur a liké cette annonce
+     * @param Utilisateur $utilisateur
+     * @return bool
+     */
+    public function isLikedByUser(Utilisateur $utilisateur) : bool {
+        foreach($this->favoris as $favori) {
+            if($favori->getIdUtilisateurFav() === $utilisateur) return true;
+        }
+        return false;
+    }
+
 }

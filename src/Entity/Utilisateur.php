@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -59,10 +61,14 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
      */
     private $password;
 
+    #[ORM\OneToMany(mappedBy: 'idutilisateurfav', targetEntity: Favoris::class)]
+    private Collection $favoris;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
-
+    public function __construct(){
+        $this->favoris = new ArrayCollection();
+    }
     public function getIdutilisateur(): ?int
     {
         return $this->idutilisateur;
@@ -128,7 +134,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
         return $this;
     }
 
-
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -156,5 +161,43 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
     {
         $idutilisateur = $this->idutilisateur;
         return strval($idutilisateur);
+    }
+
+    /**
+     * @return Collection<int, Favoris>
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    /**
+     * @param Collection $favoris
+     */
+    public function setFavoris(Collection $favoris): void
+    {
+        $this->favoris = $favoris;
+    }
+
+    public function addFavori(Favoris $favori): static
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris->add($favori);
+            $favori->setIdutilisateurfav($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(Favoris $favori): static
+    {
+        if ($this->favoris->removeElement($favori)) {
+            // set the owning side to null (unless already changed)
+            if ($favori->getIdutilisateurfav() === $this) {
+                $favori->setIdutilisateurfav(null);
+            }
+        }
+
+        return $this;
     }
 }

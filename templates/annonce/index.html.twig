@@ -43,14 +43,20 @@
                             <div class="media-content">
                                 <p class="title is-4">{{ annonce.titre }}</p>
                                 <p class="subtitle is-6">{{ annonce.prix }} €</p>
-                                {% if app.user %}
+                                {% if app.user and annonce.isLikedByUser(app.user) %}
                                     <span class="icon-text">
                                 <span class="icon is-left">
-                                    <a class="fa-regular fa-heart" onclick="postFavori()"></a>
-
+                                    <a href="#" class="fa-solid fa-heart"></a>
+                                </span>
+                                <span>Enlever de mes favoris</span>
+                                    {% else %}
+                                    <span class="icon is-left">
+                                    <a href="#" class="fa-regular fa-heart"></a>
                                 </span>
                                 <span>Mettre en favori</span>
                                 </span>
+                                    <br>
+                                    <span class="js-likes">{{ annonce.favoris | length }} personne(s) ont likés cette annonce </span>
                                 {% endif %}
                             </div>
                         </div>
