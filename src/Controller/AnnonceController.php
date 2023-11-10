@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Repository\FavorisRepository;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Entity\Utilisateur;
 use App\Form\EquideType;
@@ -64,6 +65,36 @@ class AnnonceController extends AbstractController
             'listAnnonces' => $listAnnonces,
             'listTypeAnnonces' => $listTypeAnnonces,
         ]);
+    }
+
+    /**
+     * @param Annonce $annonce
+     * @param EntityManagerInterface $entityManager
+     * @param AnnonceRepository $annonceRepository
+     * @return void
+     */
+    public function favoris(Annonce $annonce, EntityManagerInterface $entityManager, FavorisRepository $favRepository) : Response {
+
+        $utilisateur = $this->getUser();
+
+        if(!$utilisateur) return $this->json([
+            'code' => 403,
+            'message' => "Non autorisé"
+        ],403);
+        if($annonce->isLikedByUser($utilisateur)){
+            $favori = $favRepository->findOneBy([
+                'idannoncefav' => $annonce,
+                'idutilisateurfav' => $utilisateur
+            ]);
+            $entityManager->remove($favori);
+            $entityManager->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => 'Favori supprimé',
+                'favoris' => $favRepository->count(['favori' => $favori])
+            ],200);
+        }
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AnnonceRepository $annonceRepository,
