@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Favoris;
 use App\Repository\FavorisRepository;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Entity\Utilisateur;
@@ -73,6 +74,7 @@ class AnnonceController extends AbstractController
      * @param AnnonceRepository $annonceRepository
      * @return void
      */
+    #[Route('annonce/{idannonce}/favori', name: 'fav', methods: ['GET', 'POST'])]
     public function favoris(Annonce $annonce, EntityManagerInterface $entityManager, FavorisRepository $favRepository) : Response {
 
         $utilisateur = $this->getUser();
@@ -92,9 +94,20 @@ class AnnonceController extends AbstractController
             return $this->json([
                 'code' => 200,
                 'message' => 'Favori supprimé',
-                'favoris' => $favRepository->count(['favori' => $favori])
+                'favoris' => $favRepository->count(['idannoncefav' => $annonce])
             ],200);
         }
+        $favori = new Favoris();
+        $favori->setIdannoncefav($annonce)
+            ->setIdutilisateurfav($utilisateur)
+            ->setDatecreation(new \DateTime());
+        $entityManager->persist($favori);
+        $entityManager->flush();
+        return $this->json([
+            'code' => 200,
+            'message' => 'Favori ajouté',
+            'favoris' => $favRepository->count(['idannoncefav' => $annonce])
+        ],200);
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AnnonceRepository $annonceRepository,

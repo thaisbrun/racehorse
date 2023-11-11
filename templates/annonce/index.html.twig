@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Bienvenue sur PonyShop{% endblock %}
 
 {% block body %}
@@ -43,20 +42,16 @@
                             <div class="media-content">
                                 <p class="title is-4">{{ annonce.titre }}</p>
                                 <p class="subtitle is-6">{{ annonce.prix }} €</p>
-                                {% if app.user and annonce.isLikedByUser(app.user) %}
-                                    <span class="icon-text">
-                                <span class="icon is-left">
-                                    <a href="#" class="fa-solid fa-heart js-like"></a>
-                                </span>
-                                <span>Enlever de mes favoris</span>
+
+                                    <a href="{{ path('fav', {'idannonce': annonce.idannonce}) }}" class="button is-text js-like">
+                                        {% if app.user and annonce.isLikedByUser(app.user) %}
+                                        <i class="fa-solid fa-heart js-like"></i>
+                                    <span>Enlever de mes favoris</span>
                                     {% else %}
-                                    <span class="icon is-left">
-                                    <a href="#" class="fa-regular fa-heart js-like"></a>
-                                </span>
-                                <span>Mettre en favori</span>
-                                </span>
+                                        <i class="fa-regular fa-heart js_like"></i>
+                                        <span>Ajouter à mes favoris</span>
                                     <br>
-                                    <span class="js-likes">{{ annonce.favoris | length }} personne(s) ont likés cette annonce </span>
+                                        </a>
                                 {% endif %}
                             </div>
                         </div>
@@ -165,4 +160,26 @@
     </div>
     <a href="{{ path('show_by_type_annonce', {'idtypea': 3}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus de DP</a>
 </div>
+    <script>
+        function onClickBtnLike(event){
+            event.preventDefault();
+
+            const url = this.href;
+            const spanCount = this.querySelector('span.js-likes');
+            const icone = this.querySelector('i');
+            axios.get(url).then(function (response){
+              let favoris = response.data.favoris;
+              if(icone.classList.contains('fa-regular')) {
+                  icone.classList.replace('fa-regular', 'fa-solid');
+              }
+              else{
+                  icone.classList.replace('fa-solid', 'fa-regular');
+              }
+            });
+        }
+        document.querySelectorAll('a.js-like').forEach(function (link){
+            link.addEventListener('click',onClickBtnLike)
+
+        })
+    </script>
 {% endblock %}
