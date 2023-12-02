@@ -8,17 +8,44 @@
         <div class="column">
             {{form_row(annonceForm.equide.nom, {'attr': {'class' : 'input is-warning', 'placeholder' : 'Veuillez choisir un nom'}}) }}
         </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            {{ form_row(annonceForm.equide.datenaiss, {'label' : "Date de naissance : ",'attr': {'class' : 'input is-warning'}}) }}
         </div>
+        <div class="column">
+            {{ form_row(annonceForm.equide.race, {'label' : "Race : ","placeholder" : "Veuillez sélectionner une race ", 'attr': {'class' : 'input is-warning'}}) }}
+        </div>
+        <div class="column">
+            {{ form_row(annonceForm.equide.robe, {'label' : "Robe : ","placeholder" : "Veuillez sélectionner une robe ", 'attr': {'class' : 'input is-warning'}}) }}
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            {{ form_row(annonceForm.equide.taille, {'label' : "Taille : ",'attr': {'class' : 'input is-warning', 'placeholder' : 'Veuillez choisir une taille (en cm)'}}) }}
+        </div>
+    <div class="column">
+        {{ form_row(annonceForm.equide.idtypeeq,{'label' : "Type de l'équidé : ", "placeholder" : "Veuillez sélectionner un type de l'équidé ", 'attr': {'class' : 'input is-warning', }}) }}
+    </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            {{ form_row(annonceForm.prix) }}
+        </div>
+        <div class="column">
+            {{ form_row(annonceForm.equide.lienhn, {'label' : "Lien web Haras Nationaux : ",'attr': {'class' : 'input is-warning', 'placeholder' : 'Veuillez joindre un lien haras nationaux'}}) }}
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            {{ form_row(annonceForm.idtypea) }}
+        </div>
+        <div class="column">
+            {{ form_row(annonceForm.equide.iddep, {'label' : "Département : ","placeholder" : "Veuillez sélectionner un département ", 'attr': {'class' : 'input is-warning'}}) }}
+        </div>
+    </div>
     {{ form_row(annonceForm.description) }}
-    {{ form_row(annonceForm.prix) }}
-    {{ form_row(annonceForm.idtypea) }}
-    {{ form_row(annonceForm.equide.datenaiss, {'attr': {'class' : 'input is-warning'}}) }}
-    {{ form_row(annonceForm.equide.robe, {"placeholder" : "Veuillez sélectionner une robe ", 'attr': {'class' : 'input is-warning'}}) }}
-    {{ form_row(annonceForm.equide.race, {"placeholder" : "Veuillez sélectionner une race ", 'attr': {'class' : 'input is-warning'}}) }}
-    {{ form_row(annonceForm.equide.taille, {'attr': {'class' : 'input is-warning', 'placeholder' : 'Veuillez choisir une taille'}}) }}
-    {{ form_row(annonceForm.equide.lienhn, {'attr': {'class' : 'input is-warning', 'placeholder' : 'Veuillez joindre un lien haras nationaux'}}) }}
-    {{ form_row(annonceForm.equide.idtypeeq,{'label' : "Type de l'équidé : ", "placeholder" : "Veuillez sélectionner un type de l'équidé ", 'attr': {'class' : 'input is-warning', }}) }}
-    {{ form_row(annonceForm.equide.iddep, {'label' : "Département : ","placeholder" : "Veuillez sélectionner un département ", 'attr': {'class' : 'input is-warning'}}) }}
+    <br>
     {{ form_rest(annonceForm) }}
     {{ form_errors(annonceForm) }}
     {{ form_end(annonceForm) }}

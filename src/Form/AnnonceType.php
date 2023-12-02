@@ -9,6 +9,7 @@ use App\Entity\Utilisateur;
 use App\Form\EquideType;
 use Doctrine\DBAL\Types\StringType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use PHPUnit\Util\Type;
 use Symfony\Component\Form\AbstractType;
@@ -29,11 +30,12 @@ class AnnonceType extends AbstractType
                 'attr' => [
         'class' => 'input is-warning',
                     'placeholder' => 'Veuillez saisir un titre']])
-           ->add('description',TextType::class, [
+           ->add('description',TextareaType::class, [
+               'label' => "Description de l'annonce : ",
                'attr' => [
                    'class' => 'input is-warning',
-                   'label' => "Description",
-                   'placeholder' => 'Veuillez saisir une description'],
+                   'style' => 'width: 1100px ; height: 100px',
+                   'placeholder' => 'Décrivez votre animal en quelques phrases'],
                'constraints' => [
                    new NotBlank([
                        'message' => 'Entrez un titre',
@@ -46,12 +48,12 @@ class AnnonceType extends AbstractType
                    ]),
                ],])
             ->add('prix',IntegerType::class, [
+                'label' => "Prix : ",
                 'attr' => [
                     'class' => 'input is-warning',
                     'min' => 1,
                     'max' => 100000,
-                    'placeholder' => "Veuillez saisir un prix",
-                    'label' => "Prix"],
+                    'placeholder' => "Veuillez saisir un prix (en euros)"],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Entrez un prix',
@@ -59,7 +61,7 @@ class AnnonceType extends AbstractType
             ])
          ->add('idtypea',ChoiceType::class, [
              'placeholder' => "Veuillez saisir un type de l'annonce",
-             'label' => "Type de l'annonce",
+             'label' => "Type de l'annonce : ",
              'choices' => [
                  'vente' => 1,
                  'location' => 2,
