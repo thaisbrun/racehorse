@@ -1,5 +1,13 @@
 
 <div class="container is-widescreen">
+    <br>
+    {% for message in app.session.flashBag.get('erreur') %}
+        <div class="message is-danger">
+            <div class="message-header">
+            {{ message }}
+            </div>
+        </div>
+    {% endfor %}
     {{ form_start(annonceForm) }}
     <div class="columns">
         <div class="column">
@@ -22,7 +30,7 @@
     </div>
     <div class="columns">
         <div class="column">
-            {{ form_row(annonceForm.equide.taille, {'label' : "Taille : ",'attr': {'class' : 'input is-warning', 'placeholder' : 'Veuillez choisir une taille (en cm)'}}) }}
+            {{ form_row(annonceForm.equide.taille, {'label' : "Taille : ",'attr': {'class' : 'input is-warning', 'min' : 1, 'placeholder' : 'Veuillez choisir une taille (en cm)'}}) }}
         </div>
     <div class="column">
         {{ form_row(annonceForm.equide.idtypeeq,{'label' : "Type de l'équidé : ", "placeholder" : "Veuillez sélectionner un type de l'équidé ", 'attr': {'class' : 'input is-warning', }}) }}

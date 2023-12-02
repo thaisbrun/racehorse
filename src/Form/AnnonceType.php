@@ -6,8 +6,12 @@ use App\Entity\Annonce;
 use App\Entity\Equide;
 use App\Entity\Typeannonce;
 use App\Entity\Utilisateur;
+use App\Entity\Ville;
 use App\Form\EquideType;
+use App\Repository\TypeAnnonceRepository;
+use App\Repository\VilleRepository;
 use Doctrine\DBAL\Types\StringType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -59,14 +63,14 @@ class AnnonceType extends AbstractType
                         'message' => 'Entrez un prix',
                     ])]
             ])
-         ->add('idtypea',ChoiceType::class, [
+         ->add('idtypea',EntityType::class, [
              'placeholder' => "Veuillez saisir un type de l'annonce",
              'label' => "Type de l'annonce : ",
-             'choices' => [
-                 'vente' => 1,
-                 'location' => 2,
-                 'demi-pension' => 3
-             ],
+             'class' => Typeannonce::class,
+             'choice_label' => 'libelle',
+             'query_builder' => function(TypeAnnonceRepository $typeAnnonceRepository) {
+                 return $typeAnnonceRepository->createQueryBuilder("type_annonce")->addOrderBy('type_annonce.libelle');
+             },
              'attr' => [
                  'class' => 'input is-warning',
                  ],
