@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AnnonceType extends AbstractType
 {
@@ -23,20 +25,41 @@ class AnnonceType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class, [
+                'label' => "Titre de l'annonce : ",
                 'attr' => [
         'class' => 'input is-warning',
-                'label' => "Titre de l'annonce",
                     'placeholder' => 'Veuillez saisir un titre']])
            ->add('description',TextType::class, [
                'attr' => [
                    'class' => 'input is-warning',
                    'label' => "Description",
-                   'placeholder' => 'Veuillez saisir une description']])
+                   'placeholder' => 'Veuillez saisir une description'],
+               'constraints' => [
+                   new NotBlank([
+                       'message' => 'Entrez un titre',
+                   ]),
+                   new Length([
+                       'min' => 10,
+                       'minMessage' => "Le titre doit faire au minimum 10 caractères",
+                       // max length allowed by Symfony for security reasons
+                       'max' => 400,
+                   ]),
+               ],])
             ->add('prix',IntegerType::class, [
                 'attr' => [
                     'class' => 'input is-warning',
-                    'label' => "Prix"]])
+                    'min' => 1,
+                    'max' => 100000,
+                    'placeholder' => "Veuillez saisir un prix",
+                    'label' => "Prix"],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Entrez un prix',
+                    ])]
+            ])
          ->add('idtypea',ChoiceType::class, [
+             'placeholder' => "Veuillez saisir un type de l'annonce",
+             'label' => "Type de l'annonce",
              'choices' => [
                  'vente' => 1,
                  'location' => 2,
@@ -44,10 +67,20 @@ class AnnonceType extends AbstractType
              ],
              'attr' => [
                  'class' => 'input is-warning',
-                 ]])
+                 ],
+             'constraints' => [
+                 new NotBlank([
+                     'message' => "Choisir un type d'annonce ",
+                 ])
+             ],
+             ])
             ->add('equide', EquideType::class, [
                 'mapped' => false,
-                'attr' => ['class' => 'is-warning']
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Veuillez remplir les informations nécessaires ",
+                    ])
+                ]
             ])
             ->add('save', SubmitType::class, [
                 'label' => "Publier l'annonce",

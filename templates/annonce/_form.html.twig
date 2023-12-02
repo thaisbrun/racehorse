@@ -1,18 +1,24 @@
 
 <div class="container is-widescreen">
     {{ form_start(annonceForm) }}
-    {{ form_row(annonceForm.titre) }}
+    <div class="columns">
+        <div class="column">
+            {{ form_row(annonceForm.titre) }}
+        </div>
+        <div class="column">
+            {{form_row(annonceForm.equide.nom, {'attr': {'class' : 'input is-warning', 'placeholder' : 'Veuillez choisir un nom'}}) }}
+        </div>
+        </div>
     {{ form_row(annonceForm.description) }}
     {{ form_row(annonceForm.prix) }}
     {{ form_row(annonceForm.idtypea) }}
-    {{form_row(annonceForm.equide.nom) }}
-    {{ form_row(annonceForm.equide.datenaiss) }}
-    {{ form_row(annonceForm.equide.robe) }}
-    {{ form_row(annonceForm.equide.race) }}
-    {{ form_row(annonceForm.equide.taille) }}
-    {{ form_row(annonceForm.equide.lienhn) }}
-    {{ form_row(annonceForm.equide.idtypeeq) }}
-    {{ form_row(annonceForm.equide.iddep) }}
+    {{ form_row(annonceForm.equide.datenaiss, {'attr': {'class' : 'input is-warning'}}) }}
+    {{ form_row(annonceForm.equide.robe, {"placeholder" : "Veuillez sélectionner une robe ", 'attr': {'class' : 'input is-warning'}}) }}
+    {{ form_row(annonceForm.equide.race, {"placeholder" : "Veuillez sélectionner une race ", 'attr': {'class' : 'input is-warning'}}) }}
+    {{ form_row(annonceForm.equide.taille, {'attr': {'class' : 'input is-warning', 'placeholder' : 'Veuillez choisir une taille'}}) }}
+    {{ form_row(annonceForm.equide.lienhn, {'attr': {'class' : 'input is-warning', 'placeholder' : 'Veuillez joindre un lien haras nationaux'}}) }}
+    {{ form_row(annonceForm.equide.idtypeeq,{'label' : "Type de l'équidé : ", "placeholder" : "Veuillez sélectionner un type de l'équidé ", 'attr': {'class' : 'input is-warning', }}) }}
+    {{ form_row(annonceForm.equide.iddep, {'label' : "Département : ","placeholder" : "Veuillez sélectionner un département ", 'attr': {'class' : 'input is-warning'}}) }}
     {{ form_rest(annonceForm) }}
     {{ form_errors(annonceForm) }}
     {{ form_end(annonceForm) }}
