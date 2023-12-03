@@ -49,7 +49,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-         return $this->redirectToRoute('homepage');
+         return $this->redirectToRoute('security/app_viewProfil');
          }
 
         // get the login error if there is one
@@ -97,10 +97,6 @@ class SecurityController extends AbstractController
         if($formPassword->isSubmitted() && $formPassword->isValid())
         {
             $user = $utilisateurRepository->findOneBy(array('mail' =>$formPassword->get('mail')->getData()));
-
-        if($user){
-            
-        }
 
         $this->addFlash('danger','Un problème est survenu');
         return $this->redirectToRoute('security/forgottenPassword');
