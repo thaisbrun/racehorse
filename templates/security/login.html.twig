@@ -9,7 +9,13 @@
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-
+        {% for message in app.session.flashBag.get('error') %}
+            <div class="message is-danger">
+                <div class="message-header">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
     {% if app.user %}
         <div class="mb-3">
             Vous êtes connectés en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>

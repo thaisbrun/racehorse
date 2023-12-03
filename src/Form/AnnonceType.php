@@ -42,11 +42,11 @@ class AnnonceType extends AbstractType
                    'placeholder' => 'Décrivez votre animal en quelques phrases'],
                'constraints' => [
                    new NotBlank([
-                       'message' => 'Entrez un titre',
+                       'message' => 'Entrez une description',
                    ]),
                    new Length([
                        'min' => 10,
-                       'minMessage' => "Le titre doit faire au minimum 10 caractères",
+                       'minMessage' => "La description doit faire au minimum 10 caractères",
                        // max length allowed by Symfony for security reasons
                        'max' => 400,
                    ]),
@@ -80,8 +80,7 @@ class AnnonceType extends AbstractType
                  ])
              ],
              ])
-            ->add('equide', EquideType::class, [
-                'mapped' => false,
+            ->add('idequidea', EquideType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => "Veuillez remplir les informations nécessaires ",

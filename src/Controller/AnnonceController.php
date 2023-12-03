@@ -118,7 +118,7 @@ class AnnonceController extends AbstractController
         $annonceForm = $this->createForm(AnnonceType::class, $annonce);
         $annonceForm->handleRequest($request);
         if ($annonceForm->isSubmitted() && $annonceForm->isValid()) {
-            $equide = $annonceForm->get('equide')->getData();
+            $equide = $annonceForm->get('idequidea')->getData();
             $equide->setIdproprio($this->getUser());
             if($annonce->getPrix() < 0 ){
                 $this->addFlash("erreur", "Le prix ne peut pas être inférieur");
@@ -142,7 +142,7 @@ class AnnonceController extends AbstractController
 
         return $this->renderForm('annonce/new.html.twig', [
             'annonce' => $annonce,
-            'equide' => $equide,
+            'idequidea' => $equide,
             'annonceForm' => $annonceForm,
         ]);
     }
@@ -168,12 +168,11 @@ class AnnonceController extends AbstractController
                          EquideRepository $equideRepository, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(AnnonceType::class, $annonce);
-        $form->handleRequest($request);
         $equide = $annonce->getIdequidea();
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($equide);
             $entityManager->flush($equide);
-
             $equideRepository->save($equide, true);
             $annonceRepository->save($annonce, true);
 
@@ -182,7 +181,6 @@ class AnnonceController extends AbstractController
 
         return $this->renderForm('annonce/edit.html.twig', [
             'annonceForm' => $form,
-            'equide' => $equide,
         ]);
     }
 

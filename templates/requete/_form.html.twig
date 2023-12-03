@@ -1,6 +1,13 @@
 {% block body %}
     <img src="{{ asset('img/contact.png') }}">
     <div class="container is-widescreen">
+        {% for message in app.session.flashBag.get('success') %}
+            <div class="message is-success">
+                <div class="message-header">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
         {{ form_start(form) }}
             <br>
                     {{ form_row(form.objet) }}

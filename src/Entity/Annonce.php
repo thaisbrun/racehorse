@@ -166,7 +166,7 @@ class Annonce
         return $this;
     }
 
-    public function getIdequidea(): Equide
+    public function getIdequidea(): ?Equide
     {
         return $this->idequidea;
     }
