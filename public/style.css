@@ -1,10 +1,10 @@
 h1{
-    color: hsl(48, 100%, 67%);
+    color: hsl(171, 100%, 29%);
     font-size: 20px;
     font-family: 'Montserrat';
 }
 h4{
-    color:hsl(48, 100%, 67%);
+    color:hsl(171, 100%, 29%);
     font-size: 30px;
     font-family: 'Montserrat';
     margin-right:40px;
@@ -22,7 +22,7 @@ li{
 }
 h3{
     font-size: 16px;
-    color: hsl(48, 100%, 67%);
+    color: hsl(171, 100%, 29%);
 }
 .containerIndex{
     position:relative;
@@ -40,7 +40,7 @@ h3{
     left: 75%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    background-color: hsl(48, 100%, 67%);
+    background-color: hsl(171, 100%, 29%);
     width:300px;
     font-size: 16px;
     padding: 12px 24px;
@@ -55,7 +55,7 @@ h3{
     left: 25%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    background-color: hsl(48, 100%, 67%);
+    background-color: hsl(171, 100%, 29%);
     font-size: 16px;
     width:300px;
     padding: 12px 24px;
