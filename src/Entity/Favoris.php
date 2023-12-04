@@ -2,9 +2,7 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use function Symfony\Component\Translation\t;
 
 /**
  * Favoris
@@ -53,7 +51,6 @@ class Favoris
 
         return $this;
     }
-
     public function getIdannoncefav(): ?Annonce
     {
         return $this->idannoncefav;
@@ -64,12 +61,10 @@ class Favoris
 
         return $this;
     }
-
     public function getDatecreation(): ?\DateTimeInterface
     {
         return $this->datecreation;
     }
-
     public function setDatecreation(?\DateTimeInterface $datecreation): self
     {
         $this->datecreation = $datecreation;
