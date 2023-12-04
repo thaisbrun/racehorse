@@ -23,12 +23,12 @@ class AnnonceType extends AbstractType
             ->add('titre', TextType::class, [
                 'label' => "Titre de l'annonce : ",
                 'attr' => [
-        'class' => 'input is-warning',
+        'class' => 'input is-primary',
                     'placeholder' => 'Veuillez saisir un titre']])
            ->add('description',TextareaType::class, [
                'label' => "Description de l'annonce : ",
                'attr' => [
-                   'class' => 'input is-warning',
+                   'class' => 'input is-primary',
                    'style' => 'width: 1100px ; height: 100px',
                    'placeholder' => 'Décrivez votre animal en quelques phrases'],
                'constraints' => [
@@ -45,7 +45,7 @@ class AnnonceType extends AbstractType
             ->add('prix',IntegerType::class, [
                 'label' => "Prix : ",
                 'attr' => [
-                    'class' => 'input is-warning',
+                    'class' => 'input is-primary',
                     'min' => 1,
                     'max' => 100000,
                     'placeholder' => "Veuillez saisir un prix (en euros)"],
@@ -63,7 +63,7 @@ class AnnonceType extends AbstractType
                  return $typeAnnonceRepository->createQueryBuilder("type_annonce")->addOrderBy('type_annonce.libelle');
              },
              'attr' => [
-                 'class' => 'input is-warning',
+                 'class' => 'input is-primary',
                  ],
              'constraints' => [
                  new NotBlank([
