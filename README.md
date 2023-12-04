@@ -8,7 +8,7 @@ Tous mes projets suivent la même organisation :
 
 3 - Création du MCD (Umlet)
 
-4 - Création de la BDD (pour ce projet ci : Firebase)
+4 - Création de la BDD (pour ce projet ci : phpMyAdmin)
 
 5 - Initialisation du projet et création des différentes fonctionnalités
 
