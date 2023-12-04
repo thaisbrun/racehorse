@@ -20,4 +20,4 @@ Tous mes projets suivent la même organisation :
 
 9 - Selon mon inspiration, tâches pour évolution de la plateforme rajoutées dans le Kanban
 
-10 - Début de la V2 et travail sur les évolutions à faire (création nouvelle branche)
+10 - Début de la V2 et travail sur les évolutions à faire
