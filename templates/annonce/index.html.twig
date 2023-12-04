@@ -61,8 +61,8 @@
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 1}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus à vendre</a>
-    <h2 style="text-decoration: underline;">Poneys à louer</h2>
+    <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 1}) }}" style="color:hsl(171, 100%, 29%);margin-left:85%;font-style: italic;">Voir plus à vendre</a>
+    <h2 style="text-decoration: underline;">Chevaux à louer</h2>
     <br>
     <div class="columns">
         {% for annonce in annoncesLocation %}
@@ -75,7 +75,6 @@
                     </div>
                     <div class="card-content">
                         <div class="media">
-
                             <div class="media-content">
                                 <p class="title is-4">{{ annonce.titre }}</p>
                                 <p class="subtitle is-6">{{ annonce.prix }} €</p>
@@ -103,8 +102,8 @@
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 2}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus à louer</a>
-    <h2 style="text-decoration: underline;">Poneys à prendre en DP</h2>
+    <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 2}) }}" style="color:hsl(171, 100%, 29%);margin-left:85%;font-style: italic;">Voir plus à louer</a>
+    <h2 style="text-decoration: underline;">Chevaux à prendre en DP</h2>
     <br>
     <div class="columns">
         {% for annonce in annoncesDP %}
@@ -145,7 +144,7 @@
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 3}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus de DP</a>
+    <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 3}) }}" style="color:hsl(171, 100%, 29%);margin-left:85%;font-style: italic;">Voir plus de DP</a>
 </div>
     <script>
         function onClickBtnLike(event){
