@@ -2,11 +2,7 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DateTimeParamConverter;
-use Symfony\Component\HttpFoundation\Session\Session;
-
 
 /**
  * Equide
@@ -107,115 +103,96 @@ class Equide
     {
         return $this->idequide;
     }
-
     public function getNom(): ?string
     {
         return $this->nom;
     }
-
     public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 
         return $this;
     }
-
     public function getDatenaiss(): ?\DateTime
     {
         return $this->datenaiss;
     }
-
     public function setDatenaiss(?\DateTime $datenaiss): self
     {
         $this->datenaiss = $datenaiss;
 
         return $this;
     }
-
     public function getRobe(): ?Robe
     {
         return $this->robe;
     }
-
     public function setRobe(?Robe $robe): self
     {
         $this->robe = $robe;
 
         return $this;
     }
-
     public function getRace(): ?Race
     {
         return $this->race;
     }
-
     public function setRace(?Race $race): self
     {
         $this->race = $race;
 
         return $this;
     }
-
     public function getTaille(): ?int
     {
         return $this->taille;
     }
-
     public function setTaille(?int $taille): self
     {
         $this->taille = $taille;
 
         return $this;
     }
-
     public function getLienhn(): ?string
     {
         return $this->lienhn;
     }
-
     public function setLienhn(?string $lienhn): self
     {
         $this->lienhn = $lienhn;
 
         return $this;
     }
-
     public function getIdtypeeq(): ?Typeequide
     {
         return $this->idtypeeq;
     }
-
     public function setIdtypeeq(?Typeequide $idtypeeq): self
     {
         $this->idtypeeq = $idtypeeq;
 
         return $this;
     }
-
     public function getIddep(): ?Departement
     {
         return $this->iddep;
     }
-
     public function setIddep(?Departement $iddep): self
     {
         $this->iddep = $iddep;
 
         return $this;
     }
-
     public function getIdproprio(): ?Utilisateur
     {
         return $this->idproprio;
     }
-
     public function setIdproprio(?Utilisateur $idproprio): self
     {
         $this->idproprio = $idproprio;
 
         return $this;
     }
-
     public function __toString(){
         return $this->nom . $this->race ;
     }

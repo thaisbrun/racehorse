@@ -20,14 +20,12 @@ class Departement
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $iddepartement;
-
     /**
      * @var string|null
      *
      * @ORM\Column(name="libelle", type="string", length=30, nullable=true, options={"default"="NULL"})
      */
     private $libelle = 'NULL';
-
     /**
      * @var \Region
      *
@@ -42,31 +40,26 @@ class Departement
     {
         return $this->iddepartement;
     }
-
     public function getLibelle(): ?string
     {
         return $this->libelle;
     }
-
     public function setLibelle(?string $libelle): self
     {
         $this->libelle = $libelle;
 
         return $this;
     }
-
     public function getIdregiondep(): ?Region
     {
         return $this->idregiondep;
     }
-
     public function setIdregiondep(?Region $idregiondep): self
     {
         $this->idregiondep = $idregiondep;
 
         return $this;
     }
-
     public function __toString()
     {
         return $this->libelle;

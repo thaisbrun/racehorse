@@ -3,30 +3,18 @@
 namespace App\Controller;
 use App\Entity\Favoris;
 use App\Repository\FavorisRepository;
-use Symfony\Component\HttpFoundation\Session\Session;
-use App\Entity\Utilisateur;
-use App\Form\EquideType;
-use App\Repository\TypeEquideRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Client\Curl\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Entity\Annonce;
 use App\Entity\Equide;
 use App\Form\AnnonceType;
-use App\Repository\DepartementRepository;
 use App\Repository\EquideRepository;
-use App\Repository\ImageRepository;
 use App\Repository\AnnonceRepository;
-use App\Repository\RaceRepository;
-use App\Repository\RegionRepository;
-use App\Repository\RobeRepository;
 use App\Repository\TypeAnnonceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 
 #[Route('/')]
@@ -45,8 +33,7 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('/annonce/all_annonces', name: 'app_annonce_all_annonces', methods: ['GET'])]
-    public function all_annonces(AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository, DepartementRepository $departementRepository,
-                                 RobeRepository $robeRepository, RaceRepository $raceRepository, Request $request): Response
+    public function all_annonces(AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository, Request $request): Response
     {
         //On récupère des filtres
         $filters = $request->get("listTypeAnnonces");
@@ -155,14 +142,12 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('annonce/show/{idannonce}', name: 'app_annonce_show', methods: ['GET'])]
-    public function show(Annonce $annonce, ImageRepository $imageRepository,EquideRepository $equideRepository, DepartementRepository $departementRepository, RegionRepository $regionRepository): Response
+    public function show(Annonce $annonce): Response
     {
-        $annonce->setListImages($imageRepository->findBy(array('idannonceimage' => $annonce->getIdannonce())));
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
         ]);
     }
-
     #[Route('annonce/edit/{idannonce}', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository,
                          EquideRepository $equideRepository, EntityManagerInterface $entityManager): Response
@@ -198,6 +183,5 @@ class AnnonceController extends AbstractController
 
         return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
     }
-
 
 }

@@ -4,11 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Utilisateur;
-use PhpParser\ErrorHandler\Collecting;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 
 /**
@@ -92,12 +88,18 @@ class Annonce
      * })
      */
     private $idutilisateurannonce;
+
     /**
      * @var Collection
      * @ORM\OneToMany(targetEntity="Favoris", mappedBy="idannoncefav")
      */
     private Collection $favoris;
-    private array $listImages;
+
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="idannonceimage")
+     */
+    private Collection $images;
     public function __construct(){
         $this->favoris = new ArrayCollection();
     }
@@ -105,96 +107,80 @@ class Annonce
     {
         return $this->idannonce;
     }
-
     public function getTitre(): ?string
     {
         return $this->titre;
     }
-
     public function setTitre(string $titre): self
     {
         $this->titre = $titre;
 
         return $this;
     }
-
     public function getDescription(): ?string
     {
         return $this->description;
     }
-
     public function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
-
     public function getPrix(): ?int
     {
         return $this->prix;
     }
-
     public function setPrix(int $prix): self
     {
         $this->prix = $prix;
 
         return $this;
     }
-
     public function isActivation(): ?bool
     {
         return $this->activation;
     }
-
     public function setActivation(?bool $activation): self
     {
         $this->activation = $activation;
 
         return $this;
     }
-
     public function getDatecreation(): ?\DateTimeInterface
     {
         return $this->datecreation;
     }
-
     public function setDatecreation(?\DateTimeInterface $datecreation): self
     {
         $this->datecreation = $datecreation;
 
         return $this;
     }
-
     public function getIdequidea(): ?Equide
     {
         return $this->idequidea;
     }
-
     public function setIdequidea(?Equide $idequidea): self
     {
         $this->idequidea = $idequidea;
 
         return $this;
     }
-
     public function getIdtypea(): ?Typeannonce
     {
         return $this->idtypea;
     }
-
     public function setIdtypea(?Typeannonce $idtypea): self
     {
         $this->idtypea = $idtypea;
 
         return $this;
     }
-
     public function getIdutilisateurannonce(): ?Utilisateur
     {
         return $this->idutilisateurannonce;
     }
-
     public function setIdutilisateurannonce(?Utilisateur $idutilisateurannonce): self
     {
         $this->idutilisateurannonce = $idutilisateurannonce;
@@ -203,23 +189,19 @@ class Annonce
     }
 
     /**
-     * @return array
+     * @return Collection
      */
-    public function getListImages(): array
+    public function getImages(): Collection
     {
-        return $this->listImages;
+        return $this->images;
     }
 
     /**
-     * @param array $listImages
+     * @param Collection $images
      */
-    public function setListImages(array $listImages): void
+    public function setImages(Collection $images): void
     {
-        $this->listImages = $listImages;
-    }
-
-    public function __toString(){
-        return $this->getDescription();
+        $this->images = $images;
     }
 
     /**
@@ -250,4 +232,7 @@ class Annonce
         return false;
     }
 
+    public function __toString(){
+        return $this->getDescription();
+    }
 }
