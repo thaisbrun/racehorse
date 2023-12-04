@@ -15,30 +15,25 @@ class UtilisateurType extends AbstractType
     {
         $builder
             ->add('prenom',TextType::class, [
-                'label' => "Prénom",
+                'label' => "Prénom : ",
                 'attr' => [
                     'class' => 'input is-warning',
                     'placeholder' => 'Veuillez saisir votre prénom']])
             ->add('nom',TextType::class, [
-                'label' => "Nom",
+                'label' => "Nom : ",
         'attr' => [
             'class' => 'input is-warning',
             'placeholder' => 'Veuillez saisir votre prénom']])
             ->add('login',TextType::class, [
-                'label' => "Pseudo",
+                'label' => "Pseudo : ",
                 'attr' => [
                     'class' => 'input is-warning',
                     'placeholder' => 'Veuillez saisir votre pseudo']])
             ->add('mail',TextType::class, [
-                'label' => "Mail",
+                'label' => "Mail : ",
         'attr' => [
             'class' => 'input is-warning',
             'placeholder' => 'Veuillez saisir votre mail']])
-            ->add('password',PasswordType::class, [
-                'label' => "Mot de passe",
-                'attr' => [
-                    'class' => 'input is-warning',
-                    'placeholder' => 'Veuillez saisir votre mot de passe']])
         ;
     }
 

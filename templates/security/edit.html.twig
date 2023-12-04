@@ -19,35 +19,25 @@
                     <div class="column">
                         {{ form_start(userEditForm) }}
                         <div class="field">
-                            <label class="label">Prénom</label>
                             <div class="control">
-                                <input name="{{ field_name(userEditForm.prenom) }}" value="{{ field_value(userEditForm.prenom) }}" placeholder="Entrez votre prénom" class="input is-outlined is-warning">
+                                {{ form_row(userEditForm.prenom) }}
                             </div>
                         </div>
                         <div class="field">
-                            <label class="label">Nom</label>
                             <div class="control">
-                                <input name="{{ field_name(userEditForm.nom) }}" value="{{ field_value(userEditForm.nom) }}" placeholder="Entrez votre nom" class="input is-outlined is-warning">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Mot de passe</label>
-                            <div class="control">
-                                <input name="{{ field_name(userEditForm.password) }}" value="{{ field_value(userEditForm.password) }}" type="password" placeholder="********" class="input is-outlined is-warning" readonly>
+                                {{ form_row(userEditForm.nom) }}
                             </div>
                         </div>
                     </div>
                     <div class="column">
                         <div class="field">
-                            <label class="label">Pseudo</label>
                             <div class="control">
-                                <input name="{{ field_name(userEditForm.login) }}" value="{{ field_value(userEditForm.login) }}" placeholder="Entrez votre pseudo" class="input is-outlined is-warning">
+                                {{ form_row(userEditForm.login) }}
                             </div>
                         </div>
                         <div class="field">
-                            <label class="label">Email</label>
                             <div class="control">
-                                <input name="{{ field_name(userEditForm.mail) }}" value="{{ field_value(userEditForm.mail) }}" placeholder="Entrez votre email" class="input is-outlined is-warning">
+                                {{ form_row(userEditForm.mail) }}
                             </div>
                         </div>
                     </div>
@@ -56,6 +46,8 @@
                 <div class="field is-grouped">
                     <div class="control">
                         <button type="submit" class="button is-warning is-medium">Modifier les informations</button>
+                        {{ form_rest(userEditForm) }}
+                        {{ form_errors(userEditForm) }}
                         {{ form_end(userEditForm) }}
                     </div>
                 </div>
