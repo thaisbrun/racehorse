@@ -29,8 +29,8 @@
         {% if app.user %}
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <div class="column is-two-thirds"><a href="{{ path('security/mes_favoris',{'idutilisateur': app.user.idutilisateur}) }}" style="color: #0a0a0a;"><i class="fa-solid fa-heart"></i> Mes favoris</a></div>
-                    <div class="column is-two-thirds"><a href="{{ path('security/app_viewProfil') }}" style="color: #0a0a0a;"><i class="fa-regular fa-user"></i> {{  app.user.login }}</a>
+                    <div class="column is-two-thirds"><a href="{{ path('app_security_show_fav',{'idutilisateur': app.user.idutilisateur}) }}" style="color: #0a0a0a;"><i class="fa-solid fa-heart"></i> Mes favoris</a></div>
+                    <div class="column is-two-thirds"><a href="{{ path('app_security_viewprofil') }}" style="color: #0a0a0a;"><i class="fa-regular fa-user"></i> {{  app.user.login }}</a>
                 </div>
                 </div>
                 </div>
@@ -40,7 +40,7 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <a class="button is-warning is-light" href="{{ path('security/app_register') }}" >
+                    <a class="button is-warning is-light" href="{{ path('app_registration_register') }}" >
                         <strong>M'inscrire</strong>
                     </a>
                     <a class="button is-light" href="{{ path('app_login') }}" >
@@ -69,7 +69,7 @@
                     <a href="{{ asset('about') }}" style="color:black; "> A propos de Ponyshop </a>
                 </div>
                 <div class="column">
-                    <a href="{{ path('security/app_register') }}" style="color:black; "> M'inscrire </a>
+                    <a href="{{ path('app_registration_register') }}" style="color:black; "> M'inscrire </a>
                 </div>
                 <div class="column">
                     <a href="{{ path('app_login') }}" style="color:black; "> Me connecter </a>
@@ -83,7 +83,6 @@
 
     {% block javascripts %}
         <script src="https://kit.fontawesome.com/4649941f6a.js" crossorigin="anonymous"></script>
-        <script src="{{ asset('js/favoris.js')}}"></script>
         <script src="{{ asset('js/script.js')}}"></script>
         {{ encore_entry_script_tags('app') }}
     {% endblock %}

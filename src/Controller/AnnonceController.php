@@ -146,7 +146,7 @@ class AnnonceController extends AbstractController
             'annonceForm' => $annonceForm,
         ]);
     }
-    #[Route('annonce/show_by_type_annonce/{idtypea}', name: 'show_by_type_annonce', methods: ['GET'])]
+    #[Route('annonce/show_by_type_annonce/{idtypea}', name: 'app_annonce_show_by_type_annonce', methods: ['GET'])]
     public function show_by_type_annonce(int $idtypea, AnnonceRepository $annonceRepository): Response
     {
         $listAnnonces = $annonceRepository->FindBy(array('idtypea' => $idtypea));
@@ -167,28 +167,33 @@ class AnnonceController extends AbstractController
     public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository,
                          EquideRepository $equideRepository, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(AnnonceType::class, $annonce);
-        $equide = $annonce->getIdequidea();
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($equide);
-            $entityManager->flush($equide);
-            $equideRepository->save($equide, true);
-            $annonceRepository->save($annonce, true);
-
+        if ($this->getUser() !== $annonce->getIdutilisateurannonce()) {
+            $this->addFlash('error', "Accès non autorisé");
             return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+        } else {
+            $form = $this->createForm(AnnonceType::class, $annonce);
+            $equide = $annonce->getIdequidea();
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($equide);
+                $entityManager->flush($equide);
+                $equideRepository->save($equide, true);
+                $annonceRepository->save($annonce, true);
+
+                return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('annonce/edit.html.twig', [
+                'annonceForm' => $form,
+            ]);
         }
-
-        return $this->renderForm('annonce/edit.html.twig', [
-            'annonceForm' => $form,
-        ]);
     }
-
     #[Route('annonce/delete/{idannonce}', name: 'app_annonce_delete', methods: ['POST'])]
-    public function delete(Request $request, Annonce $annonce, AnnonceRepository $myClassRepository): Response
+    public function delete(Request $request, Annonce $annonce, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$annonce->getIdannonce(), $request->request->get('_token'))) {
-            $myClassRepository->remove($annonce, true);
+            $entityManager->remove($annonce, true);
+            $entityManager->flush();
         }
 
         return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);

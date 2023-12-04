@@ -18,11 +18,17 @@
             <div class="media">
                 <div class="media-content">
                     <h4>{{ favori.idannoncefav.titre }} - {{ favori.idannoncefav.prix }} €</h4>
-                    <span class="icon is-large" style="margin-left: 80%;">
-                        <span class="fa-stack fa-lg">
-                    <i style="color:hsl(48, 100%, 67%)" class="fa-solid fa-heart"></i>
-                        </span>
-                    </span>
+                    <a href="{{ path('fav', {'idannonce': favori.idannoncefav}) }}" class="button is-text js-like">
+                        {% if app.user and favori.idannoncefav.isLikedByUser(app.user) %}
+                        <i class="fa-solid fa-heart js-like"></i>
+                        <span>&emsp;Enlever de mes favoris</span>
+                        {% else %}
+                        <i class="fa-regular fa-heart js_like"></i>
+                        <span>&emsp;Ajouter à mes favoris</span>
+                    {% endif %}
+                    </a>
+                    <br>
+                    <br>
                     <p class="subtitle is-6"> Annonce postée par : {{ favori.idutilisateurfav.login }}</p>
                 </div>
             </div>

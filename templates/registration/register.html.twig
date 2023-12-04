@@ -2,7 +2,6 @@
 
 {% block title %}Inscription{% endblock %}
 
-
 {% block body %}
     <img src="{{ asset('img/inscription.png') }}">
 <form method="post">
@@ -17,6 +16,8 @@
                     {{ form_row(registrationForm.nom) }}
                     <br>
                     {{ form_row(registrationForm.login) }}
+                </div>
+            <div class="column">
                     <br>
                     {{ form_row(registrationForm.mail) }}
                     <br>
@@ -25,7 +26,7 @@
                     {{ form_rest(registrationForm) }}
                     {{ form_errors(registrationForm) }}
                     {{ form_end(registrationForm) }}
-                </div>
+            </div>
             </div>
         </form>
     </div>

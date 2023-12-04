@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Annonces{% endblock %}
+{% block title %}Annonces en ligne{% endblock %}
 
 {% block body %}
     <img src="{{ asset('img/allAnnonces.png') }}">
@@ -8,10 +8,11 @@
     <br>
     <br>
     <form id="filters">
+        <h1>Veuillez sélectionner un type d'annonce :
             {% for typeAnnonce in listTypeAnnonces %}
             <input type="checkbox" name="listTypeAnnonces[]" id="typeAnnonce{{ typeAnnonce.idtypeannonce }}" value="{{ typeAnnonce.idtypeannonce }}">
-            <label for="typeAnnonce{{ typeAnnonce.idtypeannonce }}">{{ typeAnnonce.libelle }}</label>
-            {% endfor %}
+            <label for="typeAnnonce{{ typeAnnonce.idtypeannonce }}">{{ typeAnnonce.libelle }} &emsp;</label>
+            {% endfor %}</h1>
     </form>
     <br>
     <br>

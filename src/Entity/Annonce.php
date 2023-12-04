@@ -68,7 +68,7 @@ class Annonce
      *
      * @ORM\ManyToOne(targetEntity="Equide")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idEquideA", referencedColumnName="idEquide",onDelete={"persist"})
+     *   @ORM\JoinColumn(name="idEquideA", referencedColumnName="idEquide",onDelete="CASCADE")
      * })
      */
     private $idequidea;

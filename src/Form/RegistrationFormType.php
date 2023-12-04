@@ -6,6 +6,7 @@ use App\Entity\Utilisateur;
 use Doctrine\DBAL\Types\TextType;
 use Symfony\{Component\Form\AbstractType,
     Component\Form\Extension\Core\Type\CheckboxType,
+    Component\Form\Extension\Core\Type\EmailType,
     Component\Form\Extension\Core\Type\PasswordType,
     Component\Form\Extension\Core\Type\SubmitType,
     Component\Form\Extension\Core\Type\TextareaType,
@@ -21,43 +22,85 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('prenom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                'label' => "Prénom : ",
                 'attr' => [
                     'class' => 'input is-warning',
-                    'label' => "Prénom",
-                    'placeholder' => 'Veuillez saisir votre prénom']
+                    'placeholder' => 'Veuillez saisir votre prénom'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Le prénom ne peut pas être vide',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Le prénom doit au moins faire 2 caractères',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 20,
+                        'maxMessage' => 'Le prénom doit au maximum faire 20 caractères',
+                    ]),
+                ]
             ])
             ->add('nom',\Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                'label' => "Nom : ",
                 'attr' => [
                     'class' => 'input is-warning',
-                    'label' => "Nom",
-                    'placeholder' => 'Veuillez saisir votre prénom']
+                    'placeholder' => 'Veuillez saisir votre nom'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Le nom ne peut pas être vide',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Le nom doit au moins faire 3 caractères',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 20,
+                        'maxMessage' => 'Le nom doit au maximum faire 20 caractères',
+                    ]),
+                ]
             ])
             ->add('login',\Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                'label' => "Pseudo : ",
                 'attr' => [
                     'class' => 'input is-warning',
-                    'label' => "Pseudo",
-                    'placeholder' => 'Veuillez saisir votre pseudo']
+                    'placeholder' => 'Veuillez saisir votre pseudo'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Le pseudo ne peut pas être vide',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Le pseudo doit au moins faire 3 caractères',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 20,
+                        'maxMessage' => 'Le pseudo doit au maximum faire 20 caractères',
+                    ]),
+                ],
             ])
-            ->add('mail',\Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+            ->add('mail',EmailType::class, [
+                'label' => "Mail : ",
                 'attr' => [
                     'class' => 'input is-warning',
-                    'label' => "Mail",
-                    'placeholder' => 'Veuillez saisir votre mail']
+                    'placeholder' => 'Veuillez saisir votre mail'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Le mail ne peut pas être vide',
+                    ]),
+                ],
             ])
             ->add('password', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'label' => 'Mot de passe : ',
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password',
                     'class' => 'input is-warning',
-                    'label' => 'Mot de passe'],
+                    'placeholder' => 'Veuillez saisir votre mot de passe'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Le mot de passe ne peut pas être vide',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Le mot de passe doit au moins faire 6 caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),

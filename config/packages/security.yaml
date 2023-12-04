@@ -17,7 +17,7 @@ security:
             provider: dbProvider
             custom_authenticator: App\Security\AuthAuthenticator
             logout:
-                path: security/app_logout
+                path: app_security_logout
                 # where to redirect after logout
                 # target: app_any_route
 

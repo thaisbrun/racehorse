@@ -87,10 +87,6 @@ class AnnonceType extends AbstractType
                     ])
                 ]
             ])
-            ->add('save', SubmitType::class, [
-                'label' => "Publier l'annonce",
-                'attr' => ['class' => 'button is-warning']
-            ])
         ;
     }
 

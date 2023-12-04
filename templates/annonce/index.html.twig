@@ -11,8 +11,14 @@
         <button class="btnIndexAcheter">Acheter</button>
         </a>
     </div>
-
 <div class="container is-widescreen">
+    {% for message in app.session.flashBag.get('error') %}
+        <div class="message is-danger">
+            <div class="message-header">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
     <br>
     <h2 style="text-decoration: underline;">Poneys à vendre</h2>
     <br>
@@ -31,7 +37,7 @@
                             <div class="media-content">
                                 <p class="title is-4">{{ annonce.titre }}</p>
                                 <p class="subtitle is-6">{{ annonce.prix }} €</p>
-
+                                {% if app.user %}
                                     <a href="{{ path('fav', {'idannonce': annonce.idannonce}) }}" class="button is-text js-like">
                                         {% if app.user and annonce.isLikedByUser(app.user) %}
                                         <i class="fa-solid fa-heart js-like"></i>
@@ -41,6 +47,7 @@
                                         <span>Ajouter à mes favoris</span>
                                     <br>
                                         </a>
+                                {% endif %}
                                 {% endif %}
                             </div>
                         </div>
@@ -57,7 +64,7 @@
         {% endfor %}
    <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
     </div>
-    <a href="{{ path('show_by_type_annonce', {'idtypea': 1}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus à vendre</a>
+    <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 1}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus à vendre</a>
     <h2 style="text-decoration: underline;">Poneys à louer</h2>
     <br>
     <div class="columns">
@@ -75,17 +82,17 @@
                             <div class="media-content">
                                 <p class="title is-4">{{ annonce.titre }}</p>
                                 <p class="subtitle is-6">{{ annonce.prix }} €</p>
-                                {% if app.user %}
-                                    <span class="icon-text">
-                                <span class="icon is-left">
-                                    {# Si une table possède un tuple existant alors le coeur est plein et en cliquant dessus
-                                    le user supprime le favori #}
-                                    {# Sinon le coeur est vide et en cliquant dessus, le user ajoute un favori #}
-                                    <a class="fa-regular fa-heart" onclick="postFavori({{ app.user.idutilisateur }},{{ annonce.idannonce }})"></a>
-
-                                </span>
-                                <span>Mettre en favori</span>
-                                </span>
+                                <a href="{{ path('fav', {'idannonce': annonce.idannonce}) }}" class="button is-text js-like">
+                                    {% if app.user %}
+                                    {% if app.user and annonce.isLikedByUser(app.user) %}
+                                    <i class="fa-solid fa-heart js-like"></i>
+                                    <span>Enlever de mes favoris</span>
+                                    {% else %}
+                                    <i class="fa-regular fa-heart js_like"></i>
+                                    <span>Ajouter à mes favoris</span>
+                                    <br>
+                                </a>
+                                {% endif %}
                                 {% endif %}
                             </div>
                         </div>
@@ -102,7 +109,7 @@
         {% endfor %}
         <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
     </div>
-    <a href="{{ path('show_by_type_annonce', {'idtypea': 2}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus à louer</a>
+    <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 2}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus à louer</a>
     <h2 style="text-decoration: underline;">Poneys à prendre en DP</h2>
     <br>
     <div class="columns">
@@ -121,16 +128,16 @@
                                 <p class="title is-4">{{ annonce.titre }}</p>
                                 <p class="subtitle is-6">{{ annonce.prix }} €</p>
                                 {% if app.user %}
-                                    <span class="icon-text">
-                                <span class="icon is-left">
-                                    {# Si une table possède un tuple existant alors le coeur est plein et en cliquant dessus
-                                    le user supprime le favori #}
-                                    {# Sinon le coeur est vide et en cliquant dessus, le user ajoute un favori #}
-                                    <a class="fa-regular fa-heart" onclick="postFavori({{ app.user.idutilisateur }},{{ annonce.idannonce }})"></a>
-
-                                </span>
-                                <span>Mettre en favori</span>
-                                </span>
+                                <a href="{{ path('fav', {'idannonce': annonce.idannonce}) }}" class="button is-text js-like">
+                                    {% if app.user and annonce.isLikedByUser(app.user) %}
+                                    <i class="fa-solid fa-heart js-like"></i>
+                                    <span>Enlever de mes favoris</span>
+                                    {% else %}
+                                    <i class="fa-regular fa-heart js_like"></i>
+                                    <span>Ajouter à mes favoris</span>
+                                    <br>
+                                </a>
+                                {% endif %}
                                 {% endif %}
                             </div>
                         </div>
@@ -147,7 +154,7 @@
         {% endfor %}
         <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
     </div>
-    <a href="{{ path('show_by_type_annonce', {'idtypea': 3}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus de DP</a>
+    <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 3}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus de DP</a>
 </div>
     <script>
         function onClickBtnLike(event){

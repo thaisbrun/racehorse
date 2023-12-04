@@ -4,5 +4,5 @@
 
 {% block body %}
     <img src="{{ asset('img/addAnnonce.jpg') }}">
-    {{ include('annonce/_form.html.twig') }}
+    {{ include('annonce/_form.html.twig',{'button_label': "Publier l'annonce"}) }}
 {% endblock %}

@@ -17,17 +17,15 @@
                      <div class="media-content">
                          <p class="title is-4">{{ annonce.titre }}</p>
                          <p class="subtitle is-6">{{ annonce.prix }} €</p>
-                         {% if app.user %}
-                             <span class="icon-text">
-                                <span class="icon is-left">
-                                    {# Si une table possède un tuple existant alors le coeur est plein et en cliquant dessus
-                                    le user supprime le favori #}
-                                    {# Sinon le coeur est vide et en cliquant dessus, le user ajoute un favori #}
-                                    <a class="fa-regular fa-heart" onclick="postFavori({{ app.user.idutilisateur }},{{ annonce.idannonce }})"></a>
-
-                                </span>
-                                <span>Mettre en favori</span>
-                                </span>
+                         <a href="{{ path('fav', {'idannonce': annonce.idannonce}) }}" class="button is-text js-like">
+                             {% if app.user and annonce.isLikedByUser(app.user) %}
+                             <i class="fa-solid fa-heart js-like"></i>
+                             <span>Enlever de mes favoris</span>
+                             {% else %}
+                             <i class="fa-regular fa-heart js_like"></i>
+                             <span>Ajouter à mes favoris</span>
+                             <br>
+                         </a>
                          {% endif %}
                      </div>
                  </div>
@@ -40,6 +38,28 @@
          </div>
      </div>
      {% endfor %}
-     <a href="{{ path('homepage') }}">Retour au menu</a>
+     <a href="{{ path('homepage') }}" style="color:black;"> Retour au menu </a>
  </div>
+    <script>
+        function onClickBtnLike(event){
+            event.preventDefault();
+
+            const url = this.href;
+            const spanCount = this.querySelector('span.js-likes');
+            const icone = this.querySelector('i');
+            axios.get(url).then(function (response){
+                let favoris = response.data.favoris;
+                if(icone.classList.contains('fa-regular')) {
+                    icone.classList.replace('fa-regular', 'fa-solid');
+                }
+                else{
+                    icone.classList.replace('fa-solid', 'fa-regular');
+                }
+            });
+        }
+        document.querySelectorAll('a.js-like').forEach(function (link){
+            link.addEventListener('click',onClickBtnLike)
+
+        })
+    </script>
 {% endblock %}

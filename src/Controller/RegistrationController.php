@@ -16,11 +16,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('security/register', name: 'security/app_register')]
+    #[Route('security/register', name: 'app_registration_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AuthAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('security/app_viewProfil');
+            return $this->redirectToRoute('app_security_viewprofil');
         }
         $user = new Utilisateur();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -34,11 +34,9 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
-
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,

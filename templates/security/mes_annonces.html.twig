@@ -24,6 +24,7 @@
                         <br>
                         <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
                     </div>
+                    {% if app.user == annonce.idutilisateurannonce %}
                     <div class="columns">
                         <div class="column">
                             <a class="button is-light is-warning" href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}"> Modifier l'annonce </a>
@@ -35,6 +36,7 @@
                             {% include('annonce/_delete_form.html.twig') %}
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         <br>
