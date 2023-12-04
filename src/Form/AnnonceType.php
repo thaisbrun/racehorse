@@ -3,21 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Annonce;
-use App\Entity\Equide;
 use App\Entity\Typeannonce;
-use App\Entity\Utilisateur;
-use App\Entity\Ville;
-use App\Form\EquideType;
 use App\Repository\TypeAnnonceRepository;
-use App\Repository\VilleRepository;
-use Doctrine\DBAL\Types\StringType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use PHPUnit\Util\Type;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -89,7 +80,6 @@ class AnnonceType extends AbstractType
             ])
         ;
     }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

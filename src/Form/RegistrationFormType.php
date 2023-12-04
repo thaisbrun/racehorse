@@ -3,16 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Utilisateur;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\{Component\Form\AbstractType,
-    Component\Form\Extension\Core\Type\CheckboxType,
     Component\Form\Extension\Core\Type\EmailType,
     Component\Form\Extension\Core\Type\PasswordType,
     Component\Form\Extension\Core\Type\SubmitType,
-    Component\Form\Extension\Core\Type\TextareaType,
     Component\Form\FormBuilderInterface,
     Component\OptionsResolver\OptionsResolver,
-    Component\Validator\Constraints\IsTrue,
     Component\Validator\Constraints\Length,
     Component\Validator\Constraints\NotBlank};
 
