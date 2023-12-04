@@ -20,7 +20,7 @@
         </div>
     {% endfor %}
     <br>
-    <h2 style="text-decoration: underline;">Poneys à vendre</h2>
+    <h2 style="text-decoration: underline;">Chevaux de course à vendre</h2>
     <br>
     <div class="columns">
         {% for annonce in annoncesVente %}
@@ -52,17 +52,14 @@
                             </div>
                         </div>
                         <div class="content">
-                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-warning is-light">En savoir plus</button></a>
+                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
                             <br>
                             <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}">show</a>
-             <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a> -->
         {% endfor %}
-   <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
     </div>
     <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 1}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus à vendre</a>
     <h2 style="text-decoration: underline;">Poneys à louer</h2>
@@ -97,17 +94,14 @@
                             </div>
                         </div>
                         <div class="content">
-                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-warning is-light">En savoir plus</button></a>
+                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
                             <br>
                             <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}">show</a>
-            <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a> -->
         {% endfor %}
-        <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
     </div>
     <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 2}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus à louer</a>
     <h2 style="text-decoration: underline;">Poneys à prendre en DP</h2>
@@ -142,17 +136,14 @@
                             </div>
                         </div>
                         <div class="content">
-                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-warning is-light">En savoir plus</button></a>
+                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
                             <br>
                             <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}">show</a>
-            <a href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}">edit</a> -->
         {% endfor %}
-        <!-- <a href="{{ path('app_annonce_new') }}">Create new</a> -->
     </div>
     <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 3}) }}" style="color:hsl(48, 100%, 67%);margin-left:85%;font-style: italic;">Voir plus de DP</a>
 </div>

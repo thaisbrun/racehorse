@@ -100,38 +100,41 @@ class AnnonceController extends AbstractController
     public function new(Request $request, AnnonceRepository $annonceRepository,
                         EquideRepository $equideRepository, EntityManagerInterface $entityManager): Response
     {
-        $annonce = new Annonce();
-        $equide = new Equide();
-        $annonceForm = $this->createForm(AnnonceType::class, $annonce);
-        $annonceForm->handleRequest($request);
-        if ($annonceForm->isSubmitted() && $annonceForm->isValid()) {
-            $equide = $annonceForm->get('idequidea')->getData();
-            $equide->setIdproprio($this->getUser());
-            if($annonce->getPrix() < 0 ){
-                $this->addFlash("erreur", "Le prix ne peut pas être inférieur");
-            }
-            elseif($equide->getTaille() < 0 ){
-                $this->addFlash("erreur", "La taille ne peut pas être inférieure");
-            }
-            else{
-            $entityManager->persist($equide);
-            $entityManager->flush($equide);
+        if ($this->getUser() == null) {
+            $this->addFlash('error', 'Vous devez vous connecter pour pouvoir ajouter une annonce ');
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+        } else {
+            $annonce = new Annonce();
+            $equide = new Equide();
+            $annonceForm = $this->createForm(AnnonceType::class, $annonce);
+            $annonceForm->handleRequest($request);
+            if ($annonceForm->isSubmitted() && $annonceForm->isValid()) {
+                $equide = $annonceForm->get('idequidea')->getData();
+                $equide->setIdproprio($this->getUser());
+                if ($annonce->getPrix() < 0) {
+                    $this->addFlash("erreur", "Le prix ne peut pas être inférieur");
+                } elseif ($equide->getTaille() < 0) {
+                    $this->addFlash("erreur", "La taille ne peut pas être inférieure");
+                } else {
+                    $entityManager->persist($equide);
+                    $entityManager->flush($equide);
 
-            $equideRepository->save($equide, true);
+                    $equideRepository->save($equide, true);
 
-            $annonce->setDatecreation(new \DateTime());
-            $annonce->setIdutilisateurannonce($this->getUser());
-            $annonce->setIdequidea($equide);
-            $annonceRepository->save($annonce, true);
-           return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+                    $annonce->setDatecreation(new \DateTime());
+                    $annonce->setIdutilisateurannonce($this->getUser());
+                    $annonce->setIdequidea($equide);
+                    $annonceRepository->save($annonce, true);
+                    return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+                }
             }
+
+            return $this->renderForm('annonce/new.html.twig', [
+                'annonce' => $annonce,
+                'idequidea' => $equide,
+                'annonceForm' => $annonceForm,
+            ]);
         }
-
-        return $this->renderForm('annonce/new.html.twig', [
-            'annonce' => $annonce,
-            'idequidea' => $equide,
-            'annonceForm' => $annonceForm,
-        ]);
     }
     #[Route('annonce/show_by_type_annonce/{idtypea}', name: 'app_annonce_show_by_type_annonce', methods: ['GET'])]
     public function show_by_type_annonce(int $idtypea, AnnonceRepository $annonceRepository): Response

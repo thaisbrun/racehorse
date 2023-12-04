@@ -8,7 +8,7 @@
     <br>
 <div class="container is-widescreen">
 {% for favori in listFavoris %}
-    <div class="card has-background-warning-light">
+    <div class="card has-background-primary-light">
         <div class="card-image">
             <figure class="image is-4by3">
                 <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
@@ -36,7 +36,7 @@
                 <h5> Informations principales de l'annonce : {{ favori.idannoncefav.idequidea.nom }} - {{ favori.idannoncefav.idequidea.datenaiss|date("d/m/Y") }}
                     - {{ favori.idannoncefav.idequidea.robe.libelle }} - {{ favori.idannoncefav.idequidea.race.libelle }} </h5>
                 <br>
-                <a href="{{ path('app_annonce_show', {'idannonce': favori.idannoncefav.idannonce}) }}"><button type="button" class="button is-centered is-warning">Voir l'annonce</button></a>
+                <a href="{{ path('app_annonce_show', {'idannonce': favori.idannoncefav.idannonce}) }}"><button type="button" class="button is-centered is-primary">Voir l'annonce</button></a>
             </div>
         </div>
     </div>

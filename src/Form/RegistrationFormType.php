@@ -20,7 +20,7 @@ class RegistrationFormType extends AbstractType
             ->add('prenom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
                 'label' => "Prénom : ",
                 'attr' => [
-                    'class' => 'input is-warning',
+                    'class' => 'input is-primary',
                     'placeholder' => 'Veuillez saisir votre prénom'],
                 'constraints' => [
                     new NotBlank([
@@ -38,7 +38,7 @@ class RegistrationFormType extends AbstractType
             ->add('nom',\Symfony\Component\Form\Extension\Core\Type\TextType::class, [
                 'label' => "Nom : ",
                 'attr' => [
-                    'class' => 'input is-warning',
+                    'class' => 'input is-primary',
                     'placeholder' => 'Veuillez saisir votre nom'],
                 'constraints' => [
                     new NotBlank([
@@ -56,7 +56,7 @@ class RegistrationFormType extends AbstractType
             ->add('login',\Symfony\Component\Form\Extension\Core\Type\TextType::class, [
                 'label' => "Pseudo : ",
                 'attr' => [
-                    'class' => 'input is-warning',
+                    'class' => 'input is-primary',
                     'placeholder' => 'Veuillez saisir votre pseudo'],
                 'constraints' => [
                     new NotBlank([
@@ -74,7 +74,7 @@ class RegistrationFormType extends AbstractType
             ->add('mail',EmailType::class, [
                 'label' => "Mail : ",
                 'attr' => [
-                    'class' => 'input is-warning',
+                    'class' => 'input is-primary',
                     'placeholder' => 'Veuillez saisir votre mail'],
                 'constraints' => [
                     new NotBlank([
@@ -88,7 +88,7 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Mot de passe : ',
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password',
-                    'class' => 'input is-warning',
+                    'class' => 'input is-primary',
                     'placeholder' => 'Veuillez saisir votre mot de passe'],
                 'constraints' => [
                     new NotBlank([
@@ -104,7 +104,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('save', SubmitType::class, [
                 'label' => "Valider l'inscription",
-                'attr' => ['class' => 'button is-warning']
+                'attr' => ['class' => 'button is-primary']
             ])
         ;
     }

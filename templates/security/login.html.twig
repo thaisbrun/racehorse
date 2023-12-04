@@ -24,19 +24,19 @@
                 <div class="field">
                     <label for="inputPseudo">Pseudo : </label>
                     <div class="control">
-                    <input type="text" value="{{ last_username }}" name="login" id="inputPseudo" class="input is-outlined is-warning" autocomplete="username" required autofocus>
+                    <input type="text" value="{{ last_username }}" name="login" id="inputPseudo" class="input is-outlined is-primary" autocomplete="username" required autofocus>
                     </div>
                 </div>
                 <div class="field">
                     <label for="inputPassword">Mot de passe : </label>
                     <div class="control">
-                        <input type="password" name="password" id="inputPassword" class="input is-outlined is-warning" autocomplete="current-password" required>
+                        <input type="password" name="password" id="inputPassword" class="input is-outlined is-primary" autocomplete="current-password" required>
                         <a href="{{ path('app_security_forgottenpassword') }}" class="help is-danger is-underlined">Mot de passe oublié</a>
                     </div>
                 </div>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 <br>
-    <button class="button is-centered is-warning is-light is-medium" type="submit">Connexion</button>
+    <button class="button is-centered is-primary is-light is-medium" type="submit">Connexion</button>
             </form>
 </div>
     </form>

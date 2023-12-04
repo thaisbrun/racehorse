@@ -21,7 +21,7 @@ class RequeteType extends AbstractType
             ->add('objet',TextType::class, [
                 'label' => "Objet de votre demande :  ",
         'attr' => [
-            'class' => 'input is-warning',
+            'class' => 'input is-primary',
             'style' => 'width: 900px;',
             'placeholder' => "Veuillez saisir l'objet de la demande"],
                 'constraints' => [
@@ -40,7 +40,7 @@ class RequeteType extends AbstractType
             ->add('description',TextareaType::class, [
                 'label' => "Description de votre demande :  ",
         'attr' => [
-            'class' => 'input is-warning',
+            'class' => 'input is-primary',
             'style' => 'width: 1000px ; height: 100px',
             'placeholder' => "Veuillez décrire votre demande"],
                 'constraints' => [
@@ -57,7 +57,7 @@ class RequeteType extends AbstractType
                 ]])
             ->add('save', SubmitType::class, [
                 'label' => "Valider la demande",
-                'attr' => ['class' => 'button is-warning']
+                'attr' => ['class' => 'button is-primary']
             ])
         ;
     }

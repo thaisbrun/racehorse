@@ -14,15 +14,15 @@
             {{ form_row(annonceForm.titre) }}
         </div>
         <div class="column">
-            {{form_row(annonceForm.idequidea.nom, {'attr': {'class' : 'input is-warning', 'placeholder' : 'Veuillez choisir un nom'}}) }}
+            {{form_row(annonceForm.idequidea.nom, {'attr': {'class' : 'input is-primary', 'placeholder' : 'Veuillez choisir un nom'}}) }}
         </div>
     </div>
     <div class="columns">
         <div class="column">
-            {{ form_row(annonceForm.idequidea.datenaiss, {'label' : "Date de naissance : ",'attr': {'class' : 'input is-warning'}}) }}
+            {{ form_row(annonceForm.idequidea.datenaiss, {'label' : "Date de naissance : ",'attr': {'class' : 'input is-primary'}}) }}
         </div>
         <div class="column">
-            {{ form_row(annonceForm.idequidea.race, {'label' : "Race : ","placeholder" : "Veuillez sélectionner une race ", 'attr': {'class' : 'input is-warning'}}) }}
+            {{ form_row(annonceForm.idequidea.race, {'label' : "Race : ","placeholder" : "Veuillez sélectionner une race ", 'attr': {'class' : 'input is-primary'}}) }}
         </div>
         <div class="column">
             {{ form_row(annonceForm.idequidea.robe, {'label' : "Robe : ","placeholder" : "Veuillez sélectionner une robe ", 'attr': {'class' : 'input is-warning'}}) }}
@@ -30,10 +30,10 @@
     </div>
     <div class="columns">
         <div class="column">
-            {{ form_row(annonceForm.idequidea.taille, {'label' : "Taille : ",'attr': {'class' : 'input is-warning', 'min' : 1, 'placeholder' : 'Veuillez choisir une taille (en cm)'}}) }}
+            {{ form_row(annonceForm.idequidea.taille, {'label' : "Taille : ",'attr': {'class' : 'input is-primary', 'min' : 1, 'placeholder' : 'Veuillez choisir une taille (en cm)'}}) }}
         </div>
     <div class="column">
-        {{ form_row(annonceForm.idequidea.idtypeeq,{'label' : "Type de l'équidé : ", "placeholder" : "Veuillez sélectionner un type de l'équidé ", 'attr': {'class' : 'input is-warning', }}) }}
+        {{ form_row(annonceForm.idequidea.idtypeeq,{'label' : "Type de l'équidé : ", "placeholder" : "Veuillez sélectionner un type de l'équidé ", 'attr': {'class' : 'input is-primary', }}) }}
     </div>
     </div>
     <div class="columns">
@@ -41,7 +41,7 @@
             {{ form_row(annonceForm.prix) }}
         </div>
         <div class="column">
-            {{ form_row(annonceForm.idequidea.lienhn, {'label' : "Lien web Haras Nationaux : ",'attr': {'class' : 'input is-warning', 'placeholder' : 'Veuillez joindre un lien haras nationaux'}}) }}
+            {{ form_row(annonceForm.idequidea.lienhn, {'label' : "Lien web Haras Nationaux : ",'attr': {'class' : 'input is-primary', 'placeholder' : 'Veuillez joindre un lien haras nationaux'}}) }}
         </div>
     </div>
     <div class="columns">
@@ -49,12 +49,12 @@
             {{ form_row(annonceForm.idtypea) }}
         </div>
         <div class="column">
-            {{ form_row(annonceForm.idequidea.iddep, {'label' : "Département : ","placeholder" : "Veuillez sélectionner un département ", 'attr': {'class' : 'input is-warning'}}) }}
+            {{ form_row(annonceForm.idequidea.iddep, {'label' : "Département : ","placeholder" : "Veuillez sélectionner un département ", 'attr': {'class' : 'input is-primary'}}) }}
         </div>
     </div>
     {{ form_row(annonceForm.description) }}
     <br>
-    <button type="submit" class="button is-warning">{{ button_label }}</button>
+    <button type="submit" class="button is-primary">{{ button_label }}</button>
     {{ form_rest(annonceForm) }}
     {{ form_errors(annonceForm) }}
     {{ form_end(annonceForm) }}
