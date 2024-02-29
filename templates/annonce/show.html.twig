@@ -9,7 +9,7 @@
         <div class="column is-half">
             <div class="box has-background-primary-light">
                 {% for image in annonce.images %}
-                <img src="{{ asset('imgAnnonce/'~image.lienImage) }}" alt="Placeholder image">
+                <img src="{{ asset(image.lienImage) }}" alt="Placeholder image">
                 {% endfor %}
             </div>
             </div>

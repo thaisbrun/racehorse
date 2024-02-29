@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
@@ -97,7 +98,7 @@ class Annonce
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="idannonceimage")
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="idannonceimage", cascade={"persist"})
      */
     private Collection $images;
     public function __construct(){
@@ -234,5 +235,36 @@ class Annonce
 
     public function __toString(){
         return $this->getDescription();
+    }
+    public function addImage(UploadedFile $file): void
+    {
+        // Générez un nom de fichier unique
+        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+        // Déplacez le fichier vers le répertoire cible
+        $file->move(
+            'imgAnnonce/',
+            $fileName
+        );
+
+        // Créez une nouvelle instance de l'entité Image
+        $image = new Image();
+        $image->setLienImage('imgAnnonce/' . $fileName);
+        $image->setIdannonceimage($this);
+
+        // Ajoutez l'image à la collection
+        $this->images[] = $image;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getIdannonceimage() === $this) {
+                $image->setIdannonceimage(null);
+            }
+        }
+
+        return $this;
     }
 }

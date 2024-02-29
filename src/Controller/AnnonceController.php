@@ -26,6 +26,7 @@ class AnnonceController extends AbstractController
         $annoncesVente = $annonceRepository->FindBy(array('idtypea' => 1));
         $annoncesLocation = $annonceRepository->FindBy(array('idtypea' => 2));
         $annoncesDP = $annonceRepository->FindBy(array('idtypea' => 3));
+
         return $this->render('annonce/index.html.twig', [
             'annoncesVente' => $annoncesVente,
             'annoncesLocation' => $annoncesLocation,
@@ -109,6 +110,14 @@ class AnnonceController extends AbstractController
             $annonceForm = $this->createForm(AnnonceType::class, $annonce);
             $annonceForm->handleRequest($request);
             if ($annonceForm->isSubmitted() && $annonceForm->isValid()) {
+                $images = $annonceForm->get('images')->getData();
+
+                // Ajoutez chaque image à la collection d'images de l'annonce
+                foreach ($images as $image) {
+                    // Faites ce que vous devez pour gérer le téléchargement et le stockage des images,
+                    // puis ajoutez-les à la collection d'images de l'annonce
+                    $annonce->addImage($image);
+                }
                 $equide = $annonceForm->get('idequidea')->getData();
                 $equide->setIdproprio($this->getUser());
                 if ($annonce->getPrix() < 0) {
@@ -163,6 +172,14 @@ class AnnonceController extends AbstractController
             $equide = $annonce->getIdequidea();
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
+                $images = $form->get('images')->getData();
+
+                // Ajoutez chaque image à la collection d'images de l'annonce
+                foreach ($images as $image) {
+                    // Faites ce que vous devez pour gérer le téléchargement et le stockage des images,
+                    // puis ajoutez-les à la collection d'images de l'annonce
+                    $annonce->addImage($image);
+                }
                 $entityManager->persist($equide);
                 $entityManager->flush($equide);
                 $equideRepository->save($equide, true);

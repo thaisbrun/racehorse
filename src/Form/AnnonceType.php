@@ -6,6 +6,7 @@ use App\Entity\Annonce;
 use App\Entity\Typeannonce;
 use App\Repository\TypeAnnonceRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -78,6 +79,11 @@ class AnnonceType extends AbstractType
                     ])
                 ]
             ])
+            ->add('images', FileType::class, [
+                'multiple' => true, // Permet à l'utilisateur de sélectionner plusieurs images
+                'mapped' => false, // Ces champs ne correspondent pas directement aux propriétés de l'entité Annonce
+                'required' => false, // Ne pas exiger que les images soient fournies
+            ]);
         ;
     }
     public function configureOptions(OptionsResolver $resolver): void
