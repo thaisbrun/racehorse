@@ -118,6 +118,7 @@ class AnnonceController extends AbstractController
                     // puis ajoutez-les à la collection d'images de l'annonce
                     $annonce->addImage($image);
                 }
+
                 $equide = $annonceForm->get('idequidea')->getData();
                 $equide->setIdproprio($this->getUser());
                 if ($annonce->getPrix() < 0) {

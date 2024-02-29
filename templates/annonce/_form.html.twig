@@ -11,6 +11,10 @@
     {{ form_start(annonceForm) }}
     <div class="columns">
         <div class="column">
+            {{ form_row(annonceForm.images, {'label' : "Télécharger des fichiers :",'attr': {'multiple': 'multiple'}}) }}
+        </div>
+        <br>
+        <div class="column">
             {{ form_row(annonceForm.titre) }}
         </div>
         <div class="column">
@@ -54,7 +58,6 @@
     </div>
     {{ form_row(annonceForm.description) }}
     <br>
-    {{ form_row(annonceForm.images, {'attr': {'multiple': 'multiple'}}) }}
 
     <button type="submit" class="button is-primary">{{ button_label }}</button>
     {{ form_rest(annonceForm) }}

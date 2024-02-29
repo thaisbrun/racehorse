@@ -103,6 +103,7 @@ class Annonce
     private Collection $images;
     public function __construct(){
         $this->favoris = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
     public function getIdannonce(): ?int
     {

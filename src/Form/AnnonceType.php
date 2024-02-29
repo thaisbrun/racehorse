@@ -48,7 +48,7 @@ class AnnonceType extends AbstractType
                 'attr' => [
                     'class' => 'input is-primary',
                     'min' => 1,
-                    'max' => 100000,
+                    'max' => 10000000,
                     'placeholder' => "Veuillez saisir un prix (en euros)"],
                 'constraints' => [
                     new NotBlank([

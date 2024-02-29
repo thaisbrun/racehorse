@@ -10,6 +10,7 @@ h4{
     margin-right:40px;
 }
 
+h2,p,a,button, form, input, select, textarea{font-family: 'Montserrat';}
 body{
     font-family: 'Montserrat';
 }
