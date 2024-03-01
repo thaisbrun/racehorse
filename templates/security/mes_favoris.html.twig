@@ -7,11 +7,17 @@
     <br>
     <br>
 <div class="container is-widescreen">
+    <div class="columns">
 {% for favori in listFavoris %}
+    <div class="column">
     <div class="card has-background-primary-light">
         <div class="card-image">
             <figure class="image is-4by3">
-                <img src="{{ asset('imgAnnonce/photo1.jpg')}}" alt="Placeholder image">
+                {% if favori.idannoncefav.images is not empty %}
+                    <img src="{{ asset(favori.idannoncefav.images.first.lienImage) }}" alt="Image">
+                {% else %}
+                    <p>Aucune image disponible pour cette annonce.</p>
+                {% endif %}
             </figure>
         </div>
         <div class="card-content">
@@ -39,7 +45,7 @@
                 <a href="{{ path('app_annonce_show', {'idannonce': favori.idannoncefav.idannonce}) }}"><button type="button" class="button is-centered is-primary">Voir l'annonce</button></a>
             </div>
         </div>
-    </div>
-{% endfor %}
+    </div></div>
+{% endfor %}</div>
 </div>
 {% endblock %}

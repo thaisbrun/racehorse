@@ -3,13 +3,21 @@
 {% block title %}Annonces {% endblock %}
 
 {% block body %}
- <div class="container is-full-widescreen">
+    <div class="container is-widescreen">
+        <br>
+        <h1> Chevaux disponibles </h1>
+        <br>
+         <div class="columns">
      {% for annonce in listAnnonces %}
      <div class="column">
          <div class="card">
              <div class="card-image">
                  <figure class="image is-4by3">
-                     <img src="{{ asset('imgAnnonce/photo1.jpg') }}" alt="Placeholder image">
+                     {% if annonce.images is not empty %}
+                         <img src="{{ asset(annonce.images.first.lienImage) }}" alt="Image">
+                     {% else %}
+                         <p>Aucune image disponible pour cette annonce.</p>
+                     {% endif %}
                  </figure>
              </div>
              <div class="card-content">
@@ -37,9 +45,11 @@
              </div>
          </div>
      </div>
-     {% endfor %}
+     {% endfor %}</div>
+        <br>
      <a href="{{ path('homepage') }}" style="color:black;"> Retour au menu </a>
- </div>
+
+    </div>
     <script>
         function onClickBtnLike(event){
             event.preventDefault();
