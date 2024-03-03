@@ -4,13 +4,18 @@
 
 {% block body %}
     <img src="{{ asset('img/mesAnnonces.jpg') }}" alt="Placeholder image">
+<div class="container is-widescreen">
+<div class="columns">
     {% for annonce in listAnnonces %}
         <div class="column">
             <div class="card">
                 <div class="card-image">
                     <figure class="image is-4by3">
-                        <img src="{{ asset('imgAnnonce/photo1.jpg') }}" alt="Placeholder image">
-                    </figure>
+                        {% if annonce.images is not empty %}
+                            <img src="{{ asset(annonce.images.first.lienImage) }}" alt="Image">
+                        {% else %}
+                            <p>Aucune image disponible pour cette annonce.</p>
+                        {% endif %}                    </figure>
                 </div>
                 <div class="card-content">
                     <div class="media">
@@ -42,4 +47,6 @@
         <br>
         </div>
     {% endfor %}
+</div>
+</div>
 {% endblock %}
