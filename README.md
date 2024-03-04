@@ -14,7 +14,7 @@ Tous mes projets suivent la même organisation :
 
 6 - Mettre en place les règles OWASP, check complet des fonctionnalités
 
-7 - Mise en forme visuelle avec un framework css (en général soi Bootstrap soi Bulma)
+7 - Mise en forme visuelle avec un framework css (Bulma)
 
 8 - Fin de la V1 et projet ajouté à mon portfolio
 
