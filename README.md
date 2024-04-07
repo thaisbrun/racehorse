@@ -1,6 +1,6 @@
 Ce projet a été réalisé afin d'apprendre à utiliser le framework Symfony (PHP) via la création d'un site web. 
 Ce projet n'est pas abouti à 100%, il est régulièrement modifié et continuera d'être amélioré au fur et à mesure. 
-AUCUN de mes projets est en ligne actuellement, il s'agit de projets fictifs afin de gagner en compétences ou simplement parfois par plaisir. 
+Aucun de mes projets sont en ligne actuellement, il s'agit de projets fictifs afin de gagner en compétences ou simplement parfois par plaisir. 
 
 Ma "méthodologie" de développement est commune à tous mes projets : 
 - Création des wireframes (avec Figma)
