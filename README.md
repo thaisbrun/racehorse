@@ -1,10 +1,10 @@
 Ce projet a été réalisé afin d'apprendre à utiliser le framework Symfony (PHP) via la création d'un site web. 
 Ce projet n'est pas abouti à 100%, il est régulièrement modifié et continuera d'être amélioré au fur et à mesure. 
-Aucun de mes projets sont en ligne actuellement, il s'agit de projets fictifs afin de gagner en compétences ou simplement parfois par plaisir. 
+Aucun de mes projets est en ligne actuellement, il s'agit de projets fictifs afin de gagner en compétences. 
 
 Ma "méthodologie" de développement est commune à tous mes projets : 
 - Création des wireframes (avec Figma)
-- Création d'un tableau Kanban pour les tâches à effectuer (Trello)
+- Création d'un trello pour les tâches à effectuer
 - Création du MCD (Umlet)
 - Création de la BDD (pour ce projet ci : phpMyAdmin)
 - Initialisation du projet et création des différentes fonctionnalités
