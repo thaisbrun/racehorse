@@ -109,6 +109,7 @@ class AnnonceController extends AbstractController
     public function new(Request $request, AnnonceRepository $annonceRepository,
                         EquideRepository $equideRepository, EntityManagerInterface $entityManager): Response
     {
+        //Si le user n'est pas connecté message d'erreur s'affiche
         if ($this->getUser() == null) {
             $this->addFlash('error', 'Vous devez vous connecter pour pouvoir ajouter une annonce ');
             return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
@@ -119,14 +120,12 @@ class AnnonceController extends AbstractController
             $annonceForm->handleRequest($request);
             if ($annonceForm->isSubmitted() && $annonceForm->isValid()) {
                 $images = $annonceForm->get('images')->getData();
-
                 // Ajoutez chaque image à la collection d'images de l'annonce
                 foreach ($images as $image) {
                     // Faites ce que vous devez pour gérer le téléchargement et le stockage des images,
                     // puis ajoutez-les à la collection d'images de l'annonce
                     $annonce->addImage($image);
                 }
-
                 $equide = $annonceForm->get('idequidea')->getData();
                 $equide->setIdproprio($this->getUser());
                 if ($annonce->getPrix() < 0) {
@@ -157,6 +156,7 @@ class AnnonceController extends AbstractController
     #[Route('annonce/show_by_type_annonce/{idtypea}', name: 'app_annonce_show_by_type_annonce', methods: ['GET'])]
     public function show_by_type_annonce(int $idtypea, AnnonceRepository $annonceRepository): Response
     {
+        //Je filtre les annonces avec le type d'annonce sélectionné
         $listAnnonces = $annonceRepository->FindBy(array('idtypea' => $idtypea));
         return $this->render('annonce/show_by_type_annonce.html.twig', [
             'listAnnonces' => $listAnnonces,
@@ -173,24 +173,29 @@ class AnnonceController extends AbstractController
     public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository,
                          EquideRepository $equideRepository, EntityManagerInterface $entityManager): Response
     {
-        if ($this->getUser() !== $annonce->getIdutilisateurannonce()) {
+        //Je vérifie les droits d'accès de l'utilisateur connecté
+        if ($this->getUser() !== $annonce->getIdutilisateurannonce() || $this->getUser() == null) {
             $this->addFlash('error', "Accès non autorisé");
             return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         } else {
+
             $form = $this->createForm(AnnonceType::class, $annonce);
             $equide = $annonce->getIdequidea();
             $form->handleRequest($request);
+
+            //Ajout des images dans l'édition
             if ($form->isSubmitted() && $form->isValid()) {
                 $images = $form->get('images')->getData();
-
                 // Ajoutez chaque image à la collection d'images de l'annonce
                 foreach ($images as $image) {
                     // Faites ce que vous devez pour gérer le téléchargement et le stockage des images,
                     // puis ajoutez-les à la collection d'images de l'annonce
                     $annonce->addImage($image);
                 }
+
                 $entityManager->persist($equide);
                 $entityManager->flush($equide);
+
                 $equideRepository->save($equide, true);
                 $annonceRepository->save($annonce, true);
 
@@ -206,10 +211,16 @@ class AnnonceController extends AbstractController
     public function delete(Request $request, Annonce $annonce, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$annonce->getIdannonce(), $request->request->get('_token'))) {
+            //Je m'assure que la personne connectée est l'auteur de l'annonce
+            if($this->getUser() !== $annonce->getIdutilisateurannonce() || $this->getUser() == null){
+                $this->addFlash('error', 'Accès non autorisé');
+                return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+            }else{
+            //Je supprime l'annonce
             $entityManager->remove($annonce, true);
             $entityManager->flush();
+            }
         }
-
         return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
     }
 }
