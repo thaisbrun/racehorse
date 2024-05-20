@@ -23,6 +23,7 @@ class AnnonceController extends AbstractController
     #[Route('/', name: 'homepage', methods: ['GET'])]
     public function index(AnnonceRepository $annonceRepository): Response
     {
+        //Ici je permets de filtrer les annonces en fonction de leur type d'annonce.
         $annoncesVente = $annonceRepository->FindBy(array('idtypea' => 1));
         $annoncesLocation = $annonceRepository->FindBy(array('idtypea' => 2));
         $annoncesDP = $annonceRepository->FindBy(array('idtypea' => 3));
@@ -39,7 +40,7 @@ class AnnonceController extends AbstractController
         //On récupère des filtres
         $filters = $request->get("listTypeAnnonces");
 
-       $listAnnonces = $annonceRepository->getFiltersAnnonces($filters);
+        $listAnnonces = $annonceRepository->getFiltersAnnonces($filters);
         $listTypeAnnonces = $typeAnnonceRepository->findAll();
 
         //On vérifie si y a une requête Ajax
@@ -65,17 +66,22 @@ class AnnonceController extends AbstractController
     #[Route('annonce/{idannonce}/favori', name: 'fav', methods: ['GET', 'POST'])]
     public function favoris(Annonce $annonce, EntityManagerInterface $entityManager, FavorisRepository $favRepository) : Response {
 
+        //Je recupère le user connecté
         $utilisateur = $this->getUser();
 
+        //Si un utilisateur n'est pas connecté alors je n'autorise pas le favori
         if(!$utilisateur) return $this->json([
             'code' => 403,
             'message' => "Non autorisé"
         ],403);
+        //Si l'annonce a déjà été mise en favori par cet utilisateur
         if($annonce->isLikedByUser($utilisateur)){
+            //Je trouve le favori correspondant
             $favori = $favRepository->findOneBy([
                 'idannoncefav' => $annonce,
                 'idutilisateurfav' => $utilisateur
             ]);
+            //Et je supprime le favori
             $entityManager->remove($favori);
             $entityManager->flush();
 
@@ -85,12 +91,14 @@ class AnnonceController extends AbstractController
                 'favoris' => $favRepository->count(['idannoncefav' => $annonce])
             ],200);
         }
+        //Si l'annonce n'a pas été déjà mise en favori par ce user je crée un nouveau favori
         $favori = new Favoris();
         $favori->setIdannoncefav($annonce)
             ->setIdutilisateurfav($utilisateur)
             ->setDatecreation(new \DateTime());
         $entityManager->persist($favori);
         $entityManager->flush();
+
         return $this->json([
             'code' => 200,
             'message' => 'Favori ajouté',
@@ -204,5 +212,4 @@ class AnnonceController extends AbstractController
 
         return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
     }
-
 }
