@@ -18,16 +18,16 @@
             <div class="column">
                 <h4>{{ annonce.titre }} - {{ annonce.prix }} € </h4>
             </div>
-                <h3>Nom de l'équidé : </h3> {{ annonce.idequidea.nom }}
-                <h3>Date de naissance : </h3> {{ annonce.idequidea.dateNaiss|date("d/m/Y") }}
-                <h3>Taille : </h3> {{ annonce.idequidea.taille }} cm
-                <h3>Race : </h3> {{ annonce.idequidea.race.libelle }}
-                <h3>Robe :  </h3>{{ annonce.idequidea.robe.libelle }}
-                <h3>Infos Haras Nationaux : <a href="{{ annonce.idequidea.lienhn }}">Voir infos</a></h3>
-                <h3>Lieu : </h3> {{ annonce.idequidea.iddep.libelle }} en {{ annonce.idequidea.iddep.idregiondep.libelle }}
+                <h3>Nom de l'équidé : </h3> {{ annonce.equide.nom }}
+                <h3>Date de naissance : </h3> {{ annonce.equide.dateNaiss|date("d/m/Y") }}
+                <h3>Taille : </h3> {{ annonce.equide.taille }} cm
+                <h3>Race : </h3> {{ annonce.equide.race.libelle }}
+                <h3>Robe :  </h3>{{ annonce.equide.robe.libelle }}
+                <h3>Infos Haras Nationaux : <a href="{{ annonce.equide.lienhn }}">Voir infos</a></h3>
+                <h3>Lieu : </h3> {{ annonce.equide.dep.libelle }} en {{ annonce.equide.dep.regiondep.libelle }}
             <br>
                 <br>
-                Annonce postée par {{ annonce.idutilisateurannonce.login }}.
+                Annonce postée par {{ annonce.utilisateurannonce.login }}.
 
             <br>
             <p><h3>Description : </h3>{{ annonce.description }}</p>
@@ -35,11 +35,11 @@
         </div>
     </div>
 </div>
-    {% if app.user == annonce.idutilisateurannonce %}
+    {% if app.user == annonce.utilisateurannonce %}
         <div class="columns">
             <div class="column">
 
-                <a class="button is-light is-primary" style='margin-left: 30px' href="{{ path('app_annonce_edit', {'idannonce': annonce.idannonce}) }}"> Modifier l'annonce </a>
+                <a class="button is-light is-primary" style='margin-left: 30px' href="{{ path('app_annonce_edit', {'id': annonce.id}) }}"> Modifier l'annonce </a>
             </div>
             <div class="column">
                 <a href="{{ path('homepage') }}" style="color:black;"> Retour au menu </a>

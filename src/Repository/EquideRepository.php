@@ -30,14 +30,14 @@ class EquideRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByIdAnnonce(int $idAnnonce): ?Equide
+    public function findByAnnonce(int $Annonce): ?Equide
     {
         $qb = $this->createQueryBuilder('e');
         //SELECT * from equide innerjoin annonce on annonce.idEquideA = equide.idEquide where idequide = idEquideA;
         $qb->select('e')
          //   ->innerJoin('e.idequide', 'a', 'WITH', 'a.idequidea')
             ->andWhere('e.idequide = :idequidea')
-            ->setParameter('idequidea', $idAnnonce)
+            ->setParameter('idequidea', $Annonce)
         ->setMaxResults(1);
         // return equide
         return $query = $qb->getQuery()->getOneOrNullResult();

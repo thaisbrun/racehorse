@@ -18,10 +18,10 @@
 <br>
         <div class="columns">
             <div class="column is-half">
-                <a class="button is-primary is-large" href="{{ path('app_security_mes_annonces',{'idutilisateur': app.user.idutilisateur}) }}">Gérer mes annonces</a>
+                <a class="button is-primary is-large" href="{{ path('app_security_mes_annonces',{'id': app.user.id}) }}">Gérer mes annonces</a>
             </div>
             <div class="column">
-                <a class="button is-primary is-large" href="{{ path('app_user_edit', {'idutilisateur': app.user.idutilisateur}) }}">Modifier mes informations de profil</a>
+                <a class="button is-primary is-large" href="{{ path('app_user_edit', {'id': app.user.id}) }}">Modifier mes informations de profil</a>
             </div>
         </div>
         <br>
@@ -32,7 +32,7 @@
             </div>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <div class="column">
-                <a class="button is-danger" href="{{ path('app_security_delete', {'idutilisateur': app.user.idutilisateur}) }}">Supprimer mon compte</a>
+                <a class="button is-danger" href="{{ path('app_security_delete', {'id': app.user.id}) }}">Supprimer mon compte</a>
             </div>
 
         </div>

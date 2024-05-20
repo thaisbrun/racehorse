@@ -10,8 +10,8 @@
     <form id="filters">
         <h1>Veuillez sélectionner un type d'annonce :
             {% for typeAnnonce in listTypeAnnonces %}
-            <input type="checkbox" name="listTypeAnnonces[]" id="typeAnnonce{{ typeAnnonce.idtypeannonce }}" value="{{ typeAnnonce.idtypeannonce }}">
-            <label for="typeAnnonce{{ typeAnnonce.idtypeannonce }}">{{ typeAnnonce.libelle }} &emsp;</label>
+            <input type="checkbox" name="listTypeAnnonces[]" id="typeAnnonce{{ typeAnnonce.id }}" value="{{ typeAnnonce.id }}">
+            <label for="typeAnnonce{{ typeAnnonce.id }}">{{ typeAnnonce.libelle }} &emsp;</label>
             {% endfor %}</h1>
     </form>
     <br>
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="content">
-                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
+                            <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
                             <br>
                             <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
                         </div>

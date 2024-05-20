@@ -22,14 +22,14 @@ class RegionRepository extends ServiceEntityRepository
         parent::__construct($registry, Region::class);
     }
 
-    public function findByIdDepartement(Region $idDepartement): ?Region
+    public function findByDepartement(Region $Departement): ?Region
     {
         $qb = $this->createQueryBuilder('reg');
         //SELECT * from race innerjoin equide on equide.race = race.id where race = r.id;
         $qb->select('reg')
             //   ->innerJoin('r.id', 'e', 'WITH', 'e.race')
             ->andWhere('reg.idregion = :idregiondep')
-            ->setParameter('idregiondep', $idDepartement)
+            ->setParameter('idregiondep', $Departement)
             ->setMaxResults(1);
         // return equide
         return $query = $qb->getQuery()->getOneOrNullResult();

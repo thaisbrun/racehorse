@@ -68,7 +68,7 @@ class Annonce
      *   @ORM\JoinColumn(name="idEquideA", referencedColumnName="idEquide",onDelete="CASCADE")
      * })
      */
-    private $equideA;
+    private $equide;
 
     /**
      * @var \Typeannonce
@@ -159,13 +159,13 @@ class Annonce
 
         return $this;
     }
-    public function getEquideA(): ?Equide
+    public function getEquide(): ?Equide
     {
-        return $this->equideA;
+        return $this->equide;
     }
-    public function setEquideA(?Equide $equideA): self
+    public function setEquide(?Equide $equide): self
     {
-        $this->equideA = $equideA;
+        $this->equideA = $equide;
 
         return $this;
     }

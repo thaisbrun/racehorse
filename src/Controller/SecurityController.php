@@ -18,7 +18,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 //Ce controller est lié à la page de connexion et de profil, expliquant les informations principales de l'utilisateur.
 class SecurityController extends AbstractController
 {
-    #[Route('security/{idutilisateur}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    #[Route('security/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Utilisateur $user, UtilisateurRepository $userRepository): Response
     {
         if ($this->getUser() !== $user || $this->getUser() == null) {
@@ -54,8 +54,8 @@ class SecurityController extends AbstractController
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
-    #[Route('security/mes_annonces/{idutilisateur}', name: 'app_security_mes_annonces', methods: ['GET'])]
-    public function show_by_id_utilisateur(Utilisateur $user, AnnonceRepository $annonceRepository): Response
+    #[Route('security/mes_annonces/{id}', name: 'app_security_mes_annonces', methods: ['GET'])]
+    public function show_by_utilisateur(Utilisateur $user, AnnonceRepository $annonceRepository): Response
     {
         if ($this->getUser() !== $user || $this->getUser() == null) {
             $this->addFlash('error', "Accès non autorisé");
@@ -66,7 +66,7 @@ class SecurityController extends AbstractController
             'listAnnonces' => $listAnnonces,
         ]);
     }}
-    #[Route('security/mes_favoris/{idutilisateur}', name: 'app_security_show_fav', methods: ['GET'])]
+    #[Route('security/mes_favoris/{id}', name: 'app_security_show_fav', methods: ['GET'])]
     public function show_fav(Utilisateur $user, FavorisRepository $favorisRepository): Response
     {
         if ($this->getUser() !== $user || $this->getUser() == null) {
@@ -112,14 +112,14 @@ class SecurityController extends AbstractController
     {
         throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
-    #[Route(path:'security/delete/{idutilisateur}', name: 'app_security_delete', methods: ['GET','POST'])]
-    public function delete(Utilisateur $user, UtilisateurRepository $utilisateurRepository): Response
+    #[Route(path:'security/delete/{id}', name: 'app_security_delete', methods: ['GET','POST'])]
+    public function delete(Utilisateur $user, UtilisateurRepository $userRepository): Response
     {
         if($this->getUser() !== $user || $this->getUser() == null) {
             $this->addFlash('error', "Accès non autorisé");
         } else {
             $this->addFlash('success', "Compte supprimé avec succès");
-            $utilisateurRepository->remove($user, true);
+            $userRepository->remove($user, true);
         }
         return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
     }

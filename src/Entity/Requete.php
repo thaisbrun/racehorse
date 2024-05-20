@@ -79,7 +79,7 @@ class Requete
         return $this->auteurrequete;
     }
 
-    public function setIdauteurrequete(?Utilisateur $auteurrequete): self
+    public function setAuteurRequete(?Utilisateur $auteurrequete): self
     {
         $this->auteurrequete = $auteurrequete;
 

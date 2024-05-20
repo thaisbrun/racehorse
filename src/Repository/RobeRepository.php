@@ -22,14 +22,14 @@ class RobeRepository extends ServiceEntityRepository
         parent::__construct($registry, Robe::class);
     }
 
-    public function findByIdEquide(int $idRobeEquide): ?Robe
+    public function findByEquide(int $RobeEquide): ?Robe
     {
         $qb = $this->createQueryBuilder('r');
         //SELECT * from race innerjoin equide on equide.race = race.id where race = r.id;
         $qb->select('r')
             //   ->innerJoin('r.id', 'e', 'WITH', 'e.race')
             ->andWhere('r.id = :robe')
-            ->setParameter('robe', $idRobeEquide)
+            ->setParameter('robe', $RobeEquide)
             ->setMaxResults(1);
         // return equide
         return $query = $qb->getQuery()->getOneOrNullResult();

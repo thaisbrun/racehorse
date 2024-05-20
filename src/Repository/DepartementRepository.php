@@ -21,14 +21,14 @@ class DepartementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Departement::class);
     }
-    public function findByIdDepEquide(Departement $idDepartementEquide): ?Departement
+    public function findByDepEquide(Departement $DepartementEquide): ?Departement
     {
         $qb = $this->createQueryBuilder('d');
         //SELECT * from race innerjoin equide on equide.race = race.id where race = r.id;
         $qb->select('d')
             //   ->innerJoin('r.id', 'e', 'WITH', 'e.race')
             ->andWhere('d.iddepartement = :iddep')
-            ->setParameter('iddep', $idDepartementEquide)
+            ->setParameter('iddep', $DepartementEquide)
             ->setMaxResults(1);
         // return equide
         return $query = $qb->getQuery()->getOneOrNullResult();

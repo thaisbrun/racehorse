@@ -42,7 +42,7 @@
                                 <p class="title is-4">{{ annonce.titre }}</p>
                                 <p class="subtitle is-6">{{ annonce.prix }} €</p>
                                 {% if app.user %}
-                                    <a href="{{ path('fav', {'idannonce': annonce.idannonce}) }}" class="button is-text js-like">
+                                    <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
                                         {% if app.user and annonce.isLikedByUser(app.user) %}
                                         <i class="fa-solid fa-heart js-like"></i>
                                     <span>Enlever de mes favoris</span>
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <div class="content">
-                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
+                            <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
                             <br>
                             <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
                         </div>
@@ -65,7 +65,7 @@
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 1}) }}" style="color:hsl(171, 100%, 29%);margin-left:85%;font-style: italic;">Voir plus à vendre</a>
+    <a href="{{ path('app_annonce_show_by_type', {'typea': 1}) }}" style="color:hsl(171, 100%, 29%);margin-left:85%;font-style: italic;">Voir plus à vendre</a>
     <h2 style="text-decoration: underline;">Chevaux à louer</h2>
     <br>
     <div class="columns">
@@ -86,7 +86,7 @@
                             <div class="media-content">
                                 <p class="title is-4">{{ annonce.titre }}</p>
                                 <p class="subtitle is-6">{{ annonce.prix }} €</p>
-                                <a href="{{ path('fav', {'idannonce': annonce.idannonce}) }}" class="button is-text js-like">
+                                <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
                                     {% if app.user %}
                                     {% if app.user and annonce.isLikedByUser(app.user) %}
                                     <i class="fa-solid fa-heart js-like"></i>
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div class="content">
-                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
+                            <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
                             <br>
                             <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
                         </div>
@@ -109,7 +109,7 @@
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 2}) }}" style="color:hsl(171, 100%, 29%);margin-left:85%;font-style: italic;">Voir plus à louer</a>
+    <a href="{{ path('app_annonce_show_by_type', {'typea': 2}) }}" style="color:hsl(171, 100%, 29%);margin-left:85%;font-style: italic;">Voir plus à louer</a>
     <h2 style="text-decoration: underline;">Chevaux à prendre en DP</h2>
     <br>
     <div class="columns">
@@ -132,7 +132,7 @@
                                 <p class="title is-4">{{ annonce.titre }}</p>
                                 <p class="subtitle is-6">{{ annonce.prix }} €</p>
                                 {% if app.user %}
-                                <a href="{{ path('fav', {'idannonce': annonce.idannonce}) }}" class="button is-text js-like">
+                                <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
                                     {% if app.user and annonce.isLikedByUser(app.user) %}
                                     <i class="fa-solid fa-heart js-like"></i>
                                     <span>Enlever de mes favoris</span>
@@ -145,7 +145,7 @@
                             </div>
                         </div>
                         <div class="content">
-                            <a href="{{ path('app_annonce_show', {'idannonce': annonce.idannonce}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
+                            <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
                             <br>
                             <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
                         </div>
@@ -154,7 +154,7 @@
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('app_annonce_show_by_type_annonce', {'idtypea': 3}) }}" style="color:hsl(171, 100%, 29%);margin-left:85%;font-style: italic;">Voir plus de DP</a>
+    <a href="{{ path('app_annonce_show_by_type_annonce', {'typea': 3}) }}" style="color:hsl(171, 100%, 29%);margin-left:85%;font-style: italic;">Voir plus de DP</a>
 </div>
     <br>
     <script>

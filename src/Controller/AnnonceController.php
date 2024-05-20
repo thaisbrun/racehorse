@@ -93,8 +93,8 @@ class AnnonceController extends AbstractController
         }
         //Si l'annonce n'a pas été déjà mise en favori par ce user je crée un nouveau favori
         $favori = new Favoris();
-        $favori->setIdannoncefav($annonce)
-            ->setIdutilisateurfav($utilisateur)
+        $favori->setAnnoncefav($annonce)
+            ->setUtilisateurfav($utilisateur)
             ->setDatecreation(new \DateTime());
         $entityManager->persist($favori);
         $entityManager->flush();
@@ -127,7 +127,7 @@ class AnnonceController extends AbstractController
                     $annonce->addImage($image);
                 }
                 $equide = $annonceForm->get('idequidea')->getData();
-                $equide->setIdproprio($this->getUser());
+                $equide->setProprio($this->getUser());
                 if ($annonce->getPrix() < 0) {
                     $this->addFlash("erreur", "Le prix ne peut pas être inférieur");
                 } elseif ($equide->getTaille() < 0) {
@@ -139,8 +139,8 @@ class AnnonceController extends AbstractController
                     $equideRepository->save($equide, true);
 
                     $annonce->setDatecreation(new \DateTime());
-                    $annonce->setIdutilisateurannonce($this->getUser());
-                    $annonce->setIdequidea($equide);
+                    $annonce->setUtilisateurAnnonce($this->getUser());
+                    $annonce->setEquideA($equide);
                     $annonceRepository->save($annonce, true);
                     return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
                 }
@@ -174,13 +174,13 @@ class AnnonceController extends AbstractController
                          EquideRepository $equideRepository, EntityManagerInterface $entityManager): Response
     {
         //Je vérifie les droits d'accès de l'utilisateur connecté
-        if ($this->getUser() !== $annonce->getIdutilisateurannonce() || $this->getUser() == null) {
+        if ($this->getUser() !== $annonce->getUtilisateurAnnonce() || $this->getUser() == null) {
             $this->addFlash('error', "Accès non autorisé");
             return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         } else {
 
             $form = $this->createForm(AnnonceType::class, $annonce);
-            $equide = $annonce->getIdequidea();
+            $equide = $annonce->getEquideA();
             $form->handleRequest($request);
 
             //Ajout des images dans l'édition
@@ -210,9 +210,9 @@ class AnnonceController extends AbstractController
     #[Route('annonce/delete/{idannonce}', name: 'app_annonce_delete', methods: ['POST'])]
     public function delete(Request $request, Annonce $annonce, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$annonce->getIdannonce(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
             //Je m'assure que la personne connectée est l'auteur de l'annonce
-            if($this->getUser() !== $annonce->getIdutilisateurannonce() || $this->getUser() == null){
+            if($this->getUser() !== $annonce->getUtilisateurAnnonce() || $this->getUser() == null){
                 $this->addFlash('error', 'Accès non autorisé');
                 return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
             }else{

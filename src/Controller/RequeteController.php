@@ -30,7 +30,7 @@ class RequeteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $requete->setIdauteurrequete($user);
+            $requete->setAuteurRequete($user);
             $entityManager->persist($requete);
             $entityManager->flush();
             $this->addFlash('success', 'Votre demande a été envoyée, votre réponse sera envoyé par mail. ');

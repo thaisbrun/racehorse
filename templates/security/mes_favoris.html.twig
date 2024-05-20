@@ -13,8 +13,8 @@
     <div class="card has-background-primary-light">
         <div class="card-image">
             <figure class="image is-4by3">
-                {% if favori.idannoncefav.images is not empty %}
-                    <img src="{{ asset(favori.idannoncefav.images.first.lienImage) }}" alt="Image">
+                {% if favori.annoncefav.images is not empty %}
+                    <img src="{{ asset(favori.annoncefav.images.first.lienImage) }}" alt="Image">
                 {% else %}
                     <p>Aucune image disponible pour cette annonce.</p>
                 {% endif %}
@@ -24,8 +24,8 @@
             <div class="media">
                 <div class="media-content">
                     <h4>{{ favori.idannoncefav.titre }} - {{ favori.idannoncefav.prix }} €</h4>
-                    <a href="{{ path('fav', {'idannonce': favori.idannoncefav}) }}" class="button is-text js-like">
-                        {% if app.user and favori.idannoncefav.isLikedByUser(app.user) %}
+                    <a href="{{ path('fav', {'annonce': favori.annoncefav}) }}" class="button is-text js-like">
+                        {% if app.user and favori.annoncefav.isLikedByUser(app.user) %}
                         <i class="fa-solid fa-heart js-like"></i>
                         <span>&emsp;Enlever de mes favoris</span>
                         {% else %}
@@ -35,14 +35,14 @@
                     </a>
                     <br>
                     <br>
-                    <p class="subtitle is-6"> Annonce postée par : {{ favori.idutilisateurfav.login }}</p>
+                    <p class="subtitle is-6"> Annonce postée par : {{ favori.utilisateurfav.login }}</p>
                 </div>
             </div>
             <div class="content">
-                <h5> Informations principales de l'annonce : {{ favori.idannoncefav.idequidea.nom }} - {{ favori.idannoncefav.idequidea.datenaiss|date("d/m/Y") }}
-                    - {{ favori.idannoncefav.idequidea.robe.libelle }} - {{ favori.idannoncefav.idequidea.race.libelle }} </h5>
+                <h5> Informations principales de l'annonce : {{ favori.annoncefav.equideA.nom }} - {{ favori.annoncefav.equideA.datenaiss|date("d/m/Y") }}
+                    - {{ favori.annoncefav.equidea.robe.libelle }} - {{ favori.annoncefav.equideA.race.libelle }} </h5>
                 <br>
-                <a href="{{ path('app_annonce_show', {'idannonce': favori.idannoncefav.idannonce}) }}"><button type="button" class="button is-centered is-primary">Voir l'annonce</button></a>
+                <a href="{{ path('app_annonce_show', {'idannonce': favori.annoncefav.id}) }}"><button type="button" class="button is-centered is-primary">Voir l'annonce</button></a>
             </div>
         </div>
     </div></div>
