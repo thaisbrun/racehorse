@@ -19,7 +19,7 @@ class Image
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idimage;
+    private $id;
 
     /**
      * @var string|null
@@ -36,11 +36,11 @@ class Image
      *   @ORM\JoinColumn(name="idAnnonceImage", referencedColumnName="idAnnonce")
      * })
      */
-    private $idannonceimage;
+    private $annonceimage;
 
-    public function getIdimage(): ?int
+    public function getId(): ?int
     {
-        return $this->idimage;
+        return $this->id;
     }
 
     public function getLienimage(): ?string
@@ -55,14 +55,14 @@ class Image
         return $this;
     }
 
-    public function getIdannonceimage(): ?Annonce
+    public function getAnnonceImage(): \Annonce
     {
-        return $this->idannonceimage;
+        return $this->annonceimage;
     }
 
-    public function setIdannonceimage(?Annonce $idannonceimage): self
+    public function setAnnonceImage(?Annonce $annonceimage): self
     {
-        $this->idannonceimage = $idannonceimage;
+        $this->annonceimage = $annonceimage;
 
         return $this;
     }

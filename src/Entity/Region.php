@@ -19,7 +19,7 @@ class Region
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idregion;
+    private $id;
 
     /**
      * @var string|null
@@ -28,9 +28,9 @@ class Region
      */
     private $libelle = 'NULL';
 
-    public function getIdregion(): ?int
+    public function getId(): ?int
     {
-        return $this->idregion;
+        return $this->id;
     }
 
     public function getLibelle(): ?string

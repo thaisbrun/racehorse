@@ -19,7 +19,7 @@ class Equide
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idequide;
+    private $id;
 
     /**
      * @var string|null
@@ -77,7 +77,7 @@ class Equide
      *   @ORM\JoinColumn(name="idTypeEq", referencedColumnName="idTypeEquide",onDelete="CASCADE")
      * })
      */
-    private $idtypeeq;
+    private $typeEq;
 
     /**
      * @var \Departement
@@ -87,7 +87,7 @@ class Equide
      *   @ORM\JoinColumn(name="idDep", referencedColumnName="idDepartement",onDelete="CASCADE")
      * })
      */
-    private $iddep;
+    private $dep;
 
     /**
      * @var \Utilisateur
@@ -97,11 +97,11 @@ class Equide
      *   @ORM\JoinColumn(name="idProprio", referencedColumnName="idUtilisateur",onDelete="CASCADE")
      * })
      */
-    private $idproprio;
+    private $proprio;
 
-    public function getIdequide(): ?int
+    public function getId(): ?int
     {
-        return $this->idequide;
+        return $this->id;
     }
     public function getNom(): ?string
     {
@@ -163,33 +163,33 @@ class Equide
 
         return $this;
     }
-    public function getIdtypeeq(): ?Typeequide
+    public function getTypeEq(): ?Typeequide
     {
-        return $this->idtypeeq;
+        return $this->typeEq;
     }
-    public function setIdtypeeq(?Typeequide $idtypeeq): self
+    public function setTypeEq(?Typeequide $typeEq): self
     {
-        $this->idtypeeq = $idtypeeq;
+        $this->typeEq = $typeEq;
 
         return $this;
     }
-    public function getIddep(): ?Departement
+    public function getDep(): ?Departement
     {
-        return $this->iddep;
+        return $this->dep;
     }
-    public function setIddep(?Departement $iddep): self
+    public function setDep(?Departement $dep): self
     {
-        $this->iddep = $iddep;
+        $this->dep = $dep;
 
         return $this;
     }
-    public function getIdproprio(): ?Utilisateur
+    public function getProprio(): ?Utilisateur
     {
-        return $this->idproprio;
+        return $this->proprio;
     }
-    public function setIdproprio(?Utilisateur $idproprio): self
+    public function setProprio(?Utilisateur $proprio): self
     {
-        $this->idproprio = $idproprio;
+        $this->proprio = $proprio;
 
         return $this;
     }

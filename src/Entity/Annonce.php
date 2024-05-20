@@ -23,7 +23,7 @@ class Annonce
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idannonce;
+    private $id;
     /**
      * @var string
      *
@@ -68,7 +68,7 @@ class Annonce
      *   @ORM\JoinColumn(name="idEquideA", referencedColumnName="idEquide",onDelete="CASCADE")
      * })
      */
-    private $idequidea;
+    private $equideA;
 
     /**
      * @var \Typeannonce
@@ -78,7 +78,7 @@ class Annonce
      *   @ORM\JoinColumn(name="idTypeA", referencedColumnName="idTypeAnnonce",onDelete="CASCADE")
      * })
      */
-    private $idtypea;
+    private $typeA;
 
     /**
      * @var \Utilisateur
@@ -88,7 +88,7 @@ class Annonce
      *   @ORM\JoinColumn(name="idUtilisateurAnnonce", referencedColumnName="idUtilisateur",onDelete="CASCADE")
      * })
      */
-    private $idutilisateurannonce;
+    private $utilisateurannonce;
 
     /**
      * @var Collection
@@ -105,9 +105,9 @@ class Annonce
         $this->favoris = new ArrayCollection();
         $this->images = new ArrayCollection();
     }
-    public function getIdannonce(): ?int
+    public function getId(): ?int
     {
-        return $this->idannonce;
+        return $this->id;
     }
     public function getTitre(): ?string
     {
@@ -159,33 +159,33 @@ class Annonce
 
         return $this;
     }
-    public function getIdequidea(): ?Equide
+    public function getEquideA(): ?Equide
     {
-        return $this->idequidea;
+        return $this->equideA;
     }
-    public function setIdequidea(?Equide $idequidea): self
+    public function setEquideA(?Equide $equideA): self
     {
-        $this->idequidea = $idequidea;
+        $this->equideA = $equideA;
 
         return $this;
     }
-    public function getIdtypea(): ?Typeannonce
+    public function getTypeA(): ?Typeannonce
     {
-        return $this->idtypea;
+        return $this->typeA;
     }
-    public function setIdtypea(?Typeannonce $idtypea): self
+    public function setTypeA(?Typeannonce $typeA): self
     {
-        $this->idtypea = $idtypea;
+        $this->typeA = $typeA;
 
         return $this;
     }
-    public function getIdutilisateurannonce(): ?Utilisateur
+    public function getUtilisateurAnnonce(): ?Utilisateur
     {
-        return $this->idutilisateurannonce;
+        return $this->utilisateurannonce;
     }
-    public function setIdutilisateurannonce(?Utilisateur $idutilisateurannonce): self
+    public function setUtilisateurAnnonce(?Utilisateur $utilisateurannonce): self
     {
-        $this->idutilisateurannonce = $idutilisateurannonce;
+        $this->utilisateurannonce = $utilisateurannonce;
 
         return $this;
     }
@@ -229,7 +229,7 @@ class Annonce
      */
     public function isLikedByUser(Utilisateur $utilisateur) : bool {
         foreach($this->favoris as $favori) {
-            if($favori->getIdUtilisateurFav() === $utilisateur) return true;
+            if($favori->getUtilisateurFav() === $utilisateur) return true;
         }
         return false;
     }
@@ -251,7 +251,7 @@ class Annonce
         // Créez une nouvelle instance de l'entité Image
         $image = new Image();
         $image->setLienImage('imgAnnonce/' . $fileName);
-        $image->setIdannonceimage($this);
+        $image->setAnnonceImage($this);
 
         // Ajoutez l'image à la collection
         $this->images[] = $image;
@@ -260,12 +260,10 @@ class Annonce
     public function removeImage(Image $image): self
     {
         if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getIdannonceimage() === $this) {
-                $image->setIdannonceimage(null);
+            if ($image->getAnnonceImage() === $this) {
+                $image->setAnnonceImage(null);
             }
         }
-
         return $this;
     }
 }

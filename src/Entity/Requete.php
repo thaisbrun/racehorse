@@ -19,7 +19,7 @@ class Requete
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idrequete;
+    private $id;
 
     /**
      * @var string|null
@@ -43,11 +43,11 @@ class Requete
      *   @ORM\JoinColumn(name="idAuteurRequete", referencedColumnName="idUtilisateur",onDelete="CASCADE")
      * })
      */
-    private $idauteurrequete;
+    private $auteurrequete;
 
-    public function getIdrequete(): ?int
+    public function getId(): ?int
     {
-        return $this->idrequete;
+        return $this->id;
     }
 
     public function getObjet(): ?string
@@ -74,14 +74,14 @@ class Requete
         return $this;
     }
 
-    public function getIdauteurrequete(): ?Utilisateur
+    public function getAuteurRequete(): ?Utilisateur
     {
-        return $this->idauteurrequete;
+        return $this->auteurrequete;
     }
 
-    public function setIdauteurrequete(?Utilisateur $idauteurrequete): self
+    public function setIdauteurrequete(?Utilisateur $auteurrequete): self
     {
-        $this->idauteurrequete = $idauteurrequete;
+        $this->auteurrequete = $auteurrequete;
 
         return $this;
     }

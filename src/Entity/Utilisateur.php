@@ -24,7 +24,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idutilisateur;
+    private $id;
 
     /**
      * @var string
@@ -69,9 +69,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
     public function __construct(){
         $this->favoris = new ArrayCollection();
     }
-    public function getIdutilisateur(): ?int
+    public function getId(): ?int
     {
-        return $this->idutilisateur;
+        return $this->id;
     }
 
     public function getPrenom(): ?string
@@ -159,8 +159,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
     }
     public function __toString()
     {
-        $idutilisateur = $this->idutilisateur;
-        return strval($idutilisateur);
+        $utilisateur = $this->id;
+        return strval($utilisateur);
     }
 
     /**
@@ -183,7 +183,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
     {
         if (!$this->favoris->contains($favori)) {
             $this->favoris->add($favori);
-            $favori->setIdutilisateurfav($this);
+            $favori->setUtilisateurfav($this);
         }
 
         return $this;
@@ -193,8 +193,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
     {
         if ($this->favoris->removeElement($favori)) {
             // set the owning side to null (unless already changed)
-            if ($favori->getIdutilisateurfav() === $this) {
-                $favori->setIdutilisateurfav(null);
+            if ($favori->getUtilisateurfav() === $this) {
+                $favori->setUtilisateurfav(null);
             }
         }
 

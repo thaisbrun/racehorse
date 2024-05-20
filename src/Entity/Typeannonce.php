@@ -19,7 +19,7 @@ class Typeannonce
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idtypeannonce;
+    private $id;
 
     /**
      * @var string|null
@@ -28,9 +28,9 @@ class Typeannonce
      */
     private $libelle = 'NULL';
 
-    public function getIdtypeannonce(): ?int
+    public function getId(): ?int
     {
-        return $this->idtypeannonce;
+        return $this->id;
     }
 
     public function getLibelle(): ?string

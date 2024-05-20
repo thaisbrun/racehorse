@@ -19,7 +19,7 @@ class Typeequide
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idtypeequide;
+    private $id;
 
     /**
      * @var string|null
@@ -28,9 +28,9 @@ class Typeequide
      */
     private $libelle = 'NULL';
 
-    public function getIdtypeequide(): ?int
+    public function getId(): ?int
     {
-        return $this->idtypeequide;
+        return $this->id;
     }
 
     public function getLibelle(): ?string

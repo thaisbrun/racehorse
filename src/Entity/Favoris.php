@@ -20,7 +20,7 @@ class Favoris
      *   @ORM\JoinColumn(name="idUtilisateurFav", referencedColumnName="idUtilisateur",onDelete="CASCADE")
      * })
      */
-    private $idutilisateurfav;
+    private $utilisateurfav;
 
     /**
      * @var \Annonce
@@ -32,7 +32,7 @@ class Favoris
      *   @ORM\JoinColumn(name="idAnnonceFav", referencedColumnName="idAnnonce",onDelete="CASCADE")
      * })
      */
-    private $idannoncefav;
+    private $annoncefav;
 
     /**
      * @var \DateTime|null
@@ -43,21 +43,21 @@ class Favoris
 
     public function getIdutilisateurfav(): ?Utilisateur
     {
-        return $this->idutilisateurfav;
+        return $this->utilisateurfav;
     }
-    public function setIdutilisateurfav(?Utilisateur $idutilisateurfav): self
+    public function setUtilisateurfav(?Utilisateur $utilisateurfav): self
     {
-        $this->idutilisateurfav = $idutilisateurfav;
+        $this->utilisateurfav = $utilisateurfav;
 
         return $this;
     }
-    public function getIdannoncefav(): ?Annonce
+    public function getAnnoncefav(): ?Annonce
     {
-        return $this->idannoncefav;
+        return $this->annoncefav;
     }
-    public function setIdannoncefav(?Annonce $idannoncefav): self
+    public function setAnnoncefav(?Annonce $annoncefav): self
     {
-        $this->idannoncefav = $idannoncefav;
+        $this->annoncefav = $annoncefav;
 
         return $this;
     }
@@ -72,6 +72,6 @@ class Favoris
         return $this;
     }
     public function __toString(){
-        return $this->getIdannoncefav().toString();
+        return $this->getAnnoncefav().toString();
     }
 }

@@ -19,7 +19,7 @@ class Departement
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $iddepartement;
+    private $id;
     /**
      * @var string|null
      *
@@ -34,11 +34,11 @@ class Departement
      *   @ORM\JoinColumn(name="idRegionDep", referencedColumnName="idRegion",onDelete="CASCADE")
      * })
      */
-    private $idregiondep;
+    private $regionDep;
 
-    public function getIddepartement(): ?int
+    public function getId(): ?int
     {
-        return $this->iddepartement;
+        return $this->id;
     }
     public function getLibelle(): ?string
     {
@@ -50,13 +50,13 @@ class Departement
 
         return $this;
     }
-    public function getIdregiondep(): ?Region
+    public function getRegionDep(): ?Region
     {
-        return $this->idregiondep;
+        return $this->regionDep;
     }
-    public function setIdregiondep(?Region $idregiondep): self
+    public function setRegionDep(?Region $regionDep): self
     {
-        $this->idregiondep = $idregiondep;
+        $this->regionDep = $regionDep;
 
         return $this;
     }
