@@ -14,14 +14,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+//Ce controller est lié à la page d'inscription du site.
 class RegistrationController extends AbstractController
 {
     #[Route('security/register', name: 'app_registration_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AuthAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
+        //Si le user est connecté alors je le redirige vers son profil
         if ($this->getUser()) {
             return $this->redirectToRoute('app_security_viewprofil');
         }
+
         $user = new Utilisateur();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);

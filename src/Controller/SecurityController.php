@@ -25,12 +25,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
+//Ce controller est lié à la page de connexion et de profil, expliquant les informations principales de l'utilisateur.
 class SecurityController extends AbstractController
 {
     #[Route('security/{idutilisateur}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Utilisateur $user, UtilisateurRepository $userRepository): Response
     {
-        if ($this->getUser() !== $user) {
+        if ($this->getUser() !== $user || $this->getUser() == null) {
             $this->addFlash('error', "Accès non autorisé");
             return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         } else {
@@ -66,7 +67,7 @@ class SecurityController extends AbstractController
     #[Route('security/mes_annonces/{idutilisateur}', name: 'app_security_mes_annonces', methods: ['GET'])]
     public function show_by_id_utilisateur(Utilisateur $user, AnnonceRepository $annonceRepository): Response
     {
-        if ($this->getUser() !== $user) {
+        if ($this->getUser() !== $user || $this->getUser() == null) {
             $this->addFlash('error', "Accès non autorisé");
             return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         } else {
@@ -78,7 +79,7 @@ class SecurityController extends AbstractController
     #[Route('security/mes_favoris/{idutilisateur}', name: 'app_security_show_fav', methods: ['GET'])]
     public function show_fav(Utilisateur $user, FavorisRepository $favorisRepository): Response
     {
-        if ($this->getUser() !== $user) {
+        if ($this->getUser() !== $user || $this->getUser() == null) {
             $this->addFlash('error', "Accès non autorisé");
             return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         } else {
@@ -107,10 +108,9 @@ class SecurityController extends AbstractController
         if($formPassword->isSubmitted() && $formPassword->isValid())
         {
             $user = $utilisateurRepository->findOneBy(array('mail' =>$formPassword->get('mail')->getData()));
-
-        $this->addFlash('danger','Un problème est survenu');
-        return $this->redirectToRoute('app_security_forgottenpassword');
-
+        }else{
+            $this->addFlash('danger','Un problème est survenu');
+            return $this->redirectToRoute('app_security_forgottenpassword');
         }
         return $this->render('security/reset_password_request.html.twig',
             [
@@ -126,7 +126,7 @@ class SecurityController extends AbstractController
     #[Route(path:'security/delete/{idutilisateur}', name: 'app_security_delete', methods: ['GET','POST'])]
     public function delete(Utilisateur $user, UtilisateurRepository $utilisateurRepository): Response
     {
-        if($this->getUser() !== $user) {
+        if($this->getUser() !== $user || $this->getUser() == null) {
             $this->addFlash('error', "Accès non autorisé");
             return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         } else {
