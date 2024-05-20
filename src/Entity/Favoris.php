@@ -41,7 +41,7 @@ class Favoris
      */
     private $datecreation = 'NULL';
 
-    public function getIdutilisateurfav(): ?Utilisateur
+    public function getUtilisateurfav(): ?Utilisateur
     {
         return $this->utilisateurfav;
     }

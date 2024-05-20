@@ -55,7 +55,7 @@ class AnnonceType extends AbstractType
                         'message' => 'Entrez un prix',
                     ])]
             ])
-         ->add('idtypea',EntityType::class, [
+         ->add('typea',EntityType::class, [
              'placeholder' => "Veuillez saisir un type de l'annonce",
              'label' => "Type de l'annonce : ",
              'class' => Typeannonce::class,
@@ -72,7 +72,7 @@ class AnnonceType extends AbstractType
                  ])
              ],
              ])
-            ->add('idequidea', EquideType::class, [
+            ->add('equide', EquideType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => "Veuillez remplir les informations nécessaires ",

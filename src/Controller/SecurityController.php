@@ -61,7 +61,7 @@ class SecurityController extends AbstractController
             $this->addFlash('error', "Accès non autorisé");
             return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         } else {
-        $listAnnonces = $annonceRepository->findBy(array('idutilisateurannonce' => $user));
+        $listAnnonces = $annonceRepository->findBy(array('utilisateurannonce' => $user));
         return $this->render('security/mes_annonces.html.twig', [
             'listAnnonces' => $listAnnonces,
         ]);
@@ -74,7 +74,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         } else {
         //Trouver les annonces qui ont le meme idAnnonceUtilisateur que l'utilisateur connecté
-        $listFavoris = $favorisRepository->findBy(array('idutilisateurfav' => $user));
+        $listFavoris = $favorisRepository->findBy(array('utilisateurfav' => $user));
         return $this->render('security/mes_favoris.html.twig', [
             'listFavoris' => $listFavoris,
         ]);

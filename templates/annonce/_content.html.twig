@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="content">
-                        <a href="{{ path('app_annonce_show', {'idannonce': annonce.id}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
+                        <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
                         <br>
                         <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
                     </div>

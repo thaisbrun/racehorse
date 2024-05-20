@@ -48,12 +48,12 @@ class AnnonceRepository extends ServiceEntityRepository
                 Equide::class,    // Entity
                 'e',               // Alias
                 Join::WITH,        // Join type
-                'e.idequide = a.idequidea')
+                'e.id = a.equide')
            ->Where('a.activation = 1');
             //On filtre les données
            if($filters != null){
-                    $query->andWhere('a.idtypea IN(:idtypea)')
-                    ->setParameter(':idtypea', array_values(array($filters)));
+                    $query->andWhere('a.typea IN(:$typeA)')
+                    ->setParameter(':typea', array_values(array($filters)));
             }
                 return $query->getQuery()->getResult();
    }

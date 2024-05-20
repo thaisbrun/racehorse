@@ -92,13 +92,13 @@ class Annonce
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Favoris", mappedBy="idannoncefav")
+     * @ORM\OneToMany(targetEntity="Favoris", mappedBy="annoncefav")
      */
     private Collection $favoris;
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="idannonceimage", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="annonceimage", cascade={"persist"})
      */
     private Collection $images;
     public function __construct(){

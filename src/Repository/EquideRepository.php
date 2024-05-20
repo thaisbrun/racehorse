@@ -36,8 +36,8 @@ class EquideRepository extends ServiceEntityRepository
         //SELECT * from equide innerjoin annonce on annonce.idEquideA = equide.idEquide where idequide = idEquideA;
         $qb->select('e')
          //   ->innerJoin('e.idequide', 'a', 'WITH', 'a.idequidea')
-            ->andWhere('e.idequide = :idequidea')
-            ->setParameter('idequidea', $Annonce)
+            ->andWhere('e.id = :equide')
+            ->setParameter('equide', $Annonce)
         ->setMaxResults(1);
         // return equide
         return $query = $qb->getQuery()->getOneOrNullResult();

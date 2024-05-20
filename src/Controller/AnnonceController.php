@@ -24,9 +24,9 @@ class AnnonceController extends AbstractController
     public function index(AnnonceRepository $annonceRepository): Response
     {
         //Ici je permets de filtrer les annonces en fonction de leur type d'annonce.
-        $annoncesVente = $annonceRepository->FindBy(array('idtypea' => 1));
-        $annoncesLocation = $annonceRepository->FindBy(array('idtypea' => 2));
-        $annoncesDP = $annonceRepository->FindBy(array('idtypea' => 3));
+        $annoncesVente = $annonceRepository->FindBy(array('typeA' => 1));
+        $annoncesLocation = $annonceRepository->FindBy(array('typeA' => 2));
+        $annoncesDP = $annonceRepository->FindBy(array('typeA' => 3));
 
         return $this->render('annonce/index.html.twig', [
             'annoncesVente' => $annoncesVente,
@@ -63,7 +63,7 @@ class AnnonceController extends AbstractController
      * @param AnnonceRepository $annonceRepository
      * @return void
      */
-    #[Route('annonce/{idannonce}/favori', name: 'fav', methods: ['GET', 'POST'])]
+    #[Route('annonce/{id}/favori', name: 'fav', methods: ['GET', 'POST'])]
     public function favoris(Annonce $annonce, EntityManagerInterface $entityManager, FavorisRepository $favRepository) : Response {
 
         //Je recupère le user connecté
@@ -78,8 +78,8 @@ class AnnonceController extends AbstractController
         if($annonce->isLikedByUser($utilisateur)){
             //Je trouve le favori correspondant
             $favori = $favRepository->findOneBy([
-                'idannoncefav' => $annonce,
-                'idutilisateurfav' => $utilisateur
+                'annoncefav' => $annonce,
+                'utilisateurfav' => $utilisateur
             ]);
             //Et je supprime le favori
             $entityManager->remove($favori);
@@ -88,7 +88,7 @@ class AnnonceController extends AbstractController
             return $this->json([
                 'code' => 200,
                 'message' => 'Favori supprimé',
-                'favoris' => $favRepository->count(['idannoncefav' => $annonce])
+                'favoris' => $favRepository->count(['annoncefav' => $annonce])
             ],200);
         }
         //Si l'annonce n'a pas été déjà mise en favori par ce user je crée un nouveau favori
@@ -102,7 +102,7 @@ class AnnonceController extends AbstractController
         return $this->json([
             'code' => 200,
             'message' => 'Favori ajouté',
-            'favoris' => $favRepository->count(['idannoncefav' => $annonce])
+            'favoris' => $favRepository->count(['annoncefav' => $annonce])
         ],200);
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
@@ -153,23 +153,23 @@ class AnnonceController extends AbstractController
             ]);
         }
     }
-    #[Route('annonce/show_by_type_annonce/{idtypea}', name: 'app_annonce_show_by_type_annonce', methods: ['GET'])]
-    public function show_by_type_annonce(int $idtypea, AnnonceRepository $annonceRepository): Response
+    #[Route('annonce/show_by_type/{typeA}', name: 'app_annonce_show_by_type', methods: ['GET'])]
+    public function show_by_type(int $typeA, AnnonceRepository $annonceRepository): Response
     {
         //Je filtre les annonces avec le type d'annonce sélectionné
-        $listAnnonces = $annonceRepository->FindBy(array('idtypea' => $idtypea));
-        return $this->render('annonce/show_by_type_annonce.html.twig', [
+        $listAnnonces = $annonceRepository->FindBy(array('typeA' => $typeA));
+        return $this->render('annonce/show_by_type.html.twig', [
             'listAnnonces' => $listAnnonces,
         ]);
     }
-    #[Route('annonce/show/{idannonce}', name: 'app_annonce_show', methods: ['GET'])]
+    #[Route('annonce/show/{id}', name: 'app_annonce_show', methods: ['GET'])]
     public function show(Annonce $annonce): Response
     {
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
         ]);
     }
-    #[Route('annonce/edit/{idannonce}', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
+    #[Route('annonce/edit/{id}', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository,
                          EquideRepository $equideRepository, EntityManagerInterface $entityManager): Response
     {
@@ -180,7 +180,7 @@ class AnnonceController extends AbstractController
         } else {
 
             $form = $this->createForm(AnnonceType::class, $annonce);
-            $equide = $annonce->getEquideA();
+            $equide = $annonce->getEquide();
             $form->handleRequest($request);
 
             //Ajout des images dans l'édition
@@ -207,7 +207,7 @@ class AnnonceController extends AbstractController
             ]);
         }
     }
-    #[Route('annonce/delete/{idannonce}', name: 'app_annonce_delete', methods: ['POST'])]
+    #[Route('annonce/delete/{id}', name: 'app_annonce_delete', methods: ['POST'])]
     public function delete(Request $request, Annonce $annonce, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {

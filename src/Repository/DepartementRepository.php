@@ -27,8 +27,8 @@ class DepartementRepository extends ServiceEntityRepository
         //SELECT * from race innerjoin equide on equide.race = race.id where race = r.id;
         $qb->select('d')
             //   ->innerJoin('r.id', 'e', 'WITH', 'e.race')
-            ->andWhere('d.iddepartement = :iddep')
-            ->setParameter('iddep', $DepartementEquide)
+            ->andWhere('d.id = :dep')
+            ->setParameter('dep', $DepartementEquide)
             ->setMaxResults(1);
         // return equide
         return $query = $qb->getQuery()->getOneOrNullResult();

@@ -31,7 +31,7 @@
                     <label for="inputPassword">Mot de passe : </label>
                     <div class="control">
                         <input type="password" name="password" id="inputPassword" class="input is-outlined is-primary" autocomplete="current-password" required>
-                        <a href="{{ path('app_security_forgottenpassword') }}" class="help is-danger is-underlined">Mot de passe oublié</a>
+                        <a class="help is-danger is-underlined">Mot de passe oublié</a>
                     </div>
                 </div>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">

@@ -2,16 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\Departement;
 use App\Entity\Equide;
-use App\Entity\Typeannonce;
 use App\Entity\Typeequide;
-use App\Entity\Utilisateur;
+use App\Repository\TypeEquideRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class EquideType extends AbstractType
 {
@@ -28,8 +27,24 @@ class EquideType extends AbstractType
             ->add('race')
             ->add('taille')
             ->add('lienhn')
-            ->add('idtypeeq')
-            ->add('iddep');
+            ->add('typeeq', EntityType::class, [
+                'placeholder' => "Veuillez saisir un type de l'annonce",
+                'label' => "Type de l'annonce : ",
+                'class' => TypeEquide::class,
+                'choice_label' => 'libelle',
+                'query_builder' => function(TypeEquideRepository $typeEquideRepository) {
+                    return $typeEquideRepository->createQueryBuilder("type_equide")->addOrderBy('type_equide.libelle');
+                },
+                'attr' => [
+                    'class' => 'input is-primary',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Choisir un type d'annonce ",
+                    ])
+                ],
+            ])
+            ->add('dep');
 
     }
 

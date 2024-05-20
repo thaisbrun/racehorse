@@ -23,8 +23,8 @@
         <div class="card-content">
             <div class="media">
                 <div class="media-content">
-                    <h4>{{ favori.idannoncefav.titre }} - {{ favori.idannoncefav.prix }} €</h4>
-                    <a href="{{ path('fav', {'annonce': favori.annoncefav}) }}" class="button is-text js-like">
+                    <h4>{{ favori.annoncefav.titre }} - {{ favori.annoncefav.prix }} €</h4>
+                    <a href="{{ path('fav', {'id': favori.annoncefav}) }}" class="button is-text js-like">
                         {% if app.user and favori.annoncefav.isLikedByUser(app.user) %}
                         <i class="fa-solid fa-heart js-like"></i>
                         <span>&emsp;Enlever de mes favoris</span>
@@ -39,10 +39,10 @@
                 </div>
             </div>
             <div class="content">
-                <h5> Informations principales de l'annonce : {{ favori.annoncefav.equideA.nom }} - {{ favori.annoncefav.equideA.datenaiss|date("d/m/Y") }}
-                    - {{ favori.annoncefav.equidea.robe.libelle }} - {{ favori.annoncefav.equideA.race.libelle }} </h5>
+                <h5> Informations principales de l'annonce : {{ favori.annoncefav.equide.nom }} - {{ favori.annoncefav.equide.datenaiss|date("d/m/Y") }}
+                    - {{ favori.annoncefav.equide.robe.libelle }} - {{ favori.annoncefav.equide.race.libelle }} </h5>
                 <br>
-                <a href="{{ path('app_annonce_show', {'idannonce': favori.annoncefav.id}) }}"><button type="button" class="button is-centered is-primary">Voir l'annonce</button></a>
+                <a href="{{ path('app_annonce_show', {'id': favori.annoncefav.id}) }}"><button type="button" class="button is-centered is-primary">Voir l'annonce</button></a>
             </div>
         </div>
     </div></div>
