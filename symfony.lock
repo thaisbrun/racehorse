@@ -137,6 +137,9 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/mercure-bundle": {
+        "version": "v0.3.8"
+    },
     "symfony/messenger": {
         "version": "6.1",
         "recipe": {
