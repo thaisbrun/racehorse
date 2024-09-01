@@ -5,7 +5,7 @@ Aucun de mes projets est en ligne actuellement, il s'agit de projets fictifs afi
 Ma "méthodologie" de développement est commune à tous mes projets : 
 - Création des wireframes (avec Figma)
 - Création d'un trello pour les tâches à effectuer
-- Création du MCD (Umlet)
+- Création du MCD (Windesign)
 - Création de la BDD (pour ce projet ci : phpMyAdmin)
 - Initialisation du projet et création des différentes fonctionnalités
 - Mettre en place les principales règles OWASP (Même si le projet est horsligne, rien n'empêche d'appliquer des bonnes pratiques)
