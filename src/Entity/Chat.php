@@ -31,7 +31,56 @@ class Chat
      */
 
     private $datecreation;
+    /**
+     * @var \Utilisateur
+     *
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idFirstUser", referencedColumnName="idUtilisateur",onDelete="CASCADE")
+     * })
+     */
+    private $firstUser;
 
+    /**
+     * @return \Utilisateur
+     */
+    public function getFirstUser(): \Utilisateur
+    {
+        return $this->firstUser;
+    }
+
+    /**
+     * @param \Utilisateur $firstUser
+     */
+    public function setFirstUser(\Utilisateur $firstUser): void
+    {
+        $this->firstUser = $firstUser;
+    }
+    /**
+     * @var \Utilisateur
+     *
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idSecondUser", referencedColumnName="idUtilisateur",onDelete="CASCADE")
+     * })
+     */
+    private $secondUser;
+
+    /**
+     * @return \Utilisateur
+     */
+    public function getSecondUser(): \Utilisateur
+    {
+        return $this->secondUser;
+    }
+
+    /**
+     * @param \Utilisateur $secondUser
+     */
+    public function setSecondUser(\Utilisateur $secondUser): void
+    {
+        $this->secondUser = $secondUser;
+    }
     public function __construct(){
         $this->messages = new ArrayCollection();
     }

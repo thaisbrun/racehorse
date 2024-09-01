@@ -64,6 +64,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
     #[ORM\OneToMany(mappedBy: 'idutilisateurfav', targetEntity: Favoris::class)]
     private Collection $favoris;
 
+    #[ORM\OneToMany(mappedBy: 'idutilisateurfav', targetEntity: Favoris::class)]
+    private Collection $chats;
+
     #[ORM\Column(type: 'json')]
     private $roles = [];
     public function __construct(){

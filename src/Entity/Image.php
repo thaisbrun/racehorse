@@ -31,7 +31,7 @@ class Image
     /**
      * @var \Annonce
      *
-     * @ORM\ManyToOne(targetEntity="Annonce")
+     * @ORM\ManyToOne(targetEntity="Annonce", inversedBy="images")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idAnnonceImage", referencedColumnName="idAnnonce")
      * })

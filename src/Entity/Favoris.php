@@ -27,7 +27,7 @@ class Favoris
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\ManyToOne(targetEntity="Annonce")
+     * @ORM\ManyToOne(targetEntity="Annonce", inversedBy="favoris")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idAnnonceFav", referencedColumnName="idAnnonce",onDelete="CASCADE")
      * })

@@ -50,15 +50,6 @@ class Message
      */
     private $auteur;
 
-    /**
-     * @var \Utilisateur
-     *
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idDestinataire", referencedColumnName="idUtilisateur",onDelete="CASCADE")
-     * })
-     */
-    private $destinataire;
     public function getId(): ?int
     {
         return $this->id;
@@ -105,17 +96,6 @@ class Message
     public function setAuteur(Utilisateur $auteur): self
     {
         $this->auteur = $auteur;
-
-        return $this;
-    }
-    public function getDestinataire(): \Utilisateur
-    {
-        return $this->destinataire;
-    }
-
-    public function setDestinataire(Utilisateur $destinataire): self
-    {
-        $this->destinataire = $destinataire;
 
         return $this;
     }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03479486d5d65ff74716e6e267f93027",
+    "content-hash": "8c879908c4622b0d9484504857163a66",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -4514,16 +4514,16 @@
         },
         {
             "name": "symfony/mercure-bundle",
-            "version": "v0.3.8",
+            "version": "v0.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mercure-bundle.git",
-                "reference": "e21ad84694b84c9a3c94bedf4edd82b66728abfc"
+                "reference": "77435d740b228e9f5f3f065b6db564f85f2cdb64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mercure-bundle/zipball/e21ad84694b84c9a3c94bedf4edd82b66728abfc",
-                "reference": "e21ad84694b84c9a3c94bedf4edd82b66728abfc",
+                "url": "https://api.github.com/repos/symfony/mercure-bundle/zipball/77435d740b228e9f5f3f065b6db564f85f2cdb64",
+                "reference": "77435d740b228e9f5f3f065b6db564f85f2cdb64",
                 "shasum": ""
             },
             "require": {
@@ -4579,7 +4579,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/mercure-bundle/issues",
-                "source": "https://github.com/symfony/mercure-bundle/tree/v0.3.8"
+                "source": "https://github.com/symfony/mercure-bundle/tree/v0.3.9"
             },
             "funding": [
                 {
@@ -4591,7 +4591,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-03T22:26:24+00:00"
+            "time": "2024-05-31T09:07:18+00:00"
         },
         {
             "name": "symfony/messenger",

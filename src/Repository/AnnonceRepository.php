@@ -52,7 +52,7 @@ class AnnonceRepository extends ServiceEntityRepository
            ->Where('a.activation = 1');
             //On filtre les données
            if($filters != null){
-                    $query->andWhere('a.typea IN(:$typeA)')
+                    $query->andWhere('a.typeA IN(:typea)')
                     ->setParameter(':typea', array_values(array($filters)));
             }
                 return $query->getQuery()->getResult();
