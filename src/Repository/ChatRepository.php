@@ -42,17 +42,18 @@ class ChatRepository extends ServiceEntityRepository
 //    /**
 //     * @return Chat[] Returns an array of Chat objects
 //     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findByUserOneOrTwo($value): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.firstUser = :user')
+            ->orWhere('c.secondUser = :user')
+            ->setParameter('user', $value)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Chat
 //    {

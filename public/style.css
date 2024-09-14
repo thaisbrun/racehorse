@@ -65,3 +65,27 @@ h3{
     border-radius: 5px;
     font-family: 'Montserrat';
 }
+.is-margin-left-right {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.has-border-right {
+    border-right: 1px solid #dbdbdb; /* Couleur Bulma pour les bordures */
+}
+
+.box {
+    margin-bottom: 1rem;
+}
+
+.media-content p {
+    margin: 0;
+}
+
+.tag {
+    font-size: 0.875rem;
+}
+
+.textarea {
+    margin-top: 1rem;
+}

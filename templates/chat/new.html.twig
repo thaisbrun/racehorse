@@ -3,9 +3,86 @@
 {% block title %}New Chat{% endblock %}
 
 {% block body %}
-    <h1>Create new Chat</h1>
+    <br>
+    <div class="columns">
+        <!-- Sidebar gauche -->
+        <div class="column is-one-quarter has-border-right">
+            {% for chat in chats %}
+            <div class="box">
+                <article class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img src="bla" alt="">
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>nom de l'article</strong><br>
+                                description de l'article
+                                <small><em> nom du user - date du dernier message </em></small>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
 
-    {{ include('chat/_form.html.twig') }}
+        <!-- Section centrale -->
+        <div class="column has-border-right">
+            <div class="box">
+                <p><strong>Oui parfait. Merci beaucoup</strong></p>
+                <small>11 sept. 2024 - 16:04</small>
+            </div>
 
-    <a href="{{ path('app_chat_index') }}">back to list</a>
+            <div class="box">
+                <p><strong>Avez-vous envoyé le colis ?</strong></p>
+                <p>Il vous reste encore 24 heures pour confirmer l'envoi. Passé ce délai, l'achat sera annulé.</p>
+                <small>avant-hier - 11:48</small>
+            </div>
+
+            <div class="box">
+                <p><strong>Commande envoyée !</strong></p>
+                <p>Nous avons bien pris en compte l'envoi de la commande. Le colis sera livré dans un délai de 3 à 5 jours ouvrés.</p>
+                <a href="#" class="button is-link">Suivre mon colis</a>
+                <small>01:30 - Message automatique</small>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <textarea class="textarea" placeholder="Écrivez votre message"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar droite -->
+        <div class="column is-one-quarter has-border-right">
+            <div class="box">
+                <article class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img src="user" alt="Celine M">
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>Celine M</strong><br>
+                                <small>Répond en moyenne en 30 min</small><br>
+                                <span class="tag is-warning">35</span>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="box">
+                    <p><strong>Lot de 4 protections taille poney</strong></p>
+                    <p><strong>3 €</strong> <span class="tag is-primary">Achat en cours</span></p>
+                    <p>Lot de 4 protections Norton bleu marine taille poney<br>En bon état...</p>
+                    <a href="#" class="button is-link">Voir plus</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

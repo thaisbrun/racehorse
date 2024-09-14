@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonce;
 use App\Entity\Chat;
+use App\Entity\Utilisateur;
 use App\Form\ChatType;
 use App\Repository\ChatRepository;
+use App\Repository\MessageRepository;
+use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,13 +25,14 @@ class ChatController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_chat_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ChatRepository $chatRepository): Response
+    #[Route('/contactVendeur/{id}', name: 'contactVendeur', methods: ['GET', 'POST'])]
+    public function new(Request $request, ChatRepository $chatRepository, MessageRepository $messageRepository, Annonce $annonce): Response
     {
         $chat = new Chat();
         $form = $this->createForm(ChatType::class, $chat);
         $form->handleRequest($request);
-
+        $chat->setFirstUser($this->getUser());
+        $chat->setSecondUser($annonce->getUtilisateurAnnonce());
         if ($form->isSubmitted() && $form->isValid()) {
             $chatRepository->add($chat, true);
 
@@ -35,6 +40,8 @@ class ChatController extends AbstractController
         }
 
         return $this->renderForm('chat/new.html.twig', [
+            'chats' => $chatRepository->findByUserOneOrTwo(array('user' => $this->getUser())),
+            'messages' => $messageRepository->findBy(array('chat' => $chat->getId())),
             'chat' => $chat,
             'form' => $form,
         ]);

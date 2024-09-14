@@ -140,7 +140,7 @@ class AnnonceController extends AbstractController
 
                     $annonce->setDatecreation(new \DateTime());
                     $annonce->setUtilisateurAnnonce($this->getUser());
-                    $annonce->setEquideA($equide);
+                    $annonce->setEquide($equide);
                     $annonceRepository->save($annonce, true);
                     return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
                 }
