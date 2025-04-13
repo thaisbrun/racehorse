@@ -3,6 +3,6 @@
 {% block title %}Ajouter une annonce{% endblock %}
 
 {% block body %}
-    <img src="{{ asset('img/addAnnonce.jpg') }}">
+    {{ include('./navBar.html.twig') }}
     {{ include('annonce/_form.html.twig',{'button_label': "Publier l'annonce"}) }}
 {% endblock %}

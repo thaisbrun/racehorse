@@ -5,7 +5,6 @@
         <title>{% block title %} {% endblock %}</title>
         <link rel="icon" href="img/logo1.png" type="image/png"/>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -13,50 +12,11 @@
             <link href={{ asset('style.css') }} type="text/css" rel="stylesheet">
         {% endblock %}
     </head>
-    <nav class="navbar has-background-primary-dark" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="{{ asset('/') }}">
-                <img src="/img/logoRacehorse.png">
-            </a>
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-
-
-        {% if app.user %}
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="column is-two-thirds"><a href="{{ path('app_security_show_fav',{'id': app.user.id}) }}" style="color: #0a0a0a;"><i class="fa-solid fa-heart"></i> Favoris</a></div>
-                    <div class="column is-two-thirds"><a href="{{ path('app_security_viewprofil') }}" style="color: #0a0a0a;"><i class="fa-regular fa-user"></i> {{  app.user.login }}</a>
-                </div>
-                </div>
-                </div>
-            </div>
-
-        {%else %}
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-primary is-light" href="{{ path('app_registration_register') }}" >
-                        <strong>M'inscrire</strong>
-                    </a>
-                    <a class="button is-light" href="{{ path('app_login') }}" >
-                        Me Connecter
-                    </a>
-                </div>
-            </div>
-        </div>
-        {%endif %}
-        </div>
-    </nav>
     <body>
         {% block body %}
         {% endblock %}
     </body>
-    <footer class="footer" style="font-family:'Montserrat';background-color:hsl(171, 100%, 29%);">
+    <footer class="footer" style="font-family:'Montserrat';">
         <div class="content has-text-centered">
             <div class="columns">
                 <div class="column">
@@ -66,7 +26,7 @@
                     <a href="{{ asset('howItWorks') }}" style="color:black; "> Comment ça marche ? </a>
                 </div>
                 <div class="column">
-                    <a href="{{ asset('about') }}" style="color:black; "> A propos de Racehorse </a>
+                    <a href="{{ asset('about') }}" style="color:black; "> A propos de Ponyshop </a>
                 </div>
                 <div class="column">
                     <a href="{{ path('app_registration_register') }}" style="color:black; "> M'inscrire </a>

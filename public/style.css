@@ -1,19 +1,57 @@
-h1{
-    color: hsl(171, 100%, 29%);
-    font-size: 20px;
-    font-family: 'Montserrat';
-}
 h4{
-    color:hsl(171, 100%, 29%);
     font-size: 30px;
     font-family: 'Montserrat';
     margin-right:40px;
 }
+.buttonLight {
+     background-color: transparent;
+     border: 1px solid #cfb19f;
+     box-sizing: border-box;
+     color: #ffb997;
+     font-family: "Montserrat", sans-serif;
+     font-size: 16px;
+     font-weight: 700;
+     line-height: 24px;
+     padding: 16px 23px;
+     position: relative;
+     text-decoration: none;
+     user-select: none;
+     -webkit-user-select: none;
+     touch-action: manipulation;
+     letter-spacing: 1px; /* Espacement des lettres pour un look moderne */
+     text-transform: uppercase; /* Majuscules pour un effet plus moderne */
+     border-radius: 5px; /* Bordures légèrement arrondies pour un effet moderne */
+     transition: background-color 0.3s ease; /* Transition douce uniquement pour le fond */
+ }
 
-h2,p,a,button, form, input, select, textarea{font-family: 'Montserrat';}
-body{
-    font-family: 'Montserrat';
+.buttonLight:hover {
+    background-color: #ffb997; /* Change le fond au survol */
+    color: white; /* Changer la couleur du texte pour le contraste */
 }
+
+.buttonLight:active {
+    outline: 0;
+}
+
+
+h2{
+    font-family: 'Fashion Wacks';
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'Fashion Wacks';
+    src: url('./fonts/FashionWacks-Regular.otf') format('otf'),
+    url('./fonts/FashionWacks-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
 footer{
     font-family: 'Montserrat';
 }
@@ -25,45 +63,76 @@ h3{
     font-size: 16px;
     color: hsl(171, 100%, 29%);
 }
-.containerIndex{
-    position:relative;
-    width:100%;
+.containerIndex {
+     width: 100%;
+     position: relative;
+ }
+
+.containerIndex img {
+    width: 100%;
+    height: auto;
+    max-height: 600px; /* Ajuste la hauteur de l’image */
+    object-fit: cover;
+    display: block; /* Évite les espaces sous l’image */
 }
 
-.containerIndex img{
-    width:100%;
-    height:auto;
+.containerIndex h1 {
+    font-family: 'Fashion Wacks', serif;
+    font-size: 2.5rem;
+    margin: 0;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    white-space: nowrap; /* Empêche le texte de se couper */
+}
+.pony {
+    color: #ffb997; /* Couleur pêche */
+}
+
+.shop {
+    color: white;
 }
 
 .btnIndexAcheter {
     position: absolute;
-    top: 65%;
+    top: 50%;
     left: 75%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    background-color: hsl(171, 100%, 29%);
+    background-color: whitesmoke;
     width:300px;
     font-size: 16px;
     padding: 12px 24px;
     border: none;
     cursor: pointer;
+    color: #ffb997;
     border-radius: 5px;
     font-family: 'Montserrat';
 }
 .btnIndexVendre {
     position: absolute;
-    top: 65%;
+    top: 50%;
     left: 25%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    background-color: hsl(171, 100%, 29%);
+    background-color:rgb(254, 194, 181);
     font-size: 16px;
     width:300px;
     padding: 12px 24px;
     border: none;
     cursor: pointer;
+    color: whitesmoke;
     border-radius: 5px;
     font-family: 'Montserrat';
+}
+.pony {
+    color: rgb(254, 194, 181);
+}
+
+.shop {
+    color: white;
 }
 .is-margin-left-right {
     margin-left: 1rem;
@@ -88,4 +157,67 @@ h3{
 
 .textarea {
     margin-top: 1rem;
+}
+
+.headerIndex {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 3;
+}
+
+.user-links {
+    position: absolute;
+    top: 15px; /* Ajuste selon tes besoins */
+    right: 1rem;
+    z-index: 2; /* S'assure que le texte passe devant l'image */
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.user-links a {
+    color: white;
+    margin-right: 1rem;
+    text-decoration: none; /* Supprime le soulignement des liens */
+    font-weight: bold;
+}
+
+.user-links a:hover {
+    text-decoration: underline; /* Ajoute un effet au survol */
+}
+
+a.italicType {
+    color: hsla(0, 0%, 0%, 0.54);
+    margin-left:85%;
+    font-style: italic;
+}
+
+.banner {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background-image: url('img/aboutPS.png');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(60%); /* Assombrir légèrement l'image */
+}
+.banner-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+.banner-content h1 {
+    text-transform: uppercase; /* Mettre le titre en majuscule */
+    letter-spacing: 1px;
 }

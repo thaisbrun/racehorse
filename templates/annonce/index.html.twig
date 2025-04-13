@@ -1,14 +1,31 @@
 {% extends 'base.html.twig' %}
-{% block title %}Bienvenue sur Racehorse{% endblock %}
+{% block title %}Bienvenue sur Ponyshop{% endblock %}
 
 {% block body %}
     <div class="containerIndex">
+        <div class="headerIndex">
+            <h1><span class="pony">Pony</span> &nbsp;<span class="shop">Shop</span></h1>
+            <div class="user-links">
+                {% if app.user %}
+                    <a href="{{ path('app_security_show_fav', {'id': app.user.id}) }}">
+                        <i class="fa-solid fa-heart"></i> Favoris
+                    </a>
+                    <a href="{{ path('app_security_viewprofil') }}">
+                        <i class="fa-regular fa-user"></i> {{ app.user.login }}
+                    </a>
+                {% else %}
+                    <a href="{{ path('app_registration_register') }}">M'inscrire</a>
+                    <a href="{{ path('app_login') }}">Me Connecter</a>
+                {% endif %}
+            </div>
+        </div>
         <img src="{{ asset('img/bandeauIndex.png') }}">
+
         <a href="{{ path('app_annonce_new') }}">
-            <button class="btnIndexVendre">Vendre</button>
+            <button class="btnIndexVendre">Vendre un cheval</button>
         </a>
         <a href="{{ path('app_annonce_all_annonces') }}">
-        <button class="btnIndexAcheter">Acheter</button>
+        <button class="btnIndexAcheter">Acheter un cheval</button>
         </a>
     </div>
 <div class="container is-widescreen">
@@ -20,16 +37,16 @@
         </div>
     {% endfor %}
     <br>
-    <h2 style="text-decoration: underline;">Chevaux de course à vendre</h2>
+    <h2>Chevaux et poneys proposés à la vente</h2>
     <br>
     <div class="columns">
         {% for annonce in annoncesVente %}
             <div class="column">
-                <div class="card">
+                <div class="card has-shadow-sm is-rounded">
                     <div class="card-image">
-                        <figure class="image is-4by3">
+                        <figure class="image is-4by3 has-ratio">
                             {% if annonce.images is not empty %}
-                                <img src="{{ asset(annonce.images.first.lienImage) }}" alt="Image">
+                                <img src="{{ asset(annonce.images.first.lienImage) }}" alt="Image" class="is-rounded">
                             {% else %}
                                 <p>Aucune image disponible pour cette annonce.</p>
                             {% endif %}
@@ -37,45 +54,43 @@
                     </div>
                     <div class="card-content">
                         <div class="media">
-
                             <div class="media-content">
-                                <p class="title is-4">{{ annonce.titre }}</p>
-                                <p class="subtitle is-6">{{ annonce.prix }} €</p>
+                                <p class="title is-6">{{ annonce.titre }}</p>
+                                <p class="subtitle is-5">{{ annonce.prix }} €</p>
                                 {% if app.user %}
                                     <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
                                         {% if app.user and annonce.isLikedByUser(app.user) %}
-                                        <i class="fa-solid fa-heart js-like"></i>
-                                    <span>Enlever de mes favoris</span>
-                                    {% else %}
-                                        <i class="fa-regular fa-heart js_like"></i>
-                                        <span>Ajouter à mes favoris</span>
+                                            <i class="fa-solid fa-heart js-like"></i>
+                                            <span>Enlever de mes favoris</span>
+                                        {% else %}
+                                            <i class="fa-regular fa-heart js_like"></i>
+                                            <span>Ajouter à mes favoris</span>
                                         {% endif %}
                                     </a>
-
                                 {% endif %}
                             </div>
                         </div>
                         <div class="content">
-                            <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
+                            <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth buttonLight">En savoir plus</button></a>
                             <br>
-                            <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
+                            <time datetime="2016-1-1" class="subtitle is-7">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
                         </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('app_annonce_show_by_type', {'typeA': 1}) }}" style="color:hsl(171, 100%, 29%);margin-left:85%;font-style: italic;">Voir plus à vendre</a>
-    <h2 style="text-decoration: underline;">Chevaux à louer</h2>
+    <a href="{{ path('app_annonce_show_by_type', {'typeA': 1}) }}" class="italicType">Voir plus à vendre</a>
+    <h2>Chevaux et poneys à la location </h2>
     <br>
     <div class="columns">
         {% for annonce in annoncesLocation %}
             <div class="column">
-                <div class="card">
+                <div class="card has-shadow-sm is-rounded">
                     <div class="card-image">
-                        <figure class="image is-4by3">
+                        <figure class="image is-4by3 has-ratio">
                             {% if annonce.images is not empty %}
-                                <img src="{{ asset(annonce.images.first.lienImage) }}" alt="Image">
+                                <img src="{{ asset(annonce.images.first.lienImage) }}" alt="Image" class="is-rounded">
                             {% else %}
                                 <p>Aucune image disponible pour cette annonce.</p>
                             {% endif %}
@@ -84,77 +99,76 @@
                     <div class="card-content">
                         <div class="media">
                             <div class="media-content">
-                                <p class="title is-4">{{ annonce.titre }}</p>
-                                <p class="subtitle is-6">{{ annonce.prix }} €</p>
-                                <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
-                                    {% if app.user %}
-                                    {% if app.user and annonce.isLikedByUser(app.user) %}
-                                    <i class="fa-solid fa-heart js-like"></i>
-                                    <span>Enlever de mes favoris</span>
-                                    {% else %}
-                                    <i class="fa-regular fa-heart js_like"></i>
-                                    <span>Ajouter à mes favoris</span>
-                                    {% endif %}
-                                    {% endif %}
-                                </a>
-                            </div>
-                        </div>
-                        <div class="content">
-                            <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
-                            <br>
-                            <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-    <a href="{{ path('app_annonce_show_by_type', {'typeA': 2}) }}" style="color:hsl(171, 100%, 29%);margin-left:85%;font-style: italic;">Voir plus à louer</a>
-    <h2 style="text-decoration: underline;">Chevaux à prendre en DP</h2>
-    <br>
-    <div class="columns">
-        {% for annonce in annoncesDP %}
-            <div class="column">
-                <div class="card">
-                    <div class="card-image">
-                        <figure class="image is-4by3">
-                            {% if annonce.images is not empty %}
-                            <img src="{{ asset(annonce.images.first.lienImage) }}" alt="Image">
-                            {% else %}
-                                <p>Aucune image disponible pour cette annonce.</p>
-                            {% endif %}
-                        </figure>
-                    </div>
-                    <div class="card-content">
-                        <div class="media">
-
-                            <div class="media-content">
-                                <p class="title is-4">{{ annonce.titre }}</p>
-                                <p class="subtitle is-6">{{ annonce.prix }} €</p>
+                                <p class="title is-6">{{ annonce.titre }}</p>
+                                <p class="subtitle is-5">{{ annonce.prix }} €</p>
                                 {% if app.user %}
-                                <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
-                                    {% if app.user and annonce.isLikedByUser(app.user) %}
-                                    <i class="fa-solid fa-heart js-like"></i>
-                                    <span>Enlever de mes favoris</span>
-                                    {% else %}
-                                    <i class="fa-regular fa-heart js_like"></i>
-                                    <span>Ajouter à mes favoris</span>
-                                    {% endif %}
-                                </a>
+                                    <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
+                                        {% if app.user and annonce.isLikedByUser(app.user) %}
+                                            <i class="fa-solid fa-heart js-like"></i>
+                                            <span>Enlever de mes favoris</span>
+                                        {% else %}
+                                            <i class="fa-regular fa-heart js_like"></i>
+                                            <span>Ajouter à mes favoris</span>
+                                        {% endif %}
+                                    </a>
                                 {% endif %}
                             </div>
                         </div>
                         <div class="content">
-                            <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
+                            <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth buttonLight">En savoir plus</button></a>
                             <br>
-                            <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
+                            <time datetime="2016-1-1" class="subtitle is-7">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
                         </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('app_annonce_show_by_type', {'typeA': 3}) }}" style="color:hsl(171, 100%, 29%);margin-left:85%;font-style: italic;">Voir plus de DP</a>
+    <a href="{{ path('app_annonce_show_by_type', {'typeA': 2}) }}" class="italicType">Voir plus à louer</a>
+    <h2>Chevaux et poneys proposés en DP</h2>
+    <br>
+    <div class="columns">
+        {% for annonce in annoncesDP %}
+            <div class="column">
+                <div class="card has-shadow-sm is-rounded">
+                    <div class="card-image">
+                        <figure class="image is-4by3 has-ratio">
+                            {% if annonce.images is not empty %}
+                                <img src="{{ asset(annonce.images.first.lienImage) }}" alt="Image" class="is-rounded">
+                            {% else %}
+                                <p>Aucune image disponible pour cette annonce.</p>
+                            {% endif %}
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-6">{{ annonce.titre }}</p>
+                                <p class="subtitle is-5">{{ annonce.prix }} €</p>
+                                {% if app.user %}
+                                    <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
+                                        {% if app.user and annonce.isLikedByUser(app.user) %}
+                                            <i class="fa-solid fa-heart js-like"></i>
+                                            <span>Enlever de mes favoris</span>
+                                        {% else %}
+                                            <i class="fa-regular fa-heart js_like"></i>
+                                            <span>Ajouter à mes favoris</span>
+                                        {% endif %}
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth buttonLight">En savoir plus</button></a>
+                            <br>
+                            <time datetime="2016-1-1" class="subtitle is-7">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <a href="{{ path('app_annonce_show_by_type', {'typeA': 3}) }}" class="italicType">Voir plus de DP</a>
 </div>
     <br>
     <script>

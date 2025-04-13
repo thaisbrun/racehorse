@@ -3,42 +3,39 @@
 {% block title %}Me connecter{% endblock %}
 
 {% block body %}
-    <img src="{{ asset('img/connexion.png') }}">
-    <form method="post">
-    <div class="container">
-    {% if error %}
-            <div class="message is-danger">
-                <div class="message-header">
-                    Identifiants incorrects
+    <div class="container" style="height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('{{ asset('img/login.jpg') }}') no-repeat center center; background-size: cover;">
+        <!-- Formulaire centré -->
+        <form method="post" class="box" style="width: 90%; max-width: 400px; background-color: rgba(255, 255, 255, 0.9); padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
+            {% if error %}
+                <div class="message is-danger">
+                    <div class="message-header">
+                        Identifiants incorrects
+                    </div>
+                </div>
+            {% endif %}
+            {% if app.user %}
+                <div class="mb-3">
+                    Vous êtes connecté(e) en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+                </div>
+            {% endif %}
+
+            <div class="field">
+                <label for="inputPseudo">Pseudo :</label>
+                <div class="control">
+                    <input type="text" value="{{ last_username }}" name="login" id="inputPseudo" class="input" autocomplete="username" required autofocus>
                 </div>
             </div>
-    {% endif %}
-    {% if app.user %}
-        <div class="mb-3">
-            Vous êtes connectés en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
-        </div>
-    {% endif %}
-
+            <div class="field">
+                <label for="inputPassword">Mot de passe :</label>
+                <div class="control">
+                    <input type="password" name="password" id="inputPassword" class="input" autocomplete="current-password" required>
+                    <a href="#" class="help is-danger is-underlined">Mot de passe oublié</a>
+                </div>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <br>
-            <form class="box" style="width: 700px; left: 30%; position: sticky;">
-                <div class="field">
-                    <label for="inputPseudo">Pseudo : </label>
-                    <div class="control">
-                    <input type="text" value="{{ last_username }}" name="login" id="inputPseudo" class="input is-outlined is-primary" autocomplete="username" required autofocus>
-                    </div>
-                </div>
-                <div class="field">
-                    <label for="inputPassword">Mot de passe : </label>
-                    <div class="control">
-                        <input type="password" name="password" id="inputPassword" class="input is-outlined is-primary" autocomplete="current-password" required>
-                        <a class="help is-danger is-underlined">Mot de passe oublié</a>
-                    </div>
-                </div>
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-<br>
-    <button class="button is-centered is-primary is-light is-medium" type="submit">Connexion</button>
-                <br><br>
-            </form>
-</div>
-    </form>
+            <button class="button is-centered is-dark is-medium" type="submit">Connexion</button>
+            <br><br>
+        </form>
+    </div>
 {% endblock %}
