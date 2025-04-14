@@ -1,3 +1,19 @@
+.custom-navbar {
+    background: rgba(255, 240, 240, 0.8);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 1.2rem;
+    border-bottom-right-radius: 1.2rem;
+    padding: 1rem 2rem;
+    margin: 1.5rem auto;
+    max-width: 100%;
+    box-shadow: 0 2px 8px rgba(255, 200, 200, 0.3);
+    border: 1px solid rgba(255, 200, 200, 0.2);
+    transition: background 0.3s ease;
+}
+
 h4{
     font-size: 30px;
     font-family: 'Montserrat';
@@ -18,19 +34,35 @@ h4{
      user-select: none;
      -webkit-user-select: none;
      touch-action: manipulation;
-     letter-spacing: 1px; /* Espacement des lettres pour un look moderne */
-     text-transform: uppercase; /* Majuscules pour un effet plus moderne */
-     border-radius: 5px; /* Bordures légèrement arrondies pour un effet moderne */
-     transition: background-color 0.3s ease; /* Transition douce uniquement pour le fond */
+     letter-spacing: 1px;
+     text-transform: uppercase;
+     border-radius: 5px;
+     transition: background-color 0.3s ease;
  }
 
 .buttonLight:hover {
-    background-color: #ffb997; /* Change le fond au survol */
-    color: white; /* Changer la couleur du texte pour le contraste */
+    background-color: #ffb997;
+    color: white;
 }
 
 .buttonLight:active {
     outline: 0;
+}
+
+.titleNav{
+    font-family: 'Fashion Wacks';
+    font-size: 24px;
+}
+
+.containerLogin{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
+    url('/img/login.jpg') no-repeat center center;
+    background-size: cover;
 }
 
 
@@ -71,9 +103,9 @@ h3{
 .containerIndex img {
     width: 100%;
     height: auto;
-    max-height: 600px; /* Ajuste la hauteur de l’image */
+    max-height: 600px;
     object-fit: cover;
-    display: block; /* Évite les espaces sous l’image */
+    display: block;
 }
 
 .containerIndex h1 {
@@ -85,14 +117,7 @@ h3{
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    white-space: nowrap; /* Empêche le texte de se couper */
-}
-.pony {
-    color: #ffb997; /* Couleur pêche */
-}
-
-.shop {
-    color: white;
+    white-space: nowrap;
 }
 
 .btnIndexAcheter {
@@ -140,7 +165,7 @@ h3{
 }
 
 .has-border-right {
-    border-right: 1px solid #dbdbdb; /* Couleur Bulma pour les bordures */
+    border-right: 1px solid #dbdbdb;
 }
 
 .box {
@@ -173,9 +198,9 @@ h3{
 
 .user-links {
     position: absolute;
-    top: 15px; /* Ajuste selon tes besoins */
+    top: 15px;
     right: 1rem;
-    z-index: 2; /* S'assure que le texte passe devant l'image */
+    z-index: 2;
     padding: 5px 10px;
     border-radius: 5px;
 }
@@ -183,12 +208,17 @@ h3{
 .user-links a {
     color: white;
     margin-right: 1rem;
-    text-decoration: none; /* Supprime le soulignement des liens */
+    text-decoration: none;
     font-weight: bold;
+}
+.user-links-black a {
+    color: #4a4a4a;
+    margin-right: 1rem;
+    text-decoration: none;
 }
 
 .user-links a:hover {
-    text-decoration: underline; /* Ajoute un effet au survol */
+    text-decoration: underline;
 }
 
 a.italicType {
@@ -204,7 +234,7 @@ a.italicType {
     background-image: url('img/aboutPS.png');
     background-size: cover;
     background-position: center;
-    filter: brightness(60%); /* Assombrir légèrement l'image */
+    filter: brightness(60%);
 }
 .banner-content {
     position: absolute;
@@ -218,6 +248,6 @@ a.italicType {
     font-family: 'Montserrat', sans-serif;
 }
 .banner-content h1 {
-    text-transform: uppercase; /* Mettre le titre en majuscule */
+    text-transform: uppercase;
     letter-spacing: 1px;
 }

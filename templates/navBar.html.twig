@@ -1,8 +1,8 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar custom-navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
+        <a class="navbar-item titleNav" href="{{ asset('/') }}">
             <img src="/img/logo1.png" type="image/png"/>
-            PonyShop
+            Pony Shop
         </a>
 
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -13,49 +13,21 @@
         </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-            <a class="navbar-item">
-                Home
-            </a>
-
-            <a class="navbar-item">
-                Documentation
-            </a>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                    More
-                </a>
-
-                <div class="navbar-dropdown">
-                    <a class="navbar-item">
-                        About
-                    </a>
-                    <a class="navbar-item is-selected">
-                        Jobs
-                    </a>
-                    <a class="navbar-item">
-                        Contact
-                    </a>
-                    <hr class="navbar-divider">
-                    <a class="navbar-item">
-                        Report an issue
-                    </a>
-                </div>
-            </div>
-        </div>
+    <div id="navBarLogged" class="navbar-menu">
 
         <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light">
-                        Log in
-                    </a>
-                </div>
+            <div class="navbar-item user-links-black">
+                    {% if app.user %}
+                        <a href="{{ path('app_security_show_fav', {'id': app.user.id}) }}">
+                            <i class="fa-regular fa-heart"></i> Favoris
+                        </a>
+                        <a href="{{ path('app_security_viewprofil') }}">
+                            <i class="fa-regular fa-user"></i> {{ app.user.login }}
+                        </a>
+                    {% else %}
+                        <a href="{{ path('app_registration_register') }}">M'inscrire</a>
+                        <a href="{{ path('app_login') }}">Me Connecter</a>
+                    {% endif %}
             </div>
         </div>
     </div>
