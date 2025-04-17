@@ -23,7 +23,7 @@ h4{
      background-color: transparent;
      border: 1px solid #cfb19f;
      box-sizing: border-box;
-     color: #ffb997;
+     color: rgb(255, 197, 197);
      font-family: "Montserrat", sans-serif;
      font-size: 16px;
      font-weight: 700;
@@ -41,8 +41,12 @@ h4{
  }
 
 .buttonLight:hover {
-    background-color: #ffb997;
+    background-color: rgb(255, 197, 197);
     color: white;
+}
+
+.backRose{
+    background-color: rgba(255, 240, 240, 0.5);
 }
 
 .buttonLight:active {
@@ -93,7 +97,7 @@ li{
 }
 h3{
     font-size: 16px;
-    color: hsl(171, 100%, 29%);
+    color: rgb(255, 197, 197);;
 }
 .containerIndex {
      width: 100%;
@@ -132,7 +136,7 @@ h3{
     padding: 12px 24px;
     border: none;
     cursor: pointer;
-    color: #ffb997;
+    color: rgb(255, 197, 197);
     border-radius: 5px;
     font-family: 'Montserrat';
 }
@@ -142,7 +146,7 @@ h3{
     left: 25%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    background-color:rgb(254, 194, 181);
+    background-color:rgb(255, 197, 197);
     font-size: 16px;
     width:300px;
     padding: 12px 24px;
@@ -153,7 +157,7 @@ h3{
     font-family: 'Montserrat';
 }
 .pony {
-    color: rgb(254, 194, 181);
+    color: rgb(255, 197, 197);
 }
 
 .shop {

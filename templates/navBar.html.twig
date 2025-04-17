@@ -18,12 +18,24 @@
         <div class="navbar-end">
             <div class="navbar-item user-links-black">
                     {% if app.user %}
-                        <a href="{{ path('app_security_show_fav', {'id': app.user.id}) }}">
-                            <i class="fa-regular fa-heart"></i> Favoris
+                        <a href="{{ path('app_security_show_fav', {'id': app.user.id}) }}" class="navbar-item">
+                            <i class="fa-regular fa-heart"></i><span class="ml-2">Favoris</span>
                         </a>
-                        <a href="{{ path('app_security_viewprofil') }}">
-                            <i class="fa-regular fa-user"></i> {{ app.user.login }}
-                        </a>
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                <i class="fa-regular fa-user"></i> <span class="ml-2"> {{ app.user.login }} </span>
+                            </a>
+
+                            <div class="navbar-dropdown">
+                                <a href="{{ path('app_security_viewprofil') }}" class="navbar-item">
+                                    <i class="fa-solid fa-gear"></i> <span class="ml-2">Mon profil</span>
+                                </a>
+                <hr class="navbar-divider">
+                <a href="{{ path('app_security_logout') }}" class="navbar-item">
+                    <i class="fa-solid fa-right-from-bracket"></i> <span class="ml-2">Déconnexion</span>
+                </a>
+            </div>
+        </div>
                     {% else %}
                         <a href="{{ path('app_registration_register') }}">M'inscrire</a>
                         <a href="{{ path('app_login') }}">Me Connecter</a>

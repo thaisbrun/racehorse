@@ -17,22 +17,22 @@ class UtilisateurType extends AbstractType
             ->add('prenom',TextType::class, [
                 'label' => "Prénom : ",
                 'attr' => [
-                    'class' => 'input is-primary',
+                    'class' => 'input',
                     'placeholder' => 'Veuillez saisir votre prénom']])
             ->add('nom',TextType::class, [
                 'label' => "Nom : ",
         'attr' => [
-            'class' => 'input is-primary',
+            'class' => 'input',
             'placeholder' => 'Veuillez saisir votre prénom']])
             ->add('login',TextType::class, [
                 'label' => "Pseudo : ",
                 'attr' => [
-                    'class' => 'input is-primary',
+                    'class' => 'input',
                     'placeholder' => 'Veuillez saisir votre pseudo']])
             ->add('mail',TextType::class, [
                 'label' => "Mail : ",
         'attr' => [
-            'class' => 'input is-primary',
+            'class' => 'input',
             'placeholder' => 'Veuillez saisir votre mail']])
         ;
     }

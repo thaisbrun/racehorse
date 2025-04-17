@@ -81,13 +81,42 @@ class SecurityController extends AbstractController
     }
     }
     #[Route(path: 'security/viewProfil', name: 'app_security_viewprofil')]
-    public function viewProfil(AuthenticationUtils $authenticationUtils): Response
-    {
-        // get the login error if there is one
+    public function viewProfil(
+        Request $request,
+        AuthenticationUtils $authenticationUtils,
+        UtilisateurRepository $userRepository, AnnonceRepository $annonceRepository
+    ): Response {
+        // Vérification de l'utilisateur connecté
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Création du formulaire
+        $form = $this->createForm(UtilisateurType::class, $user);
+        $form->handleRequest($request);
+
+        // Traitement du formulaire
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->save($user, true);
+            $this->addFlash('success', 'Profil mis à jour avec succès');
+            return $this->redirectToRoute('app_security_viewprofil');
+        }
+
+        // Récupération des erreurs d'authentification
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        return $this->render('security/viewProfil.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+
+        // Récupération des annonces de l'utilisateur
+        $listAnnonces = $annonceRepository->findBy(array('utilisateurannonce' => $user));
+
+        return $this->render('security/viewProfil.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'userEditForm' => $form->createView(),
+            'annonces' => $listAnnonces,
+            'user' => $user
+        ]);
     }
  /*   #[Route(path: 'security/forgottenPassword', name: 'app_security_forgottenpassword')]
     public function forgottenPassword(Request $request, UtilisateurRepository $utilisateurRepository): Response
