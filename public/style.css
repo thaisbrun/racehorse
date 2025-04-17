@@ -7,7 +7,7 @@
     border-bottom-left-radius: 1.2rem;
     border-bottom-right-radius: 1.2rem;
     padding: 1rem 2rem;
-    margin: 1.5rem auto;
+    margin: 0.1rem;
     max-width: 100%;
     box-shadow: 0 2px 8px rgba(255, 200, 200, 0.3);
     border: 1px solid rgba(255, 200, 200, 0.2);
@@ -230,10 +230,9 @@ a.italicType {
 .banner {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 180px;
     background-image: url('img/aboutPS.png');
     background-size: cover;
-    background-position: center;
     filter: brightness(60%);
 }
 .banner-content {

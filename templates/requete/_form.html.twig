@@ -1,6 +1,6 @@
 {% block body %}
-    <img src="{{ asset('img/contact.png') }}">
-    <div class="container is-widescreen">
+    <div class="containerLogin">
+        <div class="box" style="width: 90%; max-width: 400px; background-color: rgba(255, 255, 255, 0.9); padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
         {% for message in app.session.flashBag.get('success') %}
             <div class="message is-success">
                 <div class="message-header">
@@ -21,6 +21,7 @@
         {{ form_end(form) }}
         <br>
         <br>
+        </div>
     </div>
     {{ form_end(form) }}
 {% endblock %}

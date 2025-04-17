@@ -21,8 +21,7 @@ class RequeteType extends AbstractType
             ->add('objet',TextType::class, [
                 'label' => "Objet de votre demande :  ",
         'attr' => [
-            'class' => 'input is-primary',
-            'style' => 'width: 900px;',
+            'class' => 'input',
             'placeholder' => "Veuillez saisir l'objet de la demande"],
                 'constraints' => [
                     new NotBlank([
@@ -40,7 +39,7 @@ class RequeteType extends AbstractType
             ->add('description',TextareaType::class, [
                 'label' => "Description de votre demande :  ",
         'attr' => [
-            'class' => 'input is-primary',
+            'class' => 'input',
             'style' => 'width: 1000px ; height: 100px',
             'placeholder' => "Veuillez décrire votre demande"],
                 'constraints' => [
@@ -52,12 +51,11 @@ class RequeteType extends AbstractType
                         'minMessage' => "La description de la demande doit faire au minimum 10 caractères",
                         'max' => 200,
                         'maxMessage' => "La description de la demande doit faire au maximum 200 caractères",
-                        // max length allowed by Symfony for security reasons
                     ]),
                 ]])
             ->add('save', SubmitType::class, [
                 'label' => "Valider la demande",
-                'attr' => ['class' => 'button is-primary']
+                'attr' => ['class' => 'button buttonLight is-small']
             ])
         ;
     }

@@ -3,7 +3,7 @@
 {% block title %}Mon profil{% endblock %}
 
 {% block body %}
-    <img src="{{ asset('img/viewProfil.jpg') }}">
+    {% include('./navBar.html.twig') %}
     <div class="container">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -12,7 +12,7 @@
     {% if app.user %}
         <div class="mb-3">
             <br>
-           Bonjour {{ app.user.userIdentifier }} ! Vous êtes bien connectés sur Racehorse.
+           Bonjour {{ app.user.userIdentifier }} ! Vous êtes bien connectés sur PonyShop.
         </div>
     {% endif %}
 <br>
