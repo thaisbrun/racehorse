@@ -3,34 +3,39 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <img src="{{ asset('img/inscription.png') }}">
-<form method="post">
-<div class="container">
-    <br>
-        <form class="box">
-            <div class="columns">
-                <div class="column">
+    {% include('./navBar.html.twig') %}
+    <div class="containerLogin">
+        <br>
+        <form method="post" class="box" style="width: 90%; max-width: 600px; background-color: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
+            <div class="columns is-centered">
+                <div class="column is-half">
                     {{ form_start(registrationForm) }}
-                    {{ form_row(registrationForm.prenom) }}
-                    <br>
-                    {{ form_row(registrationForm.nom) }}
-                    <br>
-                    {{ form_row(registrationForm.login) }}
+                    <div class="field">
+                        {{ form_row(registrationForm.prenom, {'attr': {'class': 'input mb-4'}}) }}
+                    </div>
+                    <div class="field">
+                        {{ form_row(registrationForm.nom, {'attr': {'class': 'input mb-4'}}) }}
+                    </div>
+                    <div class="field">
+                        {{ form_row(registrationForm.login, {'attr': {'class': 'input mb-4'}}) }}
+                    </div>
                 </div>
-            <div class="column">
+                <div class="column is-half">
+                    <div class="field">
+                        {{ form_row(registrationForm.mail, {'attr': {'class': 'input mb-4'}}) }}
+                    </div>
+                    <div class="field">
+                        {{ form_row(registrationForm.password, {'attr': {'class': 'input mb-4'}}) }}
+                    </div>
                     <br>
-                    {{ form_row(registrationForm.mail) }}
-                    <br>
-                    {{ form_row(registrationForm.password) }}
-                    <br>
+                    <div class="field ml-4">
+                        {{ form_row(registrationForm.save) }}
+                    </div>
                     {{ form_rest(registrationForm) }}
                     {{ form_errors(registrationForm) }}
                     {{ form_end(registrationForm) }}
-                <br>
-                <br>
-            </div>
+                </div>
             </div>
         </form>
     </div>
-</form>
 {% endblock %}

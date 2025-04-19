@@ -16,26 +16,38 @@
         {% block body %}
         {% endblock %}
     </body>
-    <footer class="footer" style="font-family:'Montserrat';">
+    <footer class="footer">
         <div class="content has-text-centered">
-            <div class="columns">
-                <div class="column">
-                    <a href="{{ asset('ml') }}" style="color:black; "> Mentions légales </a>
+            <div class="columns is-mobile is-centered">
+                <div class="column is-narrow">
+                    <a href="{{ asset('ml') }}" class="navbar-item footerItem">
+                        Mentions légales
+                    </a>
                 </div>
-                <div class="column">
-                    <a href="{{ asset('howItWorks') }}" style="color:black; "> Comment ça marche ? </a>
+                <div class="column is-narrow">
+                    <a href="{{ asset('howItWorks') }}" class="navbar-item footerItem">
+                        Comment ça marche ?
+                    </a>
                 </div>
-                <div class="column">
-                    <a href="{{ asset('about') }}" style="color:black; "> A propos de Ponyshop </a>
+                <div class="column is-narrow">
+                    <a href="{{ asset('about') }}" class="navbar-item footerItem">
+                        A propos de Ponyshop
+                    </a>
                 </div>
-                <div class="column">
-                    <a href="{{ path('app_registration_register') }}" style="color:black; "> M'inscrire </a>
+                <div class="column is-narrow">
+                    <a href="{{ path('app_registration_register') }}" class="navbar-item footerItem">
+                        M'inscrire
+                    </a>
                 </div>
-                <div class="column">
-                    <a href="{{ path('app_login') }}" style="color:black; "> Me connecter </a>
+                <div class="column is-narrow">
+                    <a href="{{ path('app_login') }}"  class="navbar-item footerItem">
+                        Me connecter
+                    </a>
                 </div>
-                <div class="column">
-                    <a href="{{ path('app_requete_new') }}" style="color:black; ">Contact </a>
+                <div class="column is-narrow">
+                    <a href="{{ path('app_requete_new') }}"  class="navbar-item footerItem">
+                        Contact
+                    </a>
                 </div>
             </div>
         </div>

@@ -103,7 +103,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('save', SubmitType::class, [
                 'label' => "Valider l'inscription",
-                'attr' => ['class' => 'button is-black']
+                'attr' => ['class' => 'button buttonLight is-small ml-4 mt-1']
             ])
         ;
     }
