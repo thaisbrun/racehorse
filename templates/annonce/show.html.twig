@@ -3,6 +3,7 @@
 {% block title %}Annonce{% endblock %}
 
 {% block body %}
+    {% include('./navBar.html.twig') %}
     <div class="container my-6">
         <div class="columns is-variable is-8">
             {# Colonne de gauche avec images #}
@@ -22,7 +23,7 @@
             <div class="column">
                 <div class="content">
                     <div class="is-flex is-align-items-center">
-                        <h1 class="title is-3 mb-2 mr-6">{{ annonce.titre }}</h1>
+                        <h1 class="title is-4 mb-2 mr-6">{{ annonce.titre }}</h1>
                         {% if app.user == annonce.utilisateurannonce %}
                             <div class="is-flex is-align-items-center">
                                 <a href="{{ path('app_annonce_edit', {'id': annonce.id}) }}" class="buttonLight is-small mr-4">
@@ -32,18 +33,19 @@
                             </div>
                         {% endif %}
                     </div>
-                    <p class="title is-3 has-text-primary mb-6">{{ annonce.prix }} €</p>
+                    <p class="title price is-3 mb-6 has-text-right">{{ annonce.prix }} €</p>
 
-                    <div class="box">
-                        <table class="table is-fullwidth">
+                        <table class="custom-table">
                             <tr>
                                 <th>Nom de l'équidé</th>
-                                <td>{{ annonce.equide.nom }}                                 <a href="{{ annonce.equide.lienhn }}" class="button is-small is-info is-light mb-3">
-                                <span class="icon">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </span>
+                                <td>{{ annonce.equide.nom }}
+                                    <a href="{{ annonce.equide.lienhn }}" class="button is-small is-info is-light mb-3">
+                    <span class="icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </span>
                                         <span>Infos Haras Nationaux</span>
-                                    </a></td>
+                                    </a>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Date de naissance</th>
@@ -65,24 +67,13 @@
                                 <th>Localisation</th>
                                 <td>{{ annonce.equide.dep.libelle }} en {{ annonce.equide.dep.regiondep.libelle }}</td>
                             </tr>
+                            <tr>
+                                <th>Posté par</th>
+                                <td>{{ annonce.utilisateurannonce.login }}</td>
+                            </tr>
                         </table>
-                    </div>
-
-                    <div class="box">
-                        <h3 class="title is-5">Description</h3>
-                        <p>{{ annonce.description }}</p>
-                    </div>
-
-                    <div class="box">
-                        <div class="media">
-                            <div class="media-content">
-                                <p class="subtitle is-6">Annonce postée par <strong>{{ annonce.utilisateurannonce.login }}</strong></p>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="buttons">
-                        <a class="button is-primary is-medium" href="{{ path('contactVendeur', {'id': annonce.id}) }}">
+                        <a class="button is-rounded" href="{{ path('contactVendeur', {'id': annonce.id}) }}">
                         <span class="icon">
                             <i class="fa-regular fa-message"></i>
                         </span>
