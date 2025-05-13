@@ -25,9 +25,13 @@ class EquideType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => "Nom de l'équidé : ",
+                'label' => "Nom de l'équidé",
                 'attr' => [
-                    'style' => 'max-width: 50%'
+                    'class' => 'input is-medium',
+                    'placeholder' => "Nom de l'équidé"
+                ],
+                'label_attr' => [
+                    'class' => 'label'
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -39,7 +43,10 @@ class EquideType extends AbstractType
                 'label' => 'Date de naissance',
                 'widget' => 'single_text',
                 'attr' => [
-                    'style' => 'max-width: 50%'
+                    'class' => 'input is-medium',
+                ],
+                'label_attr' => [
+                    'class' => 'label'
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -50,9 +57,12 @@ class EquideType extends AbstractType
             ->add('robe', EntityType::class, [
                 'class' => Robe::class,
                 'choice_label' => 'libelle',
-                'placeholder' => 'Choisir une robe',
+                'placeholder' => 'Sélectionner une robe',
                 'attr' => [
-                    'style' => 'max-width: 50%'
+                    'class' => 'select is-medium is-fullwidth'
+                ],
+                'label_attr' => [
+                    'class' => 'label'
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -63,9 +73,12 @@ class EquideType extends AbstractType
             ->add('race', EntityType::class, [
                 'class' => Race::class,
                 'choice_label' => 'libelle',
-                'placeholder' => 'Choisir une race',
+                'placeholder' => 'Sélectionner une race',
                 'attr' => [
-                    'style' => 'max-width: 50%'
+                    'class' => 'select is-medium is-fullwidth'
+                ],
+                'label_attr' => [
+                    'class' => 'label'
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -76,7 +89,13 @@ class EquideType extends AbstractType
             ->add('taille', NumberType::class, [
                 'label' => 'Taille (cm)',
                 'attr' => [
-                    'style' => 'max-width: 50%'
+                    'class' => 'input is-medium',
+                    'placeholder' => 'Taille en centimètres',
+                    'min' => 50,
+                    'max' => 200
+                ],
+                'label_attr' => [
+                    'class' => 'label'
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -91,19 +110,26 @@ class EquideType extends AbstractType
             ])
             ->add('lienhn', UrlType::class, [
                 'label' => 'Lien Haras Nationaux',
+                'required' => false,
                 'attr' => [
-                    'style' => 'max-width: 50%'
+                    'class' => 'input is-medium',
+                    'placeholder' => 'https://...'
                 ],
-                'required' => false
+                'label_attr' => [
+                    'class' => 'label'
+                ]
             ])
             ->add('typeeq', EntityType::class, [
                 'class' => TypeEquide::class,
                 'choice_label' => 'libelle',
+                'placeholder' => "Sélectionner un type d'équidé",
+                'label' => "Type d'équidé",
                 'attr' => [
-                    'style' => 'max-width: 50%'
+                    'class' => 'select is-medium is-fullwidth'
                 ],
-                'placeholder' => "Veuillez saisir un type d'équidé",
-                'label' => "Type d'équidé : ",
+                'label_attr' => [
+                    'class' => 'label'
+                ],
                 'query_builder' => function(TypeEquideRepository $typeEquideRepository) {
                     return $typeEquideRepository->createQueryBuilder("type_equide")
                         ->orderBy('type_equide.libelle');
@@ -117,16 +143,20 @@ class EquideType extends AbstractType
             ->add('dep', EntityType::class, [
                 'class' => Departement::class,
                 'choice_label' => 'libelle',
+                'placeholder' => 'Sélectionner un département',
                 'attr' => [
-                    'style' => 'max-width: 50%'
+                    'class' => 'select is-medium is-fullwidth'
                 ],
-                'placeholder' => 'Choisir un département',
+                'label_attr' => [
+                    'class' => 'label'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => "Le département est obligatoire"
                     ])
                 ]
-            ]);
+            ])
+        ;
 
     }
 

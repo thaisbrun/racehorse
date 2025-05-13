@@ -75,6 +75,21 @@ h4{
     outline: 0;
 }
 
+.form-container {
+    background-color: rgba(255, 240, 240, 0.5);
+    padding: 2rem;
+    border-radius: 1.2rem;
+    margin: 2rem 0;
+}
+
+.form-title {
+    font-family: 'Fashion Wacks', serif;
+    color: rgb(255, 197, 197);
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
 .titleNav{
     font-family: 'Fashion Wacks';
     font-size: 24px;
@@ -194,9 +209,6 @@ h3{
     border-right: 1px solid #dbdbdb;
 }
 
-.box {
-    margin-bottom: 1rem;
-}
 
 .media-content p {
     margin: 0;
@@ -355,4 +367,106 @@ p.title::before {
 a.button.is-rounded:hover {
     background-color: rgb(255, 197, 197);
     color:white;
+}
+
+.form-container {
+    background: rgba(255, 240, 240, 0.8);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 2rem;
+    border-radius: 1.2rem;
+    margin: 2rem 0;
+    box-shadow: 0 2px 8px rgba(255, 200, 200, 0.3);
+    border: 1px solid rgba(255, 200, 200, 0.2);
+}
+
+.card {
+    background: rgba(255, 240, 240, 0.8);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 8px rgba(255, 200, 200, 0.3);
+    border: 1px solid rgba(255, 200, 200, 0.2);
+    transition: transform 0.3s ease;
+    padding: 1.5rem;
+}
+
+.form-title {
+    font-family: 'Fashion Wacks', serif;
+    color: rgb(255, 197, 197);
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-section-title {
+    font-family: 'Fashion Wacks', serif;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: rgb(255, 197, 197);
+    margin-bottom: 1.5rem;
+}
+
+.input, .textarea, .select select {
+    border: 1px solid #cfb19f;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.input:focus, .textarea:focus, .select select:focus {
+    border-color: rgb(255, 197, 197);
+    box-shadow: 0 0 0 0.125em rgba(255, 197, 197, 0.25);
+}
+
+.file-input-wrapper {
+    border: 2px dashed rgb(255, 197, 197);
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: rgba(255, 240, 240, 0.5);
+}
+
+.file-input-wrapper:hover {
+    background-color: rgba(255, 197, 197, 0.1);
+}
+
+.submit-button {
+    background-color: transparent;
+    border: 1px solid #cfb19f;
+    box-sizing: border-box;
+    color: rgb(255, 197, 197);
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    padding: 16px 23px;
+    text-decoration: none;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: rgb(255, 197, 197);
+    color: white;
+}
+
+.help {
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+    color: #666;
+}
+
+.box {
+    background: rgba(255, 240, 240, 0.5);
+    border-radius: 1.2rem;
+    margin: 1rem 0;
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 200, 200, 0.2);
 }

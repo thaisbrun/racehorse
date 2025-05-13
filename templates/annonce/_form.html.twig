@@ -1,129 +1,140 @@
 
-    <div class="container my-6">
-        {% for message in app.session.flashBag.get('erreur') %}
-            <div class="notification is-danger">
-                {{ message }}
-            </div>
-        {% endfor %}
+    <section class="section">
+        <div class="container">
+            <h1 class="title has-text-centered mb-6">
+            <span class="icon-text">
+                <span class="icon">
+                    <i class="fas fa-plus-circle"></i>
+                </span>
+                <span>Créer une nouvelle annonce</span>
+            </span>
+            </h1>
 
-        <div class="columns is-variable is-8">
-            {# Colonne de gauche pour les images #}
-            <div class="column is-half">
-                <div class="card">
-                    <div class="card-content">
-                        {{ form_start(annonceForm) }}
-                        <div class="field">
-                            {{ form_row(annonceForm.images, {
-                                'label': 'Photos de l\'équidé',
-                                'attr': {
-                                    'multiple': 'multiple',
-                                    'class': 'file-input'
-                                }
-                            }) }}
+            {{ form_start(annonceForm) }}
+            <div class="columns is-variable is-8">
+                {# Colonne de gauche : Photos et informations principales #}
+                <div class="column is-5">
+                    {# Section photos #}
+                    <div class="card mb-5">
+                        <div class="card-content">
+                            <div class="field">
+                                <div class="file-input-wrapper has-text-centered">
+                                    <p class="form-section-title">
+                                    <span class="icon-text">
+                                        <span class="icon"><i class="fas fa-camera"></i></span>
+                                        <span>Photos de l'équidé</span>
+                                    </span>
+                                    </p>
+                                    <p class="help mb-4">Format accepté : JPG, PNG (max 5Mo)</p>
+                                    <div class="file has-name is-centered">
+                                        <label class="file-label">
+                                            {{ form_widget(annonceForm.images, {
+                                                'attr': {
+                                                    'class': 'file-input',
+                                                    'accept': 'image/*'
+                                                }
+                                            }) }}
+                                            <span class="file-cta">
+                                            <span class="file-icon">
+                                                <i class="fas fa-upload"></i>
+                                            </span>
+                                            <span class="file-label">
+                                                Choisir des photos
+                                            </span>
+                                        </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# Section prix et type #}
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="field">
+                                {{ form_label(annonceForm.prix, null, {'label_attr': {'class': 'label'}}) }}
+                                <div class="control has-icons-left">
+                                    {{ form_widget(annonceForm.prix, {'attr': {'class': 'input'}}) }}
+                                    <span class="icon is-small is-left">
+                                    <i class="fas fa-euro-sign"></i>
+                                </span>
+                                </div>
+                                {{ form_errors(annonceForm.prix) }}
+                            </div>
+
+                            <div class="field">
+                                {{ form_label(annonceForm.typea, null, {'label_attr': {'class': 'label'}}) }}
+                                <div class="control">
+                                    {{ form_widget(annonceForm.typea, {'attr': {'class': 'select is-fullwidth'}}) }}
+                                </div>
+                                {{ form_errors(annonceForm.typea) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Colonne de droite : Détails de l'annonce #}
+                <div class="column is-7">
+                    <div class="card">
+                        <div class="card-content">
+                            {# Titre et description #}
+                            <div class="field">
+                                {{ form_label(annonceForm.titre, null, {'label_attr': {'class': 'label'}}) }}
+                                <div class="control">
+                                    {{ form_widget(annonceForm.titre, {'attr': {'class': 'input'}}) }}
+                                </div>
+                                {{ form_errors(annonceForm.titre) }}
+                            </div>
+
+                            {# Informations de l'équidé #}
+                            <div class="box mt-5">
+                                <p class="form-section-title">
+                                <span class="icon-text">
+                                    <span class="icon"><i class="fas fa-horse"></i></span>
+                                    <span>Informations de l'équidé</span>
+                                </span>
+                                </p>
+                                {{ form_widget(annonceForm.equide) }}
+                            </div>
+
+                            {# Description #}
+                            <div class="field mt-5">
+                                {{ form_label(annonceForm.description, null, {'label_attr': {'class': 'label'}}) }}
+                                <div class="control">
+                                    {{ form_widget(annonceForm.description, {
+                                        'attr': {
+                                            'class': 'textarea',
+                                            'rows': '6'
+                                        }
+                                    }) }}
+                                </div>
+                                {{ form_errors(annonceForm.description) }}
+                            </div>
+
+                            {# Boutons d'action #}
+                            <div class="field is-grouped is-grouped-centered mt-6">
+                                <p class="control">
+                                    <button type="submit" class="button is-primary is-medium">
+                                    <span class="icon">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                        <span>Publier l'annonce</span>
+                                    </button>
+                                </p>
+                                <p class="control">
+                                    <a href="{{ path('homepage') }}" class="button is-light is-medium">
+                                    <span class="icon">
+                                        <i class="fas fa-times"></i>
+                                    </span>
+                                        <span>Annuler</span>
+                                    </a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {# Colonne de droite pour les informations #}
-            <div class="column">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="field">
-                            {{ form_row(annonceForm.titre, {
-                                'label': 'Titre de l\'annonce',
-                                'attr': {'class': 'input'}
-                            }) }}
-                        </div>
-
-                        <div class="field">
-                            {{ form_row(annonceForm.prix, {
-                                'label': 'Prix',
-                                'attr': {'class': 'input'}
-                            }) }}
-                        </div>
-
-                        <div class="box">
-                            <h3 class="title is-5">Informations sur l'équidé</h3>
-
-                            <div class="field">
-                                {{ form_row(annonceForm.equide.nom, {
-                                    'label': 'Nom',
-                                    'attr': {'class': 'input'}
-                                }) }}
-                            </div>
-
-                            <div class="columns">
-                                <div class="column">
-                                    {{ form_row(annonceForm.equide.datenaiss, {
-                                        'label': 'Date de naissance',
-                                        'attr': {'class': 'input'}
-                                    }) }}
-                                </div>
-                                <div class="column">
-                                    {{ form_row(annonceForm.equide.taille, {
-                                        'label': 'Taille (cm)',
-                                        'attr': {'class': 'input'}
-                                    }) }}
-                                </div>
-                            </div>
-
-                            <div class="columns">
-                                <div class="column">
-                                    {{ form_row(annonceForm.equide.race, {
-                                        'label': 'Race',
-                                        'attr': {'class': 'select'}
-                                    }) }}
-                                </div>
-                                <div class="column">
-                                    {{ form_row(annonceForm.equide.robe, {
-                                        'label': 'Robe',
-                                        'attr': {'class': 'select'}
-                                    }) }}
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                {{ form_row(annonceForm.equide.lienhn, {
-                                    'label': 'Lien Haras Nationaux',
-                                    'attr': {'class': 'input'}
-                                }) }}
-                            </div>
-
-                            <div class="columns">
-                                <div class="column">
-                                    {{ form_row(annonceForm.typea, {
-                                        'label': 'Type d\'annonce',
-                                        'attr': {'class': 'select'}
-                                    }) }}
-                                </div>
-                                <div class="column">
-                                    {{ form_row(annonceForm.equide.dep, {
-                                        'label': 'Département',
-                                        'attr': {'class': 'select'}
-                                    }) }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            {{ form_row(annonceForm.description, {
-                                'label': 'Description',
-                                'attr': {'class': 'textarea'}
-                            }) }}
-                        </div>
-
-                        <div class="field">
-                            <button type="submit" class="button is-primary is-fullwidth">
-                                {{ button_label|default('Enregistrer') }}
-                            </button>
-                        </div>
-
-                        {{ form_rest(annonceForm) }}
-                        {{ form_errors(annonceForm) }}
-                        {{ form_end(annonceForm) }}
-                    </div>
-                </div>
-            </div>
+            {{ form_end(annonceForm) }}
         </div>
-    </div>
+    </section>
