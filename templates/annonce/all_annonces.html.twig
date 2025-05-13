@@ -7,13 +7,112 @@
 <div class="container is-widescreen">
     <br>
     <br>
-    <form id="filters">
-        <h1>Veuillez sélectionner un type d'annonce :
-            {% for typeAnnonce in listTypeAnnonces %}
-            <input type="checkbox" name="listTypeAnnonces[]" id="typeAnnonce{{ typeAnnonce.id }}" value="{{ typeAnnonce.id }}">
-            <label for="typeAnnonce{{ typeAnnonce.id }}">{{ typeAnnonce.libelle }} &emsp;</label>
-            {% endfor %}</h1>
-    </form>
+    <div class="box mt-4">
+        <form id="filters">
+            <div class="columns is-multiline">
+                {# Type d'annonce #}
+                <div class="column is-4">
+                    <div class="field">
+                        <label class="label">Type d'annonce</label>
+                        <div class="control">
+                            {% for typeAnnonce in listTypeAnnonces %}
+                                <label class="checkbox">
+                                    <input type="checkbox" name="listTypeAnnonces[]" value="{{ typeAnnonce.id }}">
+                                    {{ typeAnnonce.libelle }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                {# Race #}
+                <div class="column is-4">
+                    <div class="field">
+                        <label class="label">Race</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="race">
+                                    <option value="">Toutes les races</option>
+                                    {% for race in races %}
+                                        <option value="{{ race.id }}">{{ race.libelle }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Robe #}
+                <div class="column is-4">
+                    <div class="field">
+                        <label class="label">Robe</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="robe">
+                                    <option value="">Toutes les robes</option>
+                                    {% for robe in robes %}
+                                        <option value="{{ robe.id }}">{{ robe.libelle }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Age #}
+                <div class="column is-4">
+                    <div class="field">
+                        <label class="label">Âge</label>
+                        <div class="field has-addons">
+                            <div class="control">
+                                <input class="input" type="number" name="ageMin" placeholder="Min">
+                            </div>
+                            <div class="control">
+                                <a class="button is-static">à</a>
+                            </div>
+                            <div class="control">
+                                <input class="input" type="number" name="ageMax" placeholder="Max">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Département #}
+                <div class="column is-4">
+                    <div class="field">
+                        <label class="label">Localisation</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="departement">
+                                    <option value="">Tous les départements</option>
+                                    {% for departement in departements %}
+                                        <option value="{{ departement.id }}">{{ departement.libelle }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Type d'équidé #}
+                <div class="column is-4">
+                    <div class="field">
+                        <label class="label">Type d'équidé</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select name="typeEquide">
+                                    <option value="">Tous les types</option>
+                                    {% for type in typesEquides %}
+                                        <option value="{{ type.id }}">{{ type.libelle }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
     <br>
     <br>
     <div class="columns" id="content">

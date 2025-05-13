@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 use App\Entity\Favoris;
+use App\Repository\DepartementRepository;
 use App\Repository\FavorisRepository;
+use App\Repository\RaceRepository;
+use App\Repository\RobeRepository;
+use App\Repository\TypeEquideRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,13 +39,19 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('/annonce/all_annonces', name: 'app_annonce_all_annonces', methods: ['GET'])]
-    public function all_annonces(AnnonceRepository $annonceRepository, TypeAnnonceRepository $typeAnnonceRepository, Request $request): Response
+    public function all_annonces(AnnonceRepository $annonceRepository,
+                                 TypeAnnonceRepository $typeAnnonceRepository, RaceRepository $raceRepository, RobeRepository $robeRepository, DepartementRepository $departementRepository,
+                                 TypeEquideRepository $typeequideRepository, Request $request): Response
     {
         //On récupère des filtres
         $filters = $request->get("listTypeAnnonces");
 
         $listAnnonces = $annonceRepository->getFiltersAnnonces($filters);
         $listTypeAnnonces = $typeAnnonceRepository->findAll();
+        $listRobes = $raceRepository->findAll();
+        $listRaces = $robeRepository->findAll();
+        $listTypeEquides = $typeequideRepository->findAll();
+        $listDepartements = $departementRepository->findAll();
 
         //On vérifie si y a une requête Ajax
         if($request->get('ajax')){
@@ -54,6 +64,10 @@ class AnnonceController extends AbstractController
         return $this->render('annonce/all_annonces.html.twig', [
             'listAnnonces' => $listAnnonces,
             'listTypeAnnonces' => $listTypeAnnonces,
+            'races' => $listRaces,
+            'robes' => $listRobes,
+            'departements' => $listDepartements,
+            'typesEquides' => $listTypeEquides,
         ]);
     }
 

@@ -1,61 +1,68 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %} {% endblock %}</title>
-        <link rel="icon" href="img/logo1.png" type="image/png"/>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-            <link href={{ asset('style.css') }} type="text/css" rel="stylesheet">
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}
-        {% endblock %}
-    </body>
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <div class="columns is-mobile is-centered">
-                <div class="column is-narrow">
-                    <a href="{{ asset('ml') }}" class="navbar-item footerItem">
-                        Mentions légales
-                    </a>
-                </div>
-                <div class="column is-narrow">
-                    <a href="{{ asset('howItWorks') }}" class="navbar-item footerItem">
-                        Comment ça marche ?
-                    </a>
-                </div>
-                <div class="column is-narrow">
-                    <a href="{{ asset('about') }}" class="navbar-item footerItem">
-                        A propos de Ponyshop
-                    </a>
-                </div>
-                <div class="column is-narrow">
-                    <a href="{{ path('app_registration_register') }}" class="navbar-item footerItem">
-                        M'inscrire
-                    </a>
-                </div>
-                <div class="column is-narrow">
-                    <a href="{{ path('app_login') }}"  class="navbar-item footerItem">
-                        Me connecter
-                    </a>
-                </div>
-                <div class="column is-narrow">
-                    <a href="{{ path('app_requete_new') }}"  class="navbar-item footerItem">
-                        Contact
-                    </a>
-                </div>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="icon" href="img/logo1.png" type="image/png"/>
+
+    {# Stylesheets #}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.24/dist/css/bulma-carousel.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="{{ asset('style.css') }}" type="text/css" rel="stylesheet">
+    {% endblock %}
+
+    {# Scripts essentiels qui doivent être chargés en premier #}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+{% block body %}
+{% endblock %}
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <div class="columns is-mobile is-centered">
+            <div class="column is-narrow">
+                <a href="{{ asset('ml') }}" class="navbar-item footerItem">
+                    Mentions légales
+                </a>
+            </div>
+            <div class="column is-narrow">
+                <a href="{{ asset('howItWorks') }}" class="navbar-item footerItem">
+                    Comment ça marche ?
+                </a>
+            </div>
+            <div class="column is-narrow">
+                <a href="{{ asset('about') }}" class="navbar-item footerItem">
+                    A propos de Ponyshop
+                </a>
+            </div>
+            <div class="column is-narrow">
+                <a href="{{ path('app_registration_register') }}" class="navbar-item footerItem">
+                    M'inscrire
+                </a>
+            </div>
+            <div class="column is-narrow">
+                <a href="{{ path('app_login') }}"  class="navbar-item footerItem">
+                    Me connecter
+                </a>
+            </div>
+            <div class="column is-narrow">
+                <a href="{{ path('app_requete_new') }}"  class="navbar-item footerItem">
+                    Contact
+                </a>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    {% block javascripts %}
-        <script src="https://kit.fontawesome.com/4649941f6a.js" crossorigin="anonymous"></script>
-        <script src="{{ asset('js/script.js')}}"></script>
-        {{ encore_entry_script_tags('app') }}
-    {% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    <script src="https://kit.fontawesome.com/4649941f6a.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.24/dist/js/bulma-carousel.min.js"></script>
+    <script src="{{ asset('js/script.js')}}"></script>
+{% endblock %}
+</body>
 </html>

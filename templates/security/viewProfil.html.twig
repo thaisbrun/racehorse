@@ -44,6 +44,33 @@
 
             <div class="column is-half">
                 <div class="box backRose">
+                    <h2 class="title is-4">Mes favoris</h2>
+                    <div class="content">
+                        {% if favoris is defined and favoris|length > 0 %}
+                            <div class="list">
+                                {% for fav in favoris %}
+                                    <div class="list-item box">
+                                        <h3 class="title is-5" href="{{ path('app_annonce_show', {'id': fav.annoncefav.id}) }}">{{ fav.annoncefav.titre }} - {{ fav.annoncefav.prix }}</h3>
+                                        <p>{{ fav.annoncefav.description|slice(0, 100) }}...</p>
+                                        <div class="buttons">
+                                            <a href="{{ path('fav', {'id': fav.annoncefav}) }}" class="button is-text js-like">
+                                                {% if app.user and fav.annoncefav.isLikedByUser(app.user) %}
+                                                    <i class="fa-solid fa-heart js-like"></i>
+                                                {% else %}
+                                                    <i class="fa-regular fa-heart js_like"></i>
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p>Vous n'avez pas encore de favoris.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="box backRose">
                     <h2 class="title is-4">Modifier mon profil</h2>
                     {{ form_start(userEditForm) }}
                     {% for field in userEditForm %}

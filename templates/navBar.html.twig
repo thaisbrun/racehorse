@@ -18,7 +18,7 @@
         <div class="navbar-end">
             <div class="navbar-item user-links-black">
                     {% if app.user %}
-                        <a href="{{ path('app_security_show_fav', {'id': app.user.id}) }}" class="navbar-item">
+                        <a href="{{ path('app_security_viewprofil', {'id': app.user.id}) }}" class="navbar-item">
                             <i class="fa-regular fa-heart"></i><span class="ml-2">Favoris</span>
                         </a>
                         <div class="navbar-item has-dropdown is-hoverable">

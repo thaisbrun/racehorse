@@ -7,7 +7,7 @@
             <h1><span class="pony">Pony</span> &nbsp;<span class="shop">Shop</span></h1>
             <div class="user-links">
                 {% if app.user %}
-                    <a href="{{ path('app_security_show_fav', {'id': app.user.id}) }}">
+                    <a href="{{ path('app_security_viewprofil', {'id': app.user.id}) }}">
                         <i class="fa-solid fa-heart"></i> Favoris
                     </a>
                     <a href="{{ path('app_security_viewprofil') }}">
@@ -61,10 +61,8 @@
                                     <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
                                         {% if app.user and annonce.isLikedByUser(app.user) %}
                                             <i class="fa-solid fa-heart js-like"></i>
-                                            <span>Enlever de mes favoris</span>
                                         {% else %}
                                             <i class="fa-regular fa-heart js_like"></i>
-                                            <span>Ajouter à mes favoris</span>
                                         {% endif %}
                                     </a>
                                 {% endif %}
@@ -105,10 +103,8 @@
                                     <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
                                         {% if app.user and annonce.isLikedByUser(app.user) %}
                                             <i class="fa-solid fa-heart js-like"></i>
-                                            <span>Enlever de mes favoris</span>
                                         {% else %}
                                             <i class="fa-regular fa-heart js_like"></i>
-                                            <span>Ajouter à mes favoris</span>
                                         {% endif %}
                                     </a>
                                 {% endif %}
@@ -149,10 +145,8 @@
                                     <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
                                         {% if app.user and annonce.isLikedByUser(app.user) %}
                                             <i class="fa-solid fa-heart js-like"></i>
-                                            <span>Enlever de mes favoris</span>
                                         {% else %}
                                             <i class="fa-regular fa-heart js_like"></i>
-                                            <span>Ajouter à mes favoris</span>
                                         {% endif %}
                                     </a>
                                 {% endif %}

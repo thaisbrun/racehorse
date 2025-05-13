@@ -66,25 +66,12 @@ class SecurityController extends AbstractController
             'listAnnonces' => $listAnnonces,
         ]);
     }}
-    #[Route('security/mes_favoris/{id}', name: 'app_security_show_fav', methods: ['GET'])]
-    public function show_fav(Utilisateur $user, FavorisRepository $favorisRepository): Response
-    {
-        if ($this->getUser() !== $user || $this->getUser() == null) {
-            $this->addFlash('error', "Accès non autorisé");
-            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
-        } else {
-        //Trouver les annonces qui ont le meme idAnnonceUtilisateur que l'utilisateur connecté
-        $listFavoris = $favorisRepository->findBy(array('utilisateurfav' => $user));
-        return $this->render('security/mes_favoris.html.twig', [
-            'listFavoris' => $listFavoris,
-        ]);
-    }
-    }
+
     #[Route(path: 'security/viewProfil', name: 'app_security_viewprofil')]
     public function viewProfil(
         Request $request,
         AuthenticationUtils $authenticationUtils,
-        UtilisateurRepository $userRepository, AnnonceRepository $annonceRepository
+        UtilisateurRepository $userRepository, AnnonceRepository $annonceRepository, FavorisRepository $favorisRepository
     ): Response {
         // Vérification de l'utilisateur connecté
         $user = $this->getUser();
@@ -109,12 +96,13 @@ class SecurityController extends AbstractController
 
         // Récupération des annonces de l'utilisateur
         $listAnnonces = $annonceRepository->findBy(array('utilisateurannonce' => $user));
-
+        $favoris = $favorisRepository->findBy(array('utilisateurfav' => $user));
         return $this->render('security/viewProfil.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
             'userEditForm' => $form->createView(),
             'annonces' => $listAnnonces,
+            'favoris' => $favoris,
             'user' => $user
         ]);
     }

@@ -29,10 +29,8 @@
                          <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
                              {% if app.user and annonce.isLikedByUser(app.user) %}
                              <i class="fa-solid fa-heart js-like"></i>
-                             <span>Enlever de mes favoris</span>
                              {% else %}
                              <i class="fa-regular fa-heart js_like"></i>
-                             <span>Ajouter à mes favoris</span>
                              {% endif %}
                          </a>
 

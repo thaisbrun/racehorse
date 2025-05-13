@@ -30,7 +30,7 @@ class AnnonceType extends AbstractType
                'label' => "Description de l'annonce : ",
                'attr' => [
                    'class' => 'input is-primary',
-                   'style' => 'width: 1100px ; height: 100px',
+                       'style' => 'max-width: 50%',
                    'placeholder' => 'Décrivez votre animal en quelques phrases'],
                'constraints' => [
                    new NotBlank([
@@ -49,6 +49,7 @@ class AnnonceType extends AbstractType
                     'class' => 'input is-primary',
                     'min' => 1,
                     'max' => 10000000,
+                    'style' => 'max-width: 50%',
                     'placeholder' => "Veuillez saisir un prix (en euros)"],
                 'constraints' => [
                     new NotBlank([
