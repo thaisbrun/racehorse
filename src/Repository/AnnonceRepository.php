@@ -7,6 +7,8 @@ use App\Entity\Equide;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\Query\Expr;
+
 
 /**
  * @extends ServiceEntityRepository<Annonce>
@@ -41,21 +43,60 @@ class AnnonceRepository extends ServiceEntityRepository
         }
     }
 
-    public function getFiltersAnnonces($filters = null)
-   {
+    public function getFiltersAnnonces($filters = [])
+    {
         $query = $this->createQueryBuilder('a')
-            ->innerJoin(
-                Equide::class,    // Entity
-                'e',               // Alias
-                Join::WITH,        // Join type
-                'e.id = a.equide')
-           ->Where('a.activation = 1');
-            //On filtre les données
-           if($filters != null){
-                    $query->andWhere('a.typeA IN(:typea)')
-                    ->setParameter(':typea', array_values(array($filters)));
-            }
-                return $query->getQuery()->getResult();
-   }
+            ->innerJoin(Equide::class, 'e', Join::WITH, 'e.id = a.equide')
+            ->andWhere('a.activation = 1');
+
+        // Type d'annonce
+        if (!empty($filters['types'])) {
+            $query->andWhere('a.typeA IN(:typea)')
+                ->setParameter('typea', $filters['types']);
+        }
+
+        // Race
+        if (!empty($filters['race'])) {
+            $query->andWhere('e.race = :race')
+                ->setParameter('race', $filters['race']);
+        }
+
+        // Robe
+        if (!empty($filters['robe'])) {
+            $query->andWhere('e.robe = :robe')
+                ->setParameter('robe', $filters['robe']);
+        }
+
+        // Age
+
+        if (!empty($filters['ageMin'])) {
+            // Calcule la date maximale de naissance pour l’âge minimum
+            $dateMaxNaiss = (new \DateTime())->modify('-' . (int)$filters['ageMin'] . ' years');
+            $query->andWhere('e.datenaiss <= :dateMaxNaiss')
+                ->setParameter('dateMaxNaiss', $dateMaxNaiss->format('Y-m-d'));
+        }
+
+        if (!empty($filters['ageMax'])) {
+            // Calcule la date minimale de naissance pour l’âge maximum
+            $dateMinNaiss = (new \DateTime())->modify('-' . (int)$filters['ageMax'] . ' years');
+            $query->andWhere('e.datenaiss >= :dateMinNaiss')
+                ->setParameter('dateMinNaiss', $dateMinNaiss->format('Y-m-d'));
+        }
+
+        // Département
+        if (!empty($filters['departement'])) {
+            $query->andWhere('e.dep = :departement')
+                ->setParameter('departement', $filters['departement']);
+        }
+
+        // Type équidé
+        if (!empty($filters['typeEquide'])) {
+            $query->andWhere('e.typeEq = :typeEquide')
+                ->setParameter('typeEquide', $filters['typeEquide']);
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
 
 }

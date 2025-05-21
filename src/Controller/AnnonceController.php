@@ -38,18 +38,28 @@ class AnnonceController extends AbstractController
             'annoncesDP' => $annoncesDP,
         ]);
     }
-    #[Route('/annonce/all_annonces', name: 'app_annonce_all_annonces', methods: ['GET'])]
+    #[Route('/annonce/all_annonces', name: 'app_annonce_all_annonces', methods: ['GET', 'POST'])]
     public function all_annonces(AnnonceRepository $annonceRepository,
                                  TypeAnnonceRepository $typeAnnonceRepository, RaceRepository $raceRepository, RobeRepository $robeRepository, DepartementRepository $departementRepository,
                                  TypeEquideRepository $typeequideRepository, Request $request): Response
     {
         //On récupère des filtres
-        $filters = $request->get("listTypeAnnonces");
+
+        $filters = [
+            'types' => $request->get('listTypeAnnonces'),
+            'race' => $request->get('race'),
+            'robe' => $request->get('robe'),
+            'ageMin' => $request->get('ageMin'),
+            'ageMax' => $request->get('ageMax'),
+            'departement' => $request->get('departement'),
+            'typeEquide' => $request->get('typeEquide'),
+        ];
 
         $listAnnonces = $annonceRepository->getFiltersAnnonces($filters);
+
         $listTypeAnnonces = $typeAnnonceRepository->findAll();
-        $listRobes = $raceRepository->findAll();
-        $listRaces = $robeRepository->findAll();
+        $listRobes = $robeRepository->findAll();
+        $listRaces = $raceRepository->findAll();
         $listTypeEquides = $typeequideRepository->findAll();
         $listDepartements = $departementRepository->findAll();
 

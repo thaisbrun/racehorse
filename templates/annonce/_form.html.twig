@@ -1,15 +1,5 @@
 
-    <section class="section">
-        <div class="container">
-            <h1 class="title has-text-centered mb-6">
-            <span class="icon-text">
-                <span class="icon">
-                    <i class="fas fa-plus-circle"></i>
-                </span>
-                <span>Créer une nouvelle annonce</span>
-            </span>
-            </h1>
-
+<br>
             {{ form_start(annonceForm) }}
             <div class="columns is-variable is-8">
                 {# Colonne de gauche : Photos et informations principales #}
@@ -49,34 +39,13 @@
                         </div>
                     </div>
 
-                    {# Section prix et type #}
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="field">
-                                {{ form_label(annonceForm.prix, null, {'label_attr': {'class': 'label'}}) }}
-                                <div class="control has-icons-left">
-                                    {{ form_widget(annonceForm.prix, {'attr': {'class': 'input'}}) }}
-                                    <span class="icon is-small is-left">
-                                    <i class="fas fa-euro-sign"></i>
-                                </span>
-                                </div>
-                                {{ form_errors(annonceForm.prix) }}
-                            </div>
 
-                            <div class="field">
-                                {{ form_label(annonceForm.typea, null, {'label_attr': {'class': 'label'}}) }}
-                                <div class="control">
-                                    {{ form_widget(annonceForm.typea, {'attr': {'class': 'select is-fullwidth'}}) }}
-                                </div>
-                                {{ form_errors(annonceForm.typea) }}
-                            </div>
+
                         </div>
-                    </div>
-                </div>
+
 
                 {# Colonne de droite : Détails de l'annonce #}
                 <div class="column is-7">
-                    <div class="card">
                         <div class="card-content">
                             {# Titre et description #}
                             <div class="field">
@@ -85,17 +54,117 @@
                                     {{ form_widget(annonceForm.titre, {'attr': {'class': 'input'}}) }}
                                 </div>
                                 {{ form_errors(annonceForm.titre) }}
-                            </div>
+                                <br>
+                                <div class="columns">
+                                    <div class="column is-half">
+                                        <div class="field">
+                                            {{ form_label(annonceForm.prix, null, {'label_attr': {'class': 'label'}}) }}
+                                            <div class="control has-icons-left">
+                                                {{ form_widget(annonceForm.prix, {'attr': {'class': 'input'}}) }}
+                                                <span class="icon is-small is-left">
+                    <i class="fas fa-euro-sign"></i>
+                </span>
+                                            </div>
+                                            {{ form_errors(annonceForm.prix) }}
+                                        </div>
+                                    </div>
 
-                            {# Informations de l'équidé #}
-                            <div class="box mt-5">
+                                    <div class="column is-half">
+                                        <div class="field">
+                                            {{ form_label(annonceForm.typea, null, {'label_attr': {'class': 'label'}}) }}
+                                            <div class="control">
+                                                <div class="select is-fullwidth">
+                                                    {{ form_widget(annonceForm.typea) }}
+                                                </div>
+                                            </div>
+                                            {{ form_errors(annonceForm.typea) }}
+                                        </div>
+                                    </div>
+                                </div>
                                 <p class="form-section-title">
-                                <span class="icon-text">
-                                    <span class="icon"><i class="fas fa-horse"></i></span>
-                                    <span>Informations de l'équidé</span>
-                                </span>
+                                    <span class="icon-text">
+                                        <span class="icon"><i class="fas fa-horse"></i></span>
+                                            <span>Informations de l'équidé</span>
+                                    </span>
                                 </p>
-                                {{ form_widget(annonceForm.equide) }}
+
+                                <div class="field">
+                                    {{ form_row(annonceForm.equide.nom) }}
+                                </div>
+
+                                <div class="field">
+                                    {{ form_row(annonceForm.equide.datenaiss) }}
+                                </div>
+
+                                <div class="columns">
+                                    <div class="column is-half">
+                                        <div class="field">
+                                            {{ form_label(annonceForm.equide.robe) }}
+                                            <div class="control">
+                                                <div class="select is-fullwidth">
+                                                    {{ form_widget(annonceForm.equide.robe) }}
+                                                </div>
+                                            </div>
+                                            {{ form_errors(annonceForm.equide.robe) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="column is-half">
+                                        <div class="field">
+                                            {{ form_label(annonceForm.equide.race) }}
+                                            <div class="control">
+                                                <div class="select is-fullwidth">
+                                                    {{ form_widget(annonceForm.equide.race) }}
+                                                </div>
+                                            </div>
+                                            {{ form_errors(annonceForm.equide.race) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="columns">
+                                    <div class="column is-half">
+                                        <div class="field">
+                                            {{ form_label(annonceForm.equide.taille) }}
+                                                    {{ form_widget(annonceForm.equide.taille) }}
+                                        </div>
+                                            {{ form_errors(annonceForm.equide.taille) }}
+                                    </div>
+                                    <div class="column is-half">
+                                        <div class="field">
+                                            {{ form_label(annonceForm.equide.lienhn) }}
+
+                                                    {{ form_widget(annonceForm.equide.lienhn) }}
+
+                                            {{ form_errors(annonceForm.equide.lienhn) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="columns">
+                                    <div class="column is-half">
+                                        <div class="field">
+                                            {{ form_label(annonceForm.equide.typeeq ) }}
+                                            <div class="control">
+                                                <div class="select is-fullwidth">
+                                                    {{ form_widget(annonceForm.equide.typeeq ) }}
+                                                </div>
+                                            </div>
+                                            {{ form_errors(annonceForm.equide.typeeq) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="column is-half">
+                                        <div class="field">
+                                            {{ form_label(annonceForm.equide.dep ) }}
+                                            <div class="control">
+                                                <div class="select is-fullwidth">
+                                                    {{ form_widget(annonceForm.equide.dep ) }}
+                                                </div>
+                                            </div>
+                                            {{ form_errors(annonceForm.equide.dep ) }}
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                             {# Description #}
@@ -115,7 +184,7 @@
                             {# Boutons d'action #}
                             <div class="field is-grouped is-grouped-centered mt-6">
                                 <p class="control">
-                                    <button type="submit" class="button is-primary is-medium">
+                                    <button type="submit" class="button submit-button">
                                     <span class="icon">
                                         <i class="fas fa-check"></i>
                                     </span>
@@ -123,7 +192,7 @@
                                     </button>
                                 </p>
                                 <p class="control">
-                                    <a href="{{ path('homepage') }}" class="button is-light is-medium">
+                                    <a href="{{ path('homepage') }}" class="button is-light" style="margin-left: 40px">
                                     <span class="icon">
                                         <i class="fas fa-times"></i>
                                     </span>
@@ -132,9 +201,6 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
             {{ form_end(annonceForm) }}
-        </div>
-    </section>

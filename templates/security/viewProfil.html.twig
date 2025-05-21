@@ -19,7 +19,6 @@
         <div class="columns">
             {# Colonne de gauche : Liste des annonces #}
             <div class="column is-half">
-                <div class="box backRose">
                     <h2 class="title is-4">Mes annonces</h2>
                     <div class="content">
                         {% if annonces is defined and annonces|length > 0 %}
@@ -39,11 +38,9 @@
                             <p>Vous n'avez pas encore d'annonces.</p>
                         {% endif %}
                     </div>
-                </div>
             </div>
 
             <div class="column is-half">
-                <div class="box backRose">
                     <h2 class="title is-4">Mes favoris</h2>
                     <div class="content">
                         {% if favoris is defined and favoris|length > 0 %}
@@ -56,7 +53,7 @@
                                             {% else %}
                                                 <i class="fa-regular fa-heart js_like"></i>
                                             {% endif %}
-                                        </a></a>
+                                        </a>
                                         <p>{{ fav.annoncefav.description|slice(0, 100) }}...</p>
 
                                     </div>
@@ -66,9 +63,7 @@
                             <p>Vous n'avez pas encore de favoris.</p>
                         {% endif %}
                     </div>
-                </div>
-
-                <div class="box backRose">
+                    <br>
                     <h2 class="title is-4">Modifier mon profil</h2>
                     {{ form_start(userEditForm) }}
                     {% for field in userEditForm %}
@@ -105,7 +100,6 @@
                     {{ form_end(userEditForm) }}
                 </div>
             </div>
-        </div>
 
                 <a class="italicType" href="{{ path('app_security_delete', {'id': app.user.id}) }}"> Supprimer mon compte</a>
             </div>

@@ -22,12 +22,12 @@ class AnnonceType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class, [
-                'label' => "Titre de l'annonce : ",
+                'label' => "Titre de l'annonce ",
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Veuillez saisir un titre']])
            ->add('description',TextareaType::class, [
-               'label' => "Description de l'annonce : ",
+               'label' => "Description ",
                'attr' => [
                    'class' => 'input',
                        'style' => 'max-width: 50%',

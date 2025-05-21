@@ -1,35 +1,48 @@
 <div class="container is-widescreen">
-    <div class="columns">
-    {% for annonce in listAnnonces %}
-        <div class="column">
-            <div class="card">
-                <div class="card-image">
-                    <figure class="image is-4by3">
-                        {% if annonce.images is not empty %}
-                            <img src="{{ asset(annonce.images.first.lienImage) }}" alt="Image">
-                        {% else %}
-                            <p>Aucune image disponible pour cette annonce.</p>
-                        {% endif %}                    </figure>
-                </div>
-                <div class="card-content">
-                    <div class="media">
-
-                        <div class="media-content">
-                            <p class="title is-4">{{ annonce.titre }}</p>
-                            <p class="subtitle is-6">{{ annonce.prix }} €</p>
+    <div class="columns is-multiline">
+        {% for annonce in listAnnonces %}
+            <div class="column is-one-fifth">
+                    <div class="card-image">
+                        <figure class="image is-4by3 has-ratio">
+                            {% if annonce.images is not empty %}
+                                <img src="{{ asset(annonce.images.first.lienImage) }}" alt="Image" class="is-rounded">
+                            {% else %}
+                                <p>Aucune image disponible pour cette annonce.</p>
+                            {% endif %}
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-6">{{ annonce.titre }}</p>
+                                <p class="subtitle is-5">{{ annonce.prix }} €</p>
+                                <br>
+                                {% if app.user %}
+                                    <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
+                                        {% if annonce.isLikedByUser(app.user) %}
+                                            <i class="fa-solid fa-heart js-like"></i>
+                                        {% else %}
+                                            <i class="fa-regular fa-heart js-like"></i>
+                                        {% endif %}
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}">
+                                <button type="button" class="button is-fullwidth buttonLight">En savoir plus</button>
+                            </a>
+                            <br>
+                            <time datetime="{{ annonce.dateCreation|date('Y-m-d') }}" class="subtitle is-7">
+                                Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}
+                            </time>
                         </div>
                     </div>
-                    <div class="content">
-                        <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth is-primary is-light">En savoir plus</button></a>
-                        <br>
-                        <time datetime="2016-1-1">Annonce postée le {{ annonce.dateCreation|date("d/m/Y") }}</time>
-                    </div>
-                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 </div>
-</div>
+
 {% block javascripts %}
     <script src="https://kit.fontawesome.com/4649941f6a.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/script.js')}}"></script>

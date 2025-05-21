@@ -27,7 +27,7 @@ class EquideType extends AbstractType
             ->add('nom', TextType::class, [
                 'label' => "Nom de l'équidé",
                 'attr' => [
-                    'class' => 'input is-medium',
+                    'class' => 'input',
                     'placeholder' => "Nom de l'équidé"
                 ],
                 'label_attr' => [
@@ -43,7 +43,7 @@ class EquideType extends AbstractType
                 'label' => 'Date de naissance',
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'input is-medium',
+                    'class' => 'input',
                 ],
                 'label_attr' => [
                     'class' => 'label'
@@ -59,7 +59,7 @@ class EquideType extends AbstractType
                 'choice_label' => 'libelle',
                 'placeholder' => 'Sélectionner une robe',
                 'attr' => [
-                    'class' => 'select is-medium is-fullwidth'
+                    'class' => 'select'
                 ],
                 'label_attr' => [
                     'class' => 'label'
@@ -75,7 +75,7 @@ class EquideType extends AbstractType
                 'choice_label' => 'libelle',
                 'placeholder' => 'Sélectionner une race',
                 'attr' => [
-                    'class' => 'select is-medium is-fullwidth'
+                    'class' => 'select'
                 ],
                 'label_attr' => [
                     'class' => 'label'
@@ -89,7 +89,7 @@ class EquideType extends AbstractType
             ->add('taille', NumberType::class, [
                 'label' => 'Taille (cm)',
                 'attr' => [
-                    'class' => 'input is-medium',
+                    'class' => 'input',
                     'placeholder' => 'Taille en centimètres',
                     'min' => 50,
                     'max' => 200
@@ -102,8 +102,8 @@ class EquideType extends AbstractType
                         'message' => "La taille est obligatoire"
                     ]),
                     new Range([
-                        'min' => 50,
-                        'max' => 200,
+                        'min' => 2,
+                        'max' => 3,
                         'notInRangeMessage' => 'La taille doit être comprise entre {{ min }}cm et {{ max }}cm'
                     ])
                 ]
@@ -112,7 +112,7 @@ class EquideType extends AbstractType
                 'label' => 'Lien Haras Nationaux',
                 'required' => false,
                 'attr' => [
-                    'class' => 'input is-medium',
+                    'class' => 'input',
                     'placeholder' => 'https://...'
                 ],
                 'label_attr' => [
@@ -125,7 +125,7 @@ class EquideType extends AbstractType
                 'placeholder' => "Sélectionner un type d'équidé",
                 'label' => "Type d'équidé",
                 'attr' => [
-                    'class' => 'select is-medium is-fullwidth'
+                    'class' => 'select'
                 ],
                 'label_attr' => [
                     'class' => 'label'
@@ -144,8 +144,9 @@ class EquideType extends AbstractType
                 'class' => Departement::class,
                 'choice_label' => 'libelle',
                 'placeholder' => 'Sélectionner un département',
+                'label' => "Localisation ",
                 'attr' => [
-                    'class' => 'select is-medium is-fullwidth'
+                    'class' => 'select'
                 ],
                 'label_attr' => [
                     'class' => 'label'
