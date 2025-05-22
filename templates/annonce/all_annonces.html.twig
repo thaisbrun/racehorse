@@ -17,7 +17,8 @@
                         <div class="control">
                             {% for typeAnnonce in listTypeAnnonces %}
                                 <label class="checkbox">
-                                    <input type="checkbox" name="listTypeAnnonces[]" value="{{ typeAnnonce.id }}">
+                                    <input type="checkbox" name="listTypeAnnonces[]" value="{{ typeAnnonce.id }}"
+                                           {% if typeAnnonce.id in selectedTypes %}checked{% endif %}>
                                     {{ typeAnnonce.libelle }}
                                 </label>
                             {% endfor %}
@@ -132,18 +133,23 @@
                             <div class="media-content">
                                 <p class="title is-6">{{ annonce.titre }}</p>
                                 <p class="subtitle is-5">{{ annonce.prix }} €</p>
-                                <br>
-                                {% if app.user %}
-                                    <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
+                            </div>
+                            {% if app.user %}
+                                <div class="media-right">
+                                    <a href="{{ path('fav', {'id': annonce.id}) }}"
+                                       class="js-like"
+                                       title="{{ annonce.isLikedByUser(app.user) ? 'Supprimer de mes favoris' : 'Ajouter à mes favoris' }}"
+                                       style="font-size: 1.8em; color: #e74c3c;">
                                         {% if annonce.isLikedByUser(app.user) %}
                                             <i class="fa-solid fa-heart js-like"></i>
                                         {% else %}
                                             <i class="fa-regular fa-heart js-like"></i>
                                         {% endif %}
                                     </a>
-                                {% endif %}
-                            </div>
+                                </div>
+                            {% endif %}
                         </div>
+                        <br>
                         <div class="content">
                             <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}">
                                 <button type="button" class="button is-fullwidth buttonLight">En savoir plus</button>

@@ -47,11 +47,11 @@
                             <div class="list">
                                 {% for fav in favoris %}
                                     <div class="list-item box">
-                                        <a class="title is-5" href="{{ path('app_annonce_show', {'id': fav.annoncefav.id}) }}">{{ fav.annoncefav.titre }} - {{ fav.annoncefav.prix }} </a> <a href="{{ path('fav', {'id': fav.annoncefav.id  }) }}" class="js-like">
+                                        <a class="title is-5" href="{{ path('app_annonce_show', {'id': fav.annoncefav.id}) }}">{{ fav.annoncefav.titre }} - {{ fav.annoncefav.prix }} €</a> &nbsp;&nbsp;&nbsp;<a href="{{ path('fav', {'id': fav.annoncefav.id  }) }}" class="js-like">
                                             {% if app.user and fav.annoncefav.isLikedByUser(app.user) %}
                                                 <i class="fa-solid fa-heart js-like"></i>
                                             {% else %}
-                                                <i class="fa-regular fa-heart js_like"></i>
+                                                <i class="fa-regular fa-heart js-like"></i>
                                             {% endif %}
                                         </a>
                                         <p>{{ fav.annoncefav.description|slice(0, 100) }}...</p>

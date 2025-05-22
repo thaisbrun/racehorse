@@ -10,38 +10,56 @@
                             <div class="field">
                                 <div class="file-input-wrapper has-text-centered">
                                     <p class="form-section-title">
-                                    <span class="icon-text">
-                                        <span class="icon"><i class="fas fa-camera"></i></span>
-                                        <span>Photos de l'équidé</span>
-                                    </span>
+                        <span class="icon-text">
+                            <span class="icon"><i class="fas fa-camera"></i></span>
+                            <span>Photos de l'équidé</span>
+                        </span>
                                     </p>
                                     <p class="help mb-4">Format accepté : JPG, PNG (max 5Mo)</p>
-                                    <div class="file has-name is-centered">
+
+                                    {# EXISTING IMAGES #}
+                                    {% if annonce.images is not empty %}
+                                        <div class="columns is-multiline is-centered">
+                                            {% for image in annonce.images %}
+                                                <div class="column is-4 has-text-centered">
+                                                    <figure class="image is-128x128 is-inline-block">
+                                                        <img src="{{ asset(image.lienImage) }}" alt="Photo">
+                                                    </figure>
+                                                    <label class="checkbox mt-2">
+                                                        <input type="checkbox" name="delete_images[]" value="{{ image.id }}">
+                                                        Supprimer
+                                                    </label>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+
+                                    {# NEW IMAGES INPUT #}
+                                    <div class="file has-name is-centered mt-4">
                                         <label class="file-label">
                                             {{ form_widget(annonceForm.images, {
                                                 'attr': {
                                                     'class': 'file-input',
-                                                    'accept': 'image/*'
+                                                    'accept': 'image/*',
+                                                    'multiple': 'multiple'
                                                 }
                                             }) }}
                                             <span class="file-cta">
-                                            <span class="file-icon">
-                                                <i class="fas fa-upload"></i>
-                                            </span>
-                                            <span class="file-label">
-                                                Choisir des photos
-                                            </span>
-                                        </span>
+                                <span class="file-icon">
+                                    <i class="fas fa-upload"></i>
+                                </span>
+                                <span class="file-label">
+                                    Choisir des photos
+                                </span>
+                            </span>
                                         </label>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-
-                        </div>
+                </div>
 
 
                 {# Colonne de droite : Détails de l'annonce #}

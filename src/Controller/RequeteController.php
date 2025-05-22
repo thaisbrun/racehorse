@@ -33,7 +33,7 @@ class RequeteController extends AbstractController
             $requete->setAuteurRequete($user);
             $entityManager->persist($requete);
             $entityManager->flush();
-            $this->addFlash('success', 'Votre demande a été envoyée, votre réponse sera envoyé par mail. ');
+            $this->addFlash('success', 'Votre demande a été envoyée, vous receverez une réponse sera envoyé par mail. ');
             return $this->redirectToRoute('app_requete_new', [], Response::HTTP_SEE_OTHER);
         }
 

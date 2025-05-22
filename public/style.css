@@ -161,6 +161,10 @@ h3{
     white-space: nowrap;
 }
 
+.checkbox input[type="checkbox"] {
+    accent-color: rgb(255, 197, 197);
+}
+
 .btnIndexAcheter {
     position: absolute;
     top: 50%;
@@ -255,10 +259,20 @@ h3{
     text-decoration: none;
 }
 
+.user-links-black a:hover {
+    color: #ffc5c5;
+}
 .user-links a:hover {
     text-decoration: underline;
 }
 
+.js-like{
+    color: #ffc5c5;
+}
+
+a.linkContact {
+    color: #ffc5c5;
+}
 a.italicType {
     color: hsla(0, 0%, 0%, 0.54);
     margin-left:85%;

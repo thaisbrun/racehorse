@@ -56,18 +56,24 @@
                             <div class="media-content">
                                 <p class="title is-6">{{ annonce.titre }}</p>
                                 <p class="subtitle is-5">{{ annonce.prix }} €</p>
-                                <br>
-                                {% if app.user %}
-                                    <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
-                                        {% if app.user and annonce.isLikedByUser(app.user) %}
+                            </div>
+                            {% if app.user %}
+                                <div class="media-right">
+                                    <a href="{{ path('fav', {'id': annonce.id}) }}"
+                                       class="js-like"
+                                       title="{{ annonce.isLikedByUser(app.user) ? 'Supprimer de mes favoris' : 'Ajouter à mes favoris' }}"
+                                       style="font-size: 1.8em; color: #e74c3c;">
+                                        {% if annonce.isLikedByUser(app.user) %}
                                             <i class="fa-solid fa-heart js-like"></i>
                                         {% else %}
-                                            <i class="fa-regular fa-heart js_like"></i>
+                                            <i class="fa-regular fa-heart js-like"></i>
                                         {% endif %}
                                     </a>
-                                {% endif %}
-                            </div>
+                                </div>
+                            {% endif %}
                         </div>
+                        <br>
+
                         <div class="content">
                             <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth buttonLight">En savoir plus</button></a>
                             <br>
@@ -77,7 +83,7 @@
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('app_annonce_show_by_type', {'typeA': 1}) }}" class="italicType">Voir plus à vendre</a>
+    <a href="{{ path('app_annonce_all_annonces', {'types': [1]}) }}" class="italicType">Voir plus à vendre</a>
     <h2>Chevaux et poneys à la location </h2>
     <br>
     <div class="columns">
@@ -97,18 +103,23 @@
                             <div class="media-content">
                                 <p class="title is-6">{{ annonce.titre }}</p>
                                 <p class="subtitle is-5">{{ annonce.prix }} €</p>
-                                <br>
-                                {% if app.user %}
-                                    <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
-                                        {% if app.user and annonce.isLikedByUser(app.user) %}
+                            </div>
+                            {% if app.user %}
+                                <div class="media-right">
+                                    <a href="{{ path('fav', {'id': annonce.id}) }}"
+                                       class="js-like"
+                                       title="{{ annonce.isLikedByUser(app.user) ? 'Supprimer de mes favoris' : 'Ajouter à mes favoris' }}"
+                                       style="font-size: 1.8em; color: #e74c3c;">
+                                        {% if annonce.isLikedByUser(app.user) %}
                                             <i class="fa-solid fa-heart js-like"></i>
                                         {% else %}
                                             <i class="fa-regular fa-heart js-like"></i>
                                         {% endif %}
                                     </a>
-                                {% endif %}
-                            </div>
+                                </div>
+                            {% endif %}
                         </div>
+                        <br>
                         <div class="content">
                             <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth buttonLight">En savoir plus</button></a>
                             <br>
@@ -118,7 +129,7 @@
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('app_annonce_show_by_type', {'typeA': 2}) }}" class="italicType">Voir plus à louer</a>
+    <a href="{{ path('app_annonce_all_annonces', {'types': [2]}) }}" class="italicType">Voir plus à louer </a>
     <h2>Chevaux et poneys proposés en DP</h2>
     <br>
     <div class="columns">
@@ -138,18 +149,23 @@
                             <div class="media-content">
                                 <p class="title is-6">{{ annonce.titre }}</p>
                                 <p class="subtitle is-5">{{ annonce.prix }} €</p>
-                                <br>
-                                {% if app.user %}
-                                    <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
-                                        {% if app.user and annonce.isLikedByUser(app.user) %}
+                            </div>
+                            {% if app.user %}
+                                <div class="media-right">
+                                    <a href="{{ path('fav', {'id': annonce.id}) }}"
+                                       class="js-like"
+                                       title="{{ annonce.isLikedByUser(app.user) ? 'Supprimer de mes favoris' : 'Ajouter à mes favoris' }}"
+                                       style="font-size: 1.8em; color: #e74c3c;">
+                                        {% if annonce.isLikedByUser(app.user) %}
                                             <i class="fa-solid fa-heart js-like"></i>
                                         {% else %}
-                                            <i class="fa-regular fa-heart js_like"></i>
+                                            <i class="fa-regular fa-heart js-like"></i>
                                         {% endif %}
                                     </a>
-                                {% endif %}
-                            </div>
+                                </div>
+                            {% endif %}
                         </div>
+                        <br>
                         <div class="content">
                             <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}"><button type="button" class="button is-fullwidth buttonLight">En savoir plus</button></a>
                             <br>
@@ -159,7 +175,7 @@
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('app_annonce_show_by_type', {'typeA': 3}) }}" class="italicType">Voir plus de DP</a>
+    <a href="{{ path('app_annonce_all_annonces', {'types': [3]}) }}" class="italicType">Voir plus de DP</a>
 </div>
     <br>
     <script>

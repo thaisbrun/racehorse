@@ -40,13 +40,23 @@ class AnnonceController extends AbstractController
     }
     #[Route('/annonce/all_annonces', name: 'app_annonce_all_annonces', methods: ['GET', 'POST'])]
     public function all_annonces(AnnonceRepository $annonceRepository,
-                                 TypeAnnonceRepository $typeAnnonceRepository, RaceRepository $raceRepository, RobeRepository $robeRepository, DepartementRepository $departementRepository,
-                                 TypeEquideRepository $typeequideRepository, Request $request): Response
+                                 TypeAnnonceRepository $typeAnnonceRepository,
+                                 RaceRepository $raceRepository,
+                                 RobeRepository $robeRepository,
+                                 DepartementRepository $departementRepository,
+                                 TypeEquideRepository $typeequideRepository,
+                                 Request $request): Response
     {
-        //On récupère des filtres
+        // Récupération brute
+        $rawSelectedTypes = $request->get('types', []);
+        if (!is_array($rawSelectedTypes)) {
+            $rawSelectedTypes = [$rawSelectedTypes];
+        }
+        $selectedTypes = array_map('intval', $rawSelectedTypes);
 
+        // Construction des filtres
         $filters = [
-            'types' => $request->get('listTypeAnnonces'),
+            'types' => $selectedTypes,
             'race' => $request->get('race'),
             'robe' => $request->get('robe'),
             'ageMin' => $request->get('ageMin'),
@@ -55,25 +65,27 @@ class AnnonceController extends AbstractController
             'typeEquide' => $request->get('typeEquide'),
         ];
 
+        // Appels aux repositories
         $listAnnonces = $annonceRepository->getFiltersAnnonces($filters);
-
         $listTypeAnnonces = $typeAnnonceRepository->findAll();
         $listRobes = $robeRepository->findAll();
         $listRaces = $raceRepository->findAll();
         $listTypeEquides = $typeequideRepository->findAll();
         $listDepartements = $departementRepository->findAll();
 
-        //On vérifie si y a une requête Ajax
-        if($request->get('ajax')){
+        // Ajax ?
+        if ($request->get('ajax')) {
             return new JsonResponse([
                 'content' => $this->renderView('annonce/_content.html.twig', [
-                    'listAnnonces' => $listAnnonces])
+                    'listAnnonces' => $listAnnonces
+                ])
             ]);
         }
 
         return $this->render('annonce/all_annonces.html.twig', [
             'listAnnonces' => $listAnnonces,
             'listTypeAnnonces' => $listTypeAnnonces,
+            'selectedTypes' => $selectedTypes,
             'races' => $listRaces,
             'robes' => $listRobes,
             'departements' => $listDepartements,
@@ -194,43 +206,63 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('annonce/edit/{id}', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository,
-                         EquideRepository $equideRepository, EntityManagerInterface $entityManager): Response
-    {
-        //Je vérifie les droits d'accès de l'utilisateur connecté
-        if ($this->getUser() !== $annonce->getUtilisateurAnnonce() || $this->getUser() == null) {
+    public function edit(
+        Request $request,
+        Annonce $annonce,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if ($this->getUser() !== $annonce->getUtilisateurAnnonce() || $this->getUser() === null) {
             $this->addFlash('error', "Accès non autorisé");
-            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
-        } else {
+            return $this->redirectToRoute('homepage');
+        }
 
-            $form = $this->createForm(AnnonceType::class, $annonce);
-            $equide = $annonce->getEquide();
-            $form->handleRequest($request);
+        $form = $this->createForm(AnnonceType::class, $annonce);
+        $form->handleRequest($request);
 
-            //Ajout des images dans l'édition
-            if ($form->isSubmitted() && $form->isValid()) {
-                $images = $form->get('images')->getData();
-                // Ajoutez chaque image à la collection d'images de l'annonce
-                foreach ($images as $image) {
-                    // Faites ce que vous devez pour gérer le téléchargement et le stockage des images,
-                    // puis ajoutez-les à la collection d'images de l'annonce
-                    $annonce->addImage($image);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // 1. Suppression des anciennes images cochées
+            $idsToDelete = $request->request->get('delete_images', []);
+            foreach ($annonce->getImages() as $image) {
+                if (in_array($image->getId(), $idsToDelete)) {
+                    $annonce->removeImage($image);
+                    $entityManager->remove($image);
+
+                    // Supprimer le fichier physique
+                    $filesystem = new Filesystem();
+                    $filePath = $this->getParameter('images_directory') . '/' . $image->getLienimage();
+                    if ($filesystem->exists($filePath)) {
+                        $filesystem->remove($filePath);
+                    }
                 }
-
-                $entityManager->persist($equide);
-                $entityManager->flush($equide);
-
-                $equideRepository->save($equide, true);
-                $annonceRepository->save($annonce, true);
-
-                return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
             }
 
-            return $this->renderForm('annonce/edit.html.twig', [
-                'annonceForm' => $form,
-            ]);
+            // 2. Ajout des nouvelles images
+            /** @var UploadedFile[] $images */
+            $images = $form->get('images')->getData();
+            foreach ($images as $imageFile) {
+                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+                $imageFile->move($this->getParameter('images_directory'), $newFilename);
+
+                $image = new Image();
+                $image->setLienimage($newFilename);
+                $image->setAnnonceImage($annonce);
+                $entityManager->persist($image);
+
+                $annonce->addImage($image);
+            }
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Annonce modifiée avec succès');
+            return $this->redirectToRoute('homepage');
         }
+
+        return $this->renderForm('annonce/edit.html.twig', [
+            'annonceForm' => $form,
+            'annonce' => $annonce,
+        ]);
     }
+
     #[Route('annonce/delete/{id}', name: 'app_annonce_delete', methods: ['POST'])]
     public function delete(Request $request, Annonce $annonce, EntityManagerInterface $entityManager): Response
     {

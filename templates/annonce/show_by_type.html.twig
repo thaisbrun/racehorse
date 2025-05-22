@@ -26,11 +26,11 @@
                      <div class="media-content">
                          <p class="title is-4">{{ annonce.titre }}</p>
                          <p class="subtitle is-6">{{ annonce.prix }} €</p>
-                         <a href="{{ path('fav', {'id': annonce.id}) }}" class="button is-text js-like">
+                         <a href="{{ path('fav', {'id': annonce.id}) }}" class="js-like">
                              {% if app.user and annonce.isLikedByUser(app.user) %}
                              <i class="fa-solid fa-heart js-like"></i>
                              {% else %}
-                             <i class="fa-regular fa-heart js_like"></i>
+                             <i class="fa-regular fa-heart js-like"></i>
                              {% endif %}
                          </a>
 
