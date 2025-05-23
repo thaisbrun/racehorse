@@ -1,63 +1,98 @@
+<style>
+    .photo-container {
+        position: relative;
+        width: 192px;
+        height: 192px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f8f8f8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+    }
 
+    .photo-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .delete-photo {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        font-size: 1.4rem;
+        color: #ff3860;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        line-height: 25px;
+        text-align: center;
+        z-index: 10;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .upload-slot {
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .upload-slot:hover {
+        background-color: #f0f0f0;
+    }
+
+    .hidden-upload {
+        display: none;
+    }
+</style>
 <br>
             {{ form_start(annonceForm) }}
             <div class="columns is-variable is-8">
-                {# Colonne de gauche : Photos et informations principales #}
+                {# Colonne de gauche : Photos #}
                 <div class="column is-5">
-                    {# Section photos #}
-                    <div class="card mb-5">
-                        <div class="card-content">
-                            <div class="field">
-                                <div class="file-input-wrapper has-text-centered">
-                                    <p class="form-section-title">
-                        <span class="icon-text">
-                            <span class="icon"><i class="fas fa-camera"></i></span>
-                            <span>Photos de l'équidé</span>
-                        </span>
-                                    </p>
-                                    <p class="help mb-4">Format accepté : JPG, PNG (max 5Mo)</p>
+                    <p class="form-section-title has-text-centered">
+        <span class="icon-text">
+            <span class="icon"><i class="fas fa-camera"></i></span>
+            <span>Photos de l'équidé</span>
+        </span>
+                    </p>
+                    <p class="help mb-4 has-text-centered">Format accepté : JPG, PNG (max 5Mo)</p>
 
-                                    {# EXISTING IMAGES #}
-                                    {% if annonce.images is not empty %}
-                                        <div class="columns is-multiline is-centered">
-                                            {% for image in annonce.images %}
-                                                <div class="column is-4 has-text-centered">
-                                                    <figure class="image is-128x128 is-inline-block">
-                                                        <img src="{{ asset(image.lienImage) }}" alt="Photo">
-                                                    </figure>
-                                                    <label class="checkbox mt-2">
-                                                        <input type="checkbox" name="delete_images[]" value="{{ image.id }}">
-                                                        Supprimer
-                                                    </label>
-                                                </div>
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-
-                                    {# NEW IMAGES INPUT #}
-                                    <div class="file has-name is-centered mt-4">
-                                        <label class="file-label">
-                                            {{ form_widget(annonceForm.images, {
-                                                'attr': {
-                                                    'class': 'file-input',
-                                                    'accept': 'image/*',
-                                                    'multiple': 'multiple'
-                                                }
-                                            }) }}
-                                            <span class="file-cta">
-                                <span class="file-icon">
-                                    <i class="fas fa-upload"></i>
-                                </span>
-                                <span class="file-label">
-                                    Choisir des photos
-                                </span>
-                            </span>
-                                        </label>
-                                    </div>
-
+                    <div id="photo-gallery" class="columns is-multiline is-mobile is-centered">
+                        {% for image in annonce.images %}
+                            <div class="column is-narrow">
+                                <div class="photo-container">
+                                    <img src="{{ asset(image.lienImage) }}" alt="Photo" class="photo-image">
+                                    <button type="button" class="delete-photo" data-id="{{ image.id }}" data-token="{{ csrf_token('delete' ~ image.id) }}">&times;</button>
+                                    <input type="checkbox" name="delete_images[]" value="{{ image.id }}" hidden>
                                 </div>
                             </div>
-                        </div>
+                        {% endfor %}
+
+                        {% set nbPhotos = annonce.images|length %}
+                        {% if nbPhotos < 5 %}
+                            <div class="column is-narrow">
+                                <div class="photo-container upload-slot">
+                                    <label class="file-label is-fullwidth is-flex is-align-items-center is-justify-content-center" style="height: 100%;">
+                                        {{ form_widget(annonceForm.images, {
+                                            'attr': {
+                                                'class': 'file-input hidden-upload',
+                                                'accept': 'image/*',
+                                                'multiple': 'multiple'
+                                            }
+                                        }) }}
+                                        <span class="icon is-large has-text-grey">
+                            <i class="fas fa-plus fa-2x"></i>
+                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -222,3 +257,30 @@
                 </div>
             </div>
             {{ form_end(annonceForm) }}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.delete-photo').forEach(button => {
+    button.addEventListener('click', function () {
+    const imageId = this.dataset.id;
+    const csrfToken = this.dataset.token;
+    const container = this.closest('.photo-card');
+
+    fetch(`/image/${imageId}`, {
+    method: 'POST',
+    headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'X-Requested-With': 'XMLHttpRequest'
+    },
+    body: `_token=${encodeURIComponent(csrfToken)}`
+    })
+    .then(response => {
+    if (response.ok) {
+    container.remove(); // Supprime l'image du DOM
+    } else {
+    alert('Erreur lors de la suppression de l’image.');
+    }
+    });
+    });
+    });
+    });
+</script>
