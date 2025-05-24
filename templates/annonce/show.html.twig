@@ -8,16 +8,26 @@
         <div class="columns is-variable is-8">
             {# Colonne de gauche avec images #}
             <div class="column is-half">
-                <div class="card">
-                    <div class="card-image">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
                         {% for image in annonce.images %}
-                            <figure class="image">
-                                <img src="{{ asset(image.lienImage) }}" alt="Photo de {{ annonce.equide.nom }}">
-                            </figure>
+                            <div class="swiper-slide">
+                                <figure class="image is-4by3">
+                                    <img src="{{ asset(image.lienImage) }}" alt="Photo de {{ annonce.equide.nom }}">
+                                </figure>
+                            </div>
                         {% endfor %}
                     </div>
+
+                    <!-- Pagination (optionnel) -->
+                    <div class="swiper-pagination"></div>
+
+                    <!-- Navigation (optionnel) -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
+
 
             {# Colonne de droite avec infos #}
             <div class="column">

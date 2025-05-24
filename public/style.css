@@ -1,5 +1,19 @@
+.swiper-button-next,
+.swiper-button-prev {
+    color: rgb(255, 197, 197) !important;
+    opacity: 1 !important;
+    font-size: 2rem !important;
+}
 
+.swiper-pagination-bullet {
+    background-color: rgb(255, 197, 197) !important;
+}
 
+/* (optionnel) Changement au survol */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    color: rgb(255, 100, 100) !important; /* Rose plus foncé au hover */
+}
 .custom-navbar {
     background: rgba(255, 240, 240, 0.8);
     backdrop-filter: blur(6px);

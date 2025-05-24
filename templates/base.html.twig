@@ -9,13 +9,14 @@
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.24/dist/css/bulma-carousel.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="{{ asset('style.css') }}" type="text/css" rel="stylesheet">
     {% endblock %}
 
     {# Scripts essentiels qui doivent être chargés en premier #}
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </head>
 <body>
 {% block body %}
@@ -57,6 +58,25 @@
         </div>
     </div>
 </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Swiper('.mySwiper', {
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 10,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    });
+</script>
+
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
