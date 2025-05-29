@@ -29,7 +29,10 @@
                                         <p>{{ annonce.description|slice(0, 100) }}...</p>
                                         <div class="buttons">
                                             <a href="{{ path('app_annonce_edit', {'id': annonce.id}) }}" class="button is-info is-small">Modifier</a>
-                                            <a href="{{ path('app_annonce_delete', {'id': annonce.id}) }}" class="button is-danger is-small">Supprimer</a>
+                                            <form action="{{ path('app_annonce_delete', {'id': annonce.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('Souhaitez vous supprimer votre annonce ?');">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ annonce.id) }}">
+                                                <button class="button is-danger is-small">Supprimer</button>
+                                            </form>
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -104,4 +107,26 @@
                 <a class="italicType" href="{{ path('app_security_delete', {'id': app.user.id}) }}"> Supprimer mon compte</a>
             </div>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    <script>
+        function onClickBtnLike(event){
+            event.preventDefault();
+
+            const url = this.href;
+            const spanCount = this.querySelector('span.js-likes');
+            const icone = this.querySelector('i');
+            axios.get(url).then(function (response){
+                let favoris = response.data.favoris;
+                if(icone.classList.contains('fa-regular')) {
+                    icone.classList.replace('fa-regular', 'fa-solid');
+                }
+                else{
+                    icone.classList.replace('fa-solid', 'fa-regular');
+                }
+            });
+        }
+        document.querySelectorAll('a.js-like').forEach(function (link){
+            link.addEventListener('click',onClickBtnLike)
+
+        })
+    </script>
 {% endblock %}
