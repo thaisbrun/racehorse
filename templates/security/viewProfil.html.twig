@@ -112,10 +112,8 @@
             event.preventDefault();
 
             const url = this.href;
-            const spanCount = this.querySelector('span.js-likes');
             const icone = this.querySelector('i');
             axios.get(url).then(function (response){
-                let favoris = response.data.favoris;
                 if(icone.classList.contains('fa-regular')) {
                     icone.classList.replace('fa-regular', 'fa-solid');
                 }
