@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Image;
 use App\Form\ImageType;
+use App\Repository\AnnonceRepository;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,24 +25,59 @@ class ImageController extends AbstractController
     }
 
     #[Route('/new', name: 'app_image_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, AnnonceRepository $annonceRepository): JsonResponse
     {
-        $image = new Image();
-        $form = $this->createForm(ImageType::class, $image);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($image);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_image_index', [], Response::HTTP_SEE_OTHER);
+        // Récupérer l'id de l'annonce dans le POST (que tu passes via JS)
+        $annonceId = $request->request->get('annonce_id');
+        if (!$annonceId) {
+            return new JsonResponse(['success' => false, 'message' => 'Annonce manquante'], 400);
+        }
+        $annonce = $annonceRepository->find($annonceId);
+        if (!$annonce) {
+            return new JsonResponse(['success' => false, 'message' => 'Annonce introuvable'], 400);
         }
 
-        return $this->renderForm('image/new.html.twig', [
-            'image' => $image,
-            'form' => $form,
+        // Récupérer les fichiers uploadés
+        $files = $request->files->get('annonce_form')['images'] ?? [];
+        if (empty($files)) {
+            return new JsonResponse(['success' => false, 'message' => 'Aucun fichier reçu'], 400);
+        }
+
+        $uploadedImages = [];
+        foreach ($files as $uploadedFile) {
+            if ($uploadedFile instanceof UploadedFile) {
+                $newFilename = uniqid() . '.' . $uploadedFile->guessExtension();
+                $uploadedFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename
+                );
+
+                $image = new Image();
+                $image->setLienimage('imgAnnonce/' . $newFilename);
+                $image->setAnnonceImage($annonce);
+
+                $entityManager->persist($image);
+                $uploadedImages[] = [
+                    'id' => null, // pas encore d’ID avant flush
+                    'path' => '/imgAnnonce/' . $newFilename,
+                ];
+            }
+        }
+
+        $entityManager->flush();
+
+        // Après flush, on récupère les IDs générés
+        foreach ($uploadedImages as $key => $img) {
+            $uploadedImages[$key]['id'] = $image->getId();
+        }
+
+        return new JsonResponse([
+            'success' => true,
+            'images' => $uploadedImages
         ]);
     }
+
+
 
     #[Route('/{id}', name: 'app_image_show', methods: ['GET'])]
     public function show(Image $image): Response

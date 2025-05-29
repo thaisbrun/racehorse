@@ -10,7 +10,8 @@ use Symfony\{Component\Form\AbstractType,
     Component\Form\FormBuilderInterface,
     Component\OptionsResolver\OptionsResolver,
     Component\Validator\Constraints\Length,
-    Component\Validator\Constraints\NotBlank};
+    Component\Validator\Constraints\NotBlank,
+    Component\Validator\Constraints\Regex};
 
 class RegistrationFormType extends AbstractType
 {
@@ -94,10 +95,13 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Le mot de passe ne peut pas être vide',
                     ]),
                     new Length([
-                        'min' => 6,
-                        'minMessage' => 'Le mot de passe doit au moins faire 6 caractères',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
+                        'min' => 8,
+                        'minMessage' => 'Le mot de passe doit au moins faire 8 caractères',
+                        'max' => 15,
+                    ]),
+                    new Regex([
+                        'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).+$/',
+                        'message' => 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.',
                     ]),
                 ],
             ])

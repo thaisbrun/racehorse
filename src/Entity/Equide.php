@@ -33,7 +33,7 @@ class Equide
      *
      * @ORM\Column(name="dateNaiss", type="datetime", nullable=true, options={"default"="NULL"})
      */
-    private $datenaiss = NULL;
+    private $datenaiss;
 
     /**
      * @var \Robe

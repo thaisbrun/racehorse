@@ -43,12 +43,12 @@ class Image
         return $this->id;
     }
 
-    public function getLienimage(): ?string
+    public function getLienImage(): ?string
     {
         return $this->lienimage;
     }
 
-    public function setLienimage(?string $lienimage): self
+    public function setLienImage(?string $lienimage): self
     {
         $this->lienimage = $lienimage;
 

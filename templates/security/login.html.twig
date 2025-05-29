@@ -7,7 +7,7 @@
         <form method="post" class="box" style="width: 90%; max-width: 400px; background-color: rgba(255, 255, 255, 0.9); padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
             {% if error %}
                 <div class="message is-danger">
-                    <div class="message-header">
+                    <div class="message-body">
                         Identifiants incorrects
                     </div>
                 </div>
@@ -28,9 +28,10 @@
                 <label for="inputPassword">Mot de passe :</label>
                 <div class="control">
                     <input type="password" name="password" id="inputPassword" class="input" autocomplete="current-password" required>
-                    <a href="#" class="help is-danger is-underlined">Mot de passe oublié</a>
+                    <a href="{{ path('app_security_forgottenpassword') }}" class="help">Mot de passe oublié ?</a>
                 </div>
             </div>
+
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <br>
             <button class="button buttonLight is-small" type="submit">Connexion</button>

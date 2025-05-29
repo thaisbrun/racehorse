@@ -61,6 +61,17 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $resetToken;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $resetTokenExpiresAt;
+
+
     #[ORM\OneToMany(mappedBy: 'idutilisateurfav', targetEntity: Favoris::class)]
     private Collection $favoris;
 
@@ -202,5 +213,37 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
         }
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResetToken()
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param mixed $resetToken
+     */
+    public function setResetToken($resetToken): void
+    {
+        $this->resetToken = $resetToken;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResetTokenExpiresAt()
+    {
+        return $this->resetTokenExpiresAt;
+    }
+
+    /**
+     * @param mixed $resetTokenExpiresAt
+     */
+    public function setResetTokenExpiresAt($resetTokenExpiresAt): void
+    {
+        $this->resetTokenExpiresAt = $resetTokenExpiresAt;
     }
 }
