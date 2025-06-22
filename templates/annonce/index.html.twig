@@ -29,9 +29,9 @@
         </a>
     </div>
 <div class="container is-widescreen">
-    {% for message in app.session.flashBag.get('error') %}
-        <div class="message is-danger">
-            <div class="message-header">
+    {% for message in app.session.flashBag.get('successInIndex') %}
+        <div class="message is-success">
+            <div class="message-body">
                 {{ message }}
             </div>
         </div>

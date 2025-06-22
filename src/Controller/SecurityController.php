@@ -14,12 +14,14 @@ use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -228,14 +230,20 @@ class SecurityController extends AbstractController
         throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
     #[Route(path:'security/delete/{id}', name: 'app_security_delete', methods: ['GET','POST'])]
-    public function delete(Utilisateur $user, UtilisateurRepository $userRepository): Response
+    public function delete(Utilisateur $user, UtilisateurRepository $userRepository,TokenStorageInterface $tokenStorage, RequestStack $requestStack): Response
     {
-        if($this->getUser() !== $user || $this->getUser() == null) {
+        if ($this->getUser() !== $user || $this->getUser() === null) {
             $this->addFlash('error', "Accès non autorisé");
         } else {
-            $this->addFlash('success', "Compte supprimé avec succès");
+            // Déconnexion propre
+            $tokenStorage->setToken(null);
+            $requestStack->getSession()->invalidate();
+
             $userRepository->remove($user, true);
+            $this->addFlash('successInIndex', "Compte supprimé avec succès");
         }
+
+
         return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
     }
 

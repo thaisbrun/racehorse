@@ -429,6 +429,10 @@ a.button.is-rounded:hover {
     margin-bottom: 2rem;
 }
 
+.button.is-danger.is-small {
+    font-family: 'Montserrat', sans-serif;
+}
+
 .form-section-title {
     font-family: 'Fashion Wacks', serif;
     font-size: 20px;

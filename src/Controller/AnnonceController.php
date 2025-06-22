@@ -266,17 +266,20 @@ class AnnonceController extends AbstractController
     #[Route('annonce/delete/{id}', name: 'app_annonce_delete', methods: ['POST'])]
     public function delete(Request $request, Annonce $annonce, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
-            //Je m'assure que la personne connectée est l'auteur de l'annonce
-            if($this->getUser() !== $annonce->getUtilisateurAnnonce() || $this->getUser() == null){
-                $this->addFlash('error', 'Accès non autorisé');
-                return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
-            }else{
-            //Je supprime l'annonce
-            $entityManager->remove($annonce, true);
-            $entityManager->flush();
-            }
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
         }
-        return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+
+        if ($this->getUser() !== $annonce->getUtilisateurAnnonce()) {
+            $this->addFlash('error', 'Accès non autorisé');
+            return $this->redirectToRoute('homepage');
+        }
+
+        if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($annonce);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('homepage');
     }
 }

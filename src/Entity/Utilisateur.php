@@ -71,11 +71,16 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
      */
     private $resetTokenExpiresAt;
 
+    #[ORM\OneToMany(mappedBy: 'idUtilisateurAnnonce', targetEntity: Annonce::class, cascade: ['remove'], orphanRemoval: true)]
+    private Collection $annonces;
 
-    #[ORM\OneToMany(mappedBy: 'idutilisateurfav', targetEntity: Favoris::class)]
+    #[ORM\OneToMany(mappedBy: 'idProprio', targetEntity: Equide::class, cascade: ['remove'], orphanRemoval: true)]
+    private Collection $equides;
+
+    #[ORM\OneToMany(mappedBy: 'idutilisateurfav', targetEntity: Favoris::class, cascade: ['remove'], orphanRemoval: true)]
     private Collection $favoris;
 
-    #[ORM\OneToMany(mappedBy: 'idutilisateurfav', targetEntity: Favoris::class)]
+    #[ORM\OneToMany(mappedBy: 'idutilisateurfav', targetEntity: Chat::class)]
     private Collection $chats;
 
     #[ORM\Column(type: 'json')]
@@ -245,5 +250,25 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, 
     public function setResetTokenExpiresAt($resetTokenExpiresAt): void
     {
         $this->resetTokenExpiresAt = $resetTokenExpiresAt;
+    }
+
+    public function getAnnonces(): Collection
+    {
+        return $this->annonces;
+    }
+
+    public function setAnnonces(Collection $annonces): void
+    {
+        $this->annonces = $annonces;
+    }
+
+    public function getEquides(): Collection
+    {
+        return $this->equides;
+    }
+
+    public function setEquides(Collection $equides): void
+    {
+        $this->equides = $equides;
     }
 }

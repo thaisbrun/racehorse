@@ -5,6 +5,13 @@
 {% block body %}
     <div class="containerLogin">
         <form method="post" class="box" style="width: 90%; max-width: 400px; background-color: rgba(255, 255, 255, 0.9); padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
+            {% for message in app.session.flashBag.get('error') %}
+                <div class="message is-danger">
+                    <div class="message-body">
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
             {% if error %}
                 <div class="message is-danger">
                     <div class="message-body">
