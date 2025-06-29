@@ -91,8 +91,6 @@ class EquideType extends AbstractType
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Taille en centimètres',
-                    'min' => 50,
-                    'max' => 200
                 ],
                 'label_attr' => [
                     'class' => 'label'
@@ -102,8 +100,8 @@ class EquideType extends AbstractType
                         'message' => "La taille est obligatoire"
                     ]),
                     new Range([
-                        'min' => 2,
-                        'max' => 3,
+                        'min' => 60,
+                        'max' => 195,
                         'notInRangeMessage' => 'La taille doit être comprise entre {{ min }}cm et {{ max }}cm'
                     ])
                 ]

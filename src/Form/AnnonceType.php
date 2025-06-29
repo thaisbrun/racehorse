@@ -13,6 +13,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -74,6 +76,7 @@ class AnnonceType extends AbstractType
              ],
              ])
             ->add('equide', EquideType::class, [
+                'by_reference' => false,
                 'constraints' => [
                     new NotBlank([
                         'message' => "Veuillez remplir les informations nécessaires ",
@@ -81,9 +84,25 @@ class AnnonceType extends AbstractType
                 ]
             ])
             ->add('images', FileType::class, [
-                'multiple' => true, // Permet à l'utilisateur de sélectionner plusieurs images
-                'mapped' => false, // Ces champs ne correspondent pas directement aux propriétés de l'entité Annonce
-                'required' => false, // Ne pas exiger que les images soient fournies
+                'label' => 'Photos (max 5)',
+                'multiple' => true,
+                'mapped' => false, // IMPORTANT : doit être false pour les modifications
+                'required' => false,
+                'attr' => [
+                    'accept' => 'image/*'
+                ],
+                'constraints' => [
+                    new All([
+                        new File([
+                            'maxSize' => '5M',
+                            'mimeTypes' => [
+                                'image/jpeg',
+                                'image/png',
+                            ],
+                            'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPG, PNG)',
+                        ])
+                    ])
+                ]
             ]);
         ;
     }

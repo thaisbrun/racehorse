@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
+
 /**
  * Annonce
  *
@@ -63,7 +64,7 @@ class Annonce
     /**
      * @var \Equide
      *
-     * @ORM\ManyToOne(targetEntity="Equide")
+     * @ORM\ManyToOne(targetEntity="Equide", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idEquideA", referencedColumnName="idEquide",onDelete="CASCADE")
      * })
@@ -98,7 +99,7 @@ class Annonce
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="annonceimage", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="annonceimage", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private Collection $images;
     public function __construct(){
@@ -165,7 +166,7 @@ class Annonce
     }
     public function setEquide(?Equide $equide): self
     {
-        $this->equideA = $equide;
+        $this->equide = $equide;
 
         return $this;
     }
@@ -237,25 +238,16 @@ class Annonce
     public function __toString(){
         return $this->getDescription();
     }
-    public function addImage(UploadedFile $file): void
+    public function addImage(Image $image): self
     {
-        // Générez un nom de fichier unique
-        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setAnnonceImage($this);
+        }
 
-        // Déplacez le fichier vers le répertoire cible
-        $file->move(
-            'imgAnnonce/',
-            $fileName
-        );
-
-        // Créez une nouvelle instance de l'entité Image
-        $image = new Image();
-        $image->setLienImage('imgAnnonce/' . $fileName);
-        $image->setAnnonceImage($this);
-
-        // Ajoutez l'image à la collection
-        $this->images[] = $image;
+        return $this;
     }
+
 
     public function removeImage(Image $image): self
     {

@@ -2,12 +2,16 @@
 
 namespace App\Controller;
 use App\Entity\Favoris;
+use App\Entity\Image;
 use App\Repository\DepartementRepository;
 use App\Repository\FavorisRepository;
 use App\Repository\RaceRepository;
 use App\Repository\RobeRepository;
 use App\Repository\TypeEquideRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Annonce;
@@ -142,52 +146,202 @@ class AnnonceController extends AbstractController
         ],200);
     }
     #[Route('annonce/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, AnnonceRepository $annonceRepository,
-                        EquideRepository $equideRepository, EntityManagerInterface $entityManager): Response
-    {
-        //Si le user n'est pas connecté message d'erreur s'affiche
-        if ($this->getUser() == null) {
-            $this->addFlash('error', 'Vous devez vous connecter pour pouvoir ajouter une annonce ');
+    public function new(
+        Request $request,
+        AnnonceRepository $annonceRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
+        // Vérification de l'authentification
+        if (!$this->getUser()) {
+            $this->addFlash('error', 'Vous devez vous connecter pour pouvoir ajouter une annonce');
             return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
-        } else {
-            $annonce = new Annonce();
-            $equide = new Equide();
-            $annonceForm = $this->createForm(AnnonceType::class, $annonce);
-            $annonceForm->handleRequest($request);
-            if ($annonceForm->isSubmitted() && $annonceForm->isValid()) {
-                $images = $annonceForm->get('images')->getData();
-                // Ajoutez chaque image à la collection d'images de l'annonce
-                foreach ($images as $image) {
-                    // Faites ce que vous devez pour gérer le téléchargement et le stockage des images,
-                    // puis ajoutez-les à la collection d'images de l'annonce
-                    $annonce->addImage($image);
-                }
-                $equide = $annonceForm->get('idequidea')->getData();
-                $equide->setProprio($this->getUser());
-                if ($annonce->getPrix() < 0) {
-                    $this->addFlash("erreur", "Le prix ne peut pas être inférieur");
-                } elseif ($equide->getTaille() < 0) {
-                    $this->addFlash("erreur", "La taille ne peut pas être inférieure");
-                } else {
-                    $entityManager->persist($equide);
-                    $entityManager->flush($equide);
+        }
 
-                    $equideRepository->save($equide, true);
+        $annonce = new Annonce();
+        $equide = new Equide();
 
-                    $annonce->setDatecreation(new \DateTime());
-                    $annonce->setUtilisateurAnnonce($this->getUser());
-                    $annonce->setEquide($equide);
-                    $annonceRepository->save($annonce, true);
-                    return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+        // Associer l'équidé à l'annonce dès le début
+
+
+        $annonceForm = $this->createForm(AnnonceType::class, $annonce);
+        $annonceForm->handleRequest($request);
+
+        if ($annonceForm->isSubmitted() && $annonceForm->isValid()) {
+            $equide = $annonceForm->get('equide')->getData();
+
+            // Validation métier
+            $validationErrors = $this->validateBusinessRules($annonce, $equide);
+            if (!empty($validationErrors)) {
+                foreach ($validationErrors as $error) {
+                    $this->addFlash('error', $error);
                 }
+                return $this->renderForm('annonce/new.html.twig', [
+                    'annonce' => $annonce,
+                    'equide' => $equide,
+                    'annonceForm' => $annonceForm,
+                ]);
             }
 
-            return $this->renderForm('annonce/new.html.twig', [
-                'annonce' => $annonce,
-                'idequidea' => $equide,
-                'annonceForm' => $annonceForm,
-            ]);
+            try {
+                // Utilisation d'une transaction pour garantir la cohérence
+                $entityManager->beginTransaction();
+
+                // 1. Enregistrer l'équidé
+                $this->saveEquide($equide, $entityManager);
+
+                // 2. Enregistrer l'annonce
+                $this->saveAnnonce($annonce, $equide, $entityManager);
+
+                // 3. Traiter et enregistrer les images
+                $this->processImages($annonceForm, $annonce, $entityManager);
+
+                // Valider la transaction
+                $entityManager->commit();
+
+                $this->addFlash('success', 'Votre annonce a été publiée avec succès !');
+                return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+
+            } catch (\Exception $e) {
+                // Annuler la transaction en cas d'erreur
+                $entityManager->rollback();
+                $this->addFlash('error', 'Une erreur est survenue lors de la publication de l\'annonce');
+
+                // Log l'erreur pour le débogage
+                // $this->logger->error('Erreur lors de la création d\'annonce: ' . $e->getMessage());
+            }
         }
+
+        return $this->renderForm('annonce/new.html.twig', [
+            'annonce' => $annonce,
+            'equide' => $equide,
+            'annonceForm' => $annonceForm,
+        ]);
+    }
+
+    /**
+     * Valide les règles métier
+     */
+    private function validateBusinessRules(Annonce $annonce, Equide $equide): array
+    {
+        $errors = [];
+
+        if ($annonce->getPrix() < 0) {
+            $errors[] = "Le prix ne peut pas être négatif";
+        }
+
+        if ($equide->getTaille() < 0) {
+            $errors[] = "La taille ne peut pas être négative";
+        }
+
+        // Ajouter d'autres validations si nécessaire
+        if ($annonce->getPrix() > 10000000) {
+            $errors[] = "Le prix ne peut pas dépasser 10 000 000 €";
+        }
+
+        return $errors;
+    }
+
+    /**
+     * Enregistre l'équidé
+     */
+    private function saveEquide(Equide $equide, EntityManagerInterface $entityManager): void
+    {
+        $equide->setProprio($this->getUser());
+        $entityManager->persist($equide);
+        $entityManager->flush(); // Flush pour obtenir l'ID de l'équidé
+    }
+
+    /**
+     * Enregistre l'annonce
+     */
+    private function saveAnnonce(Annonce $annonce, Equide $equide, EntityManagerInterface $entityManager): void
+    {
+
+        $annonce->setDatecreation(new \DateTime());
+        $annonce->setActivation(true);
+        $annonce->setUtilisateurAnnonce($this->getUser());
+        $annonce->setEquide($equide);
+
+        $entityManager->persist($annonce);
+        $entityManager->flush();
+
+    }
+
+    /**
+     * Traite et enregistre les images
+     */
+    private function processImages(
+        FormInterface $annonceForm,
+        Annonce $annonce,
+        EntityManagerInterface $entityManager
+    ): void {
+        $images = $annonceForm->get('images')->getData();
+
+        if (empty($images)) {
+            return; // Pas d'images à traiter
+        }
+
+        foreach ($images as $uploadedFile) {
+            try {
+                $image = $this->createImageFromUpload($uploadedFile, $annonce);
+                $entityManager->persist($image);
+            } catch (\Exception $e) {
+                // Log l'erreur et continuer avec les autres images
+                // $this->logger->warning('Erreur lors du traitement d\'une image: ' . $e->getMessage());
+                continue;
+            }
+        }
+
+        $entityManager->flush(); // Enregistrer toutes les images en une fois
+    }
+
+    /**
+     * Crée une entité Image à partir d'un fichier uploadé
+     */
+    private function createImageFromUpload(UploadedFile $uploadedFile, Annonce $annonce): Image
+    {
+        // Validation du fichier
+        if (!$uploadedFile->isValid()) {
+            throw new \Exception('Fichier invalide');
+        }
+
+        // Vérification du type MIME
+        $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!in_array($uploadedFile->getMimeType(), $allowedMimeTypes)) {
+            throw new \Exception('Type de fichier non autorisé');
+        }
+
+        // Vérification de la taille (5Mo max)
+        if ($uploadedFile->getSize() > 5 * 1024 * 1024) {
+            throw new \Exception('Fichier trop volumineux');
+        }
+
+        // Génération d'un nom unique et sécurisé
+        $fileName = $this->generateSecureFileName($uploadedFile);
+
+        // Déplacement du fichier
+        $uploadedFile->move(
+            $this->getParameter('images_directory'),
+            $fileName
+        );
+
+        // Création de l'entité Image
+        $image = new Image();
+        $image->setLienImage('imgAnnonce/' . $fileName);
+        $image->setAnnonceImage($annonce);
+
+        return $image;
+    }
+
+    /**
+     * Génère un nom de fichier sécurisé et unique
+     */
+    private function generateSecureFileName(UploadedFile $uploadedFile): string
+    {
+        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+
+        return $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
     }
     #[Route('annonce/show_by_type/{typeA}', name: 'app_annonce_show_by_type', methods: ['GET'])]
     public function show_by_type(int $typeA, AnnonceRepository $annonceRepository): Response
@@ -206,11 +360,8 @@ class AnnonceController extends AbstractController
         ]);
     }
     #[Route('annonce/edit/{id}', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
-    public function edit(
-        Request $request,
-        Annonce $annonce,
-        EntityManagerInterface $entityManager
-    ): Response {
+    public function edit(Request $request, Annonce $annonce, EntityManagerInterface $entityManager): Response
+    {
         if ($this->getUser() !== $annonce->getUtilisateurAnnonce() || $this->getUser() === null) {
             $this->addFlash('error', "Accès non autorisé");
             return $this->redirectToRoute('homepage');
@@ -220,8 +371,13 @@ class AnnonceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Persister l'équidé si nécessaire
+            if ($annonce->getEquide()) {
+                $entityManager->persist($annonce->getEquide());
+            }
+
             // 1. Suppression des anciennes images cochées
-            $idsToDelete = $request->request->get('delete_images', []);
+            $idsToDelete = $request->request->all('delete_images');
             foreach ($annonce->getImages() as $image) {
                 if (in_array($image->getId(), $idsToDelete)) {
                     $annonce->removeImage($image);
@@ -229,7 +385,7 @@ class AnnonceController extends AbstractController
 
                     // Supprimer le fichier physique
                     $filesystem = new Filesystem();
-                    $filePath = $this->getParameter('images_directory') . '/' . $image->getLienimage();
+                    $filePath = $this->getParameter('images_directory') . '/' . basename($image->getLienimage());
                     if ($filesystem->exists($filePath)) {
                         $filesystem->remove($filePath);
                     }
@@ -237,18 +393,36 @@ class AnnonceController extends AbstractController
             }
 
             // 2. Ajout des nouvelles images
-            /** @var UploadedFile[] $images */
             $images = $form->get('images')->getData();
-            foreach ($images as $imageFile) {
-                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
-                $imageFile->move($this->getParameter('images_directory'), $newFilename);
 
-                $image = new Image();
-                $image->setLienimage($newFilename);
-                $image->setAnnonceImage($annonce);
-                $entityManager->persist($image);
+            if ($images && (is_array($images) || $images instanceof \Traversable)) {
+                foreach ($images as $imageFile) {
+                    if ($imageFile instanceof \Symfony\Component\HttpFoundation\File\UploadedFile &&
+                        $imageFile->getError() === UPLOAD_ERR_OK) {
 
-                $annonce->addImage($image);
+                        try {
+                            // Vérifier la limite de 5 images
+                            if ($annonce->getImages()->count() >= 5) {
+                                $this->addFlash('warning', 'Limite de 5 images atteinte');
+                                break;
+                            }
+
+                            $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+                            $imageFile->move($this->getParameter('images_directory'), $newFilename);
+
+                            $image = new Image();
+                            $image->setLienimage('imgAnnonce/' . $newFilename);
+                            $image->setAnnonceImage($annonce);
+                            $entityManager->persist($image);
+
+                            $annonce->addImage($image);
+
+                        } catch (\Exception $e) {
+                            $this->addFlash('error', 'Erreur lors de l\'upload: ' . $e->getMessage());
+                            continue;
+                        }
+                    }
+                }
             }
 
             $entityManager->flush();
@@ -262,7 +436,6 @@ class AnnonceController extends AbstractController
             'annonce' => $annonce,
         ]);
     }
-
     #[Route('annonce/delete/{id}', name: 'app_annonce_delete', methods: ['POST'])]
     public function delete(Request $request, Annonce $annonce, EntityManagerInterface $entityManager): Response
     {
